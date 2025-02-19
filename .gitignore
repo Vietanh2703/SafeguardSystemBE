@@ -4,3 +4,4 @@
 
 /SafeguardSystem.Web/SafeguardSystem.Web.csproj
 /SafeguardSystem.Web/appsettings.json
+/SafeguardSystem.DAL/DBContext/SafeguardDbContext.cs
