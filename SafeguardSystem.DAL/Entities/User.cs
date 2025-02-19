@@ -1,0 +1,47 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace SafeguardSystem.DAL.Entities;
+
+public partial class User
+{
+    public Guid UserId { get; set; }
+
+    public string UserName { get; set; }
+
+    public string Email { get; set; }
+
+    public string FullName { get; set; } 
+
+    public string Avatar { get; set; } 
+
+    public string Phone { get; set; }
+
+    public DateTime? BirthDay { get; set; }
+
+    public byte[] PasswordHash { get; set; } = new byte[32];
+
+    public byte[] PasswordSalt { get; set; } = new byte[32];
+
+    public string? ActivationToken { get; set; }
+
+    public DateTime? ActivationTokenExpiry { get; set; }
+
+    public string? ResetToken { get; set; }
+
+    public DateTime? ResetTokenExpiry { get; set; }
+
+    public bool IsActive { get; set; }
+
+    public bool IsEmailConfirmed { get; set; }
+
+    public DateTime? UpdateAt { get; set; }
+
+    public bool IsDeleted { get; set; }
+
+    public virtual ICollection<Business> Businesses { get; set; } = new List<Business>();
+
+    public virtual ICollection<Securityguard> Securityguards { get; set; } = new List<Securityguard>();
+
+    public virtual ICollection<Role> Roles { get; set; } = new List<Role>();
+}

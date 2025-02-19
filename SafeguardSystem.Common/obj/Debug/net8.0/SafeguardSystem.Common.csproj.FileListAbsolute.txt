@@ -1,0 +1,11 @@
+D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.Common\bin\Debug\net8.0\SafeguardSystem.Common.deps.json
+D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.Common\bin\Debug\net8.0\SafeguardSystem.Common.dll
+D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.Common\bin\Debug\net8.0\SafeguardSystem.Common.pdb
+D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.Common\obj\Debug\net8.0\SafeguardSystem.Common.GeneratedMSBuildEditorConfig.editorconfig
+D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.Common\obj\Debug\net8.0\SafeguardSystem.Common.AssemblyInfoInputs.cache
+D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.Common\obj\Debug\net8.0\SafeguardSystem.Common.AssemblyInfo.cs
+D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.Common\obj\Debug\net8.0\SafeguardSystem.Common.csproj.CoreCompileInputs.cache
+D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.Common\obj\Debug\net8.0\SafeguardSystem.Common.dll
+D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.Common\obj\Debug\net8.0\refint\SafeguardSystem.Common.dll
+D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.Common\obj\Debug\net8.0\SafeguardSystem.Common.pdb
+D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.Common\obj\Debug\net8.0\ref\SafeguardSystem.Common.dll

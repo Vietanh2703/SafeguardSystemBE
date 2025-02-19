@@ -1,0 +1,17 @@
+D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.DAL\bin\Debug\net8.0\SafeguardSystem.DAL.deps.json
+D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.DAL\bin\Debug\net8.0\SafeguardSystem.DAL.runtimeconfig.json
+D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.DAL\bin\Debug\net8.0\SafeguardSystem.DAL.dll
+D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.DAL\bin\Debug\net8.0\SafeguardSystem.DAL.pdb
+D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.DAL\obj\Debug\net8.0\SafeguardSystem.DAL.csproj.AssemblyReference.cache
+D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.DAL\obj\Debug\net8.0\SafeguardSystem.DAL.GeneratedMSBuildEditorConfig.editorconfig
+D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.DAL\obj\Debug\net8.0\SafeguardSystem.DAL.AssemblyInfoInputs.cache
+D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.DAL\obj\Debug\net8.0\SafeguardSystem.DAL.AssemblyInfo.cs
+D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.DAL\obj\Debug\net8.0\SafeguardSystem.DAL.csproj.CoreCompileInputs.cache
+D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.DAL\obj\Debug\net8.0\SafeguardSystem.DAL.dll
+D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.DAL\obj\Debug\net8.0\refint\SafeguardSystem.DAL.dll
+D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.DAL\obj\Debug\net8.0\SafeguardSystem.DAL.pdb
+D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.DAL\obj\Debug\net8.0\SafeguardSystem.DAL.genruntimeconfig.cache
+D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.DAL\obj\Debug\net8.0\ref\SafeguardSystem.DAL.dll
+D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.DAL\bin\Debug\net8.0\SafeguardSystem.Common.dll
+D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.DAL\bin\Debug\net8.0\SafeguardSystem.Common.pdb
+D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.DAL\obj\Debug\net8.0\Safeguar.6DF613C5.Up2Date

@@ -1,0 +1,22 @@
+[
+  {
+    "ContainingType": "SafeguardSystem.Controllers.AdminController",
+    "Method": "GetAllBusinesses",
+    "RelativePath": "api/Admin/view-all-business-partners",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "SafeguardSystem.Common.DTOs.ResponseDTO",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  }
+]
