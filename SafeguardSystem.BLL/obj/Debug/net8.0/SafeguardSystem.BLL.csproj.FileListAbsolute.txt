@@ -15,3 +15,4 @@ D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.BLL\bin\Debug\net8.0\Safegu
 D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.BLL\bin\Debug\net8.0\SafeguardSystem.Common.pdb
 D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.BLL\obj\Debug\net8.0\SafeguardSystem.BLL.csproj.AssemblyReference.cache
 D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.BLL\obj\Debug\net8.0\Safeguar.7A2D0B47.Up2Date
+D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.BLL\obj\Debug\net8.0\SafeguardSystem.BLL.sourcelink.json

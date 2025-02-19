@@ -12,6 +12,4 @@ D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.DAL\obj\Debug\net8.0\refint
 D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.DAL\obj\Debug\net8.0\SafeguardSystem.DAL.pdb
 D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.DAL\obj\Debug\net8.0\SafeguardSystem.DAL.genruntimeconfig.cache
 D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.DAL\obj\Debug\net8.0\ref\SafeguardSystem.DAL.dll
-D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.DAL\bin\Debug\net8.0\SafeguardSystem.Common.dll
-D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.DAL\bin\Debug\net8.0\SafeguardSystem.Common.pdb
-D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.DAL\obj\Debug\net8.0\Safeguar.6DF613C5.Up2Date
+D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.DAL\obj\Debug\net8.0\SafeguardSystem.DAL.sourcelink.json

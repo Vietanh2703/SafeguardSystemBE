@@ -11,10 +11,11 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("fc892b95-336a-4793-9efb-be740afea779")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("SafeguardSystem.Web")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+29ff01f994eafe0231db66a6ff70a3909428d33d")]
 [assembly: System.Reflection.AssemblyProductAttribute("SafeguardSystem.Web")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SafeguardSystem.Web")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SafeguardSystem.DAL\SafeguardSystem.DAL.csproj" />
+  </ItemGroup>
+
 </Project>

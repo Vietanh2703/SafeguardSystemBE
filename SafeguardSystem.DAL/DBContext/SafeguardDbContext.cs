@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Pomelo.EntityFrameworkCore.MySql.Scaffolding.Internal;
-using SafeguardSystem.DAL.Entities;
 
 namespace SafeguardSystem.DAL.DBContext;
 
@@ -27,6 +26,8 @@ public partial class SafeguardDbContext : DbContext
     public virtual DbSet<Levelincident> Levelincidents { get; set; }
 
     public virtual DbSet<Location> Locations { get; set; }
+
+    public virtual DbSet<Refreshtoken> Refreshtokens { get; set; }
 
     public virtual DbSet<Role> Roles { get; set; }
 
@@ -95,7 +96,6 @@ public partial class SafeguardDbContext : DbContext
 
             entity.HasOne(d => d.User).WithMany(p => p.Businesses)
                 .HasForeignKey(d => d.UserId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("business_ibfk_1");
         });
 
@@ -125,7 +125,6 @@ public partial class SafeguardDbContext : DbContext
 
             entity.HasOne(d => d.Location).WithMany(p => p.Checkpoints)
                 .HasForeignKey(d => d.LocationId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("checkpoint_ibfk_1");
         });
 
@@ -156,7 +155,6 @@ public partial class SafeguardDbContext : DbContext
 
             entity.HasOne(d => d.Team).WithMany(p => p.Contracts)
                 .HasForeignKey(d => d.TeamId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("contract_ibfk_1");
         });
 
@@ -210,8 +208,30 @@ public partial class SafeguardDbContext : DbContext
 
             entity.HasOne(d => d.Business).WithMany(p => p.Locations)
                 .HasForeignKey(d => d.BusinessId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("location_ibfk_1");
+        });
+
+        modelBuilder.Entity<Refreshtoken>(entity =>
+        {
+            entity.HasKey(e => e.RefreshTokenId).HasName("PRIMARY");
+
+            entity.ToTable("refreshtoken");
+
+            entity.HasIndex(e => e.UserId, "userId");
+
+            entity.Property(e => e.RefreshTokenId).HasColumnName("refreshTokenId");
+            entity.Property(e => e.CreateAt)
+                .HasColumnType("datetime")
+                .HasColumnName("createAt");
+            entity.Property(e => e.IsRevoked)
+                .HasColumnType("bit(1)")
+                .HasColumnName("isRevoked");
+            entity.Property(e => e.RefreshTokenKey).HasColumnName("refreshTokenKey");
+            entity.Property(e => e.UserId).HasColumnName("userId");
+
+            entity.HasOne(d => d.User).WithMany(p => p.Refreshtokens)
+                .HasForeignKey(d => d.UserId)
+                .HasConstraintName("refreshtoken_ibfk_1");
         });
 
         modelBuilder.Entity<Role>(entity =>
@@ -257,12 +277,10 @@ public partial class SafeguardDbContext : DbContext
 
             entity.HasOne(d => d.Team).WithMany(p => p.Securityguards)
                 .HasForeignKey(d => d.TeamId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("securityguard_ibfk_1");
 
             entity.HasOne(d => d.User).WithMany(p => p.Securityguards)
                 .HasForeignKey(d => d.UserId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("securityguard_ibfk_2");
         });
 
@@ -285,17 +303,14 @@ public partial class SafeguardDbContext : DbContext
 
             entity.HasOne(d => d.Location).WithMany(p => p.Securityshifts)
                 .HasForeignKey(d => d.LocationId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("securityshift_ibfk_1");
 
             entity.HasOne(d => d.Team).WithMany(p => p.Securityshifts)
                 .HasForeignKey(d => d.TeamId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("securityshift_ibfk_3");
 
             entity.HasOne(d => d.Type).WithMany(p => p.Securityshifts)
                 .HasForeignKey(d => d.TypeId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("securityshift_ibfk_2");
         });
 
@@ -321,22 +336,18 @@ public partial class SafeguardDbContext : DbContext
 
             entity.HasOne(d => d.Checkpoint).WithMany(p => p.Shiftassignments)
                 .HasForeignKey(d => d.CheckpointId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("shiftassignment_ibfk_4");
 
             entity.HasOne(d => d.Guard).WithMany(p => p.Shiftassignments)
                 .HasForeignKey(d => d.GuardId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("shiftassignment_ibfk_2");
 
             entity.HasOne(d => d.Location).WithMany(p => p.Shiftassignments)
                 .HasForeignKey(d => d.LocationId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("shiftassignment_ibfk_3");
 
             entity.HasOne(d => d.Shift).WithMany(p => p.Shiftassignments)
                 .HasForeignKey(d => d.ShiftId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("shiftassignment_ibfk_1");
         });
 
@@ -366,12 +377,10 @@ public partial class SafeguardDbContext : DbContext
 
             entity.HasOne(d => d.Assignment).WithMany(p => p.Shiftincidents)
                 .HasForeignKey(d => d.AssignmentId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("shiftincident_ibfk_1");
 
             entity.HasOne(d => d.Level).WithMany(p => p.Shiftincidents)
                 .HasForeignKey(d => d.LevelId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("shiftincident_ibfk_2");
         });
 

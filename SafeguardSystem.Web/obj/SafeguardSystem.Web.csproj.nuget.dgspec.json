@@ -32,6 +32,9 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
+              "D:\\SafeguardSystem\\SafeguardSystemBE\\SafeguardSystem.Common\\SafeguardSystem.Common.csproj": {
+                "projectPath": "D:\\SafeguardSystem\\SafeguardSystemBE\\SafeguardSystem.Common\\SafeguardSystem.Common.csproj"
+              },
               "D:\\SafeguardSystem\\SafeguardSystemBE\\SafeguardSystem.DAL\\SafeguardSystem.DAL.csproj": {
                 "projectPath": "D:\\SafeguardSystem\\SafeguardSystemBE\\SafeguardSystem.DAL\\SafeguardSystem.DAL.csproj"
               }
@@ -100,7 +103,11 @@
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "D:\\SafeguardSystem\\SafeguardSystemBE\\SafeguardSystem.DAL\\SafeguardSystem.DAL.csproj": {
+                "projectPath": "D:\\SafeguardSystem\\SafeguardSystemBE\\SafeguardSystem.DAL\\SafeguardSystem.DAL.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -165,11 +172,7 @@
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
-            "projectReferences": {
-              "D:\\SafeguardSystem\\SafeguardSystemBE\\SafeguardSystem.Common\\SafeguardSystem.Common.csproj": {
-                "projectPath": "D:\\SafeguardSystem\\SafeguardSystemBE\\SafeguardSystem.Common\\SafeguardSystem.Common.csproj"
-              }
-            }
+            "projectReferences": {}
           }
         },
         "warningProperties": {

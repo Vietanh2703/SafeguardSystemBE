@@ -3,6 +3,10 @@ using SafeguardSystem.DAL.DBContext;
 using SafeguardSystem.DAL.UnitOfWork;
 using SafeguardSystem.BLL.IServices;
 using SafeguardSystem.BLL.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using SafeguardSystem.Common.JWTSettings;
 
 namespace SafeguardSystem
 {
@@ -27,8 +31,35 @@ namespace SafeguardSystem
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            // Add authorization services
-            builder.Services.AddAuthorization();
+            // Cấu hình xác thực
+            builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JWTSettingModel.SecretKey)),
+                    ValidateIssuer = true,
+                    ValidIssuer = JWTSettingModel.Issuer,
+                    ValidateAudience = true,
+                    ValidAudience = JWTSettingModel.Audience,
+                    ValidateLifetime = true,
+                };
+            });
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowFrontendOrigin", policy =>
+                {
+                    policy.WithOrigins("http://localhost:3002") // Replace with your frontend origin
+                          .AllowAnyHeader()
+                          .AllowAnyMethod();
+                });
+            });
 
             // Add controllers
             builder.Services.AddControllers();
