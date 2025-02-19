@@ -44,4 +44,5 @@ public partial class User
     public virtual ICollection<Securityguard> Securityguards { get; set; } = new List<Securityguard>();
 
     public virtual ICollection<Role> Roles { get; set; } = new List<Role>();
+    public virtual ICollection<Refreshtoken> Refreshtokens { get; set; }
 }

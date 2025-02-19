@@ -7,7 +7,7 @@ public partial class Refreshtoken
 {
     public Guid RefreshTokenId { get; set; }
 
-    public Guid? UserId { get; set; }
+    public Guid UserId { get; set; }
 
     public string? RefreshTokenKey { get; set; }
 
@@ -15,5 +15,5 @@ public partial class Refreshtoken
 
     public DateTime? CreateAt { get; set; }
 
-    public virtual User? User { get; set; }
+    public virtual User User { get; set; }
 }
