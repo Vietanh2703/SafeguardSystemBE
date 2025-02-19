@@ -1,0 +1,6 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/SafeguardSystem.Web/SafeguardSystem.Web.csproj
+/SafeguardSystem.Web/appsettings.json
