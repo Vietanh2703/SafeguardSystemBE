@@ -22,7 +22,7 @@ public partial class Business
     public bool IsDeleted { get; set; }
 
     [ForeignKey("User")]
-    public Guid UserId { get; set; }
+    public string UserId { get; set; }
 
     public virtual ICollection<Location> Locations { get; set; } = new List<Location>();
 

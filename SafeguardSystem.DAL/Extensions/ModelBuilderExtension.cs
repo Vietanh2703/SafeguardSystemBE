@@ -19,11 +19,9 @@ namespace SafeguardSystem.DAL.Extensions
             var businessRoleId = Guid.Parse("BE19E4B3-6664-4AFD-9EBB-98E0A073EDC9");
 
             //UserID
-            var anhId = Guid.Parse("D71A9F93-2BC9-4771-9732-8EE036601BA5");
-            var namId = Guid.Parse("62F56FCB-BCD3-474A-B938-90BDA6AF54D3");
-            var hauId = Guid.Parse("21F13F92-4E0F-42DA-A59B-234A0B535FD1");
-            var minhId = Guid.Parse("7EF63963-86EC-4796-89D4-06B7331D9364");
-            var thinhId = Guid.Parse("C5CC0F75-F6B0-4FC9-BBF8-4F94F7C08E9E");
+            var anhId = "kRw3cZIvwwZC4wDN8SJN9lrEbwP2";
+            var namId = "ukwN487LifQFzMK51XkNVbqsfXB2";
+            
 
             //Role seed
             modelBuilder.Entity<Role>().HasData(
@@ -50,18 +48,17 @@ namespace SafeguardSystem.DAL.Extensions
             );
 
             //User role seed
+            //All user password is 12345
             modelBuilder.Entity<User>().HasData(
                 new User
                 {
                     UserId = anhId,
                     UserName = "Admin",
-                    Email = "a@gmail.com",
+                    Email = "admin@test.com",
                     FullName = "Viet Anh",
                     Avatar = "https://www.freepik.com/free-vector/simple-vibing-cat-square-meme_58459053.htm#fromView=keyword&page=1&position=0&uuid=f4bd18ef-8de6-4b6e-8e68-06073abf526b&query=Animal+Memes",
                     Phone = "0123456789",
                     BirthDay = new DateTime(2004, 3, 27),
-                    PasswordHash = "$2a$12$wfFP3IPQecfFr1JruMqzae0Z1Mexhvtq/Lhw9luEYNw.0dD/TTzau",
-                    PasswordSalt = "",
                     IsActive = true,
                     IsEmailConfirmed = true,
                     IsDeleted = false,
@@ -71,13 +68,11 @@ namespace SafeguardSystem.DAL.Extensions
                 {
                     UserId = namId,
                     UserName = "Manager",
-                    Email = "nam@gmail.com",
+                    Email = "manager@test.com",
                     FullName = "Nhat Nam",
                     Avatar = "https://www.freepik.com/free-vector/simple-vibing-cat-square-meme_58459053.htm#fromView=keyword&page=1&position=0&uuid=f4bd18ef-8de6-4b6e-8e68-06073abf526b&query=Animal+Memes",
                     Phone = "0123456789",
                     BirthDay = new DateTime(2004, 1, 1),
-                    PasswordHash = "$2a$12$2slGRhLPjB/yiLGpmhxHNOdayMV1MXV/L6EeK3M/VEE04QK31/rcq",
-                    PasswordSalt = "",
                     IsActive = true,
                     IsEmailConfirmed = true,
                     IsDeleted = false,

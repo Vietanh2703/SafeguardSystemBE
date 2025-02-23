@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SafeguardSystem.Common")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e329fd7a6afc092653edf1d03b4cb32d756de08b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5a279663da4e8d2a9a0539c4f70e28121df43bd1")]
 [assembly: System.Reflection.AssemblyProductAttribute("SafeguardSystem.Common")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SafeguardSystem.Common")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

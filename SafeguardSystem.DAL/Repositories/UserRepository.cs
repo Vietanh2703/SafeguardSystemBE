@@ -1,11 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SafeguardSystem.DAL.Entities;
 using SafeguardSystem.DAL.IRepositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SafeguardSystem.DAL.Repositories
 {
@@ -21,6 +16,18 @@ namespace SafeguardSystem.DAL.Repositories
         public async Task<User> GetUserByEmailAsync(string email)
         {
             return await _context.Users.FirstOrDefaultAsync(x => x.Email == email);
+        }
+
+        public async Task<User> GetUserByFirebaseUidAsync(string userId)
+        {
+            return await _context.Users.FirstOrDefaultAsync(u => u.UserId == userId);
+        }
+
+        public async Task<User> CreateUserAsync(User user)
+        {
+            await _context.Users.AddAsync(user);
+            await _context.SaveChangesAsync();
+            return user;
         }
     }
 }

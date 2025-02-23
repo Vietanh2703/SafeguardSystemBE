@@ -7,3 +7,5 @@
 /SafeguardSystem.DAL/DBContext/SafeguardDbContext.cs
 /SafeguardSystem.DAL/Migrations/20250223035019_InitialMigration.cs
 /SafeguardSystem.DAL/Migrations/SafeguardDbContextModelSnapshot.cs
+/SafeguardSystem.Web/firebase.json
+/SafeguardSystem.DAL/Migrations/20250223170449_InitialMigration.cs

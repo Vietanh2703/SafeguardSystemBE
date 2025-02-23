@@ -4,9 +4,16 @@ using SafeguardSystem.BLL.IServices;
 using SafeguardSystem.BLL.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using SafeguardSystem.Common.JWTSettings;
 using SafeguardSystem.DAL;
+using FirebaseAdmin;
+using Google.Apis.Auth.OAuth2;
+using FirebaseAdmin.Auth;
+using System.Security.Claims;
+using Microsoft.OpenApi.Models;
+using System.Reflection;
+using FirebaseAdminAuthentication.DependencyInjection.Extensions;
+using SafeguardSystem.DAL.Extensions;
+
 
 namespace SafeguardSystem
 {
@@ -18,7 +25,7 @@ namespace SafeguardSystem
 
             // Dependency Injection cho các dịch vụ
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-            builder.Services.AddScoped<ILoginService, LoginService>();
+            builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddScoped<IBusinessService, BusinessService>();
 
             // Cấu hình context database
@@ -26,11 +33,56 @@ namespace SafeguardSystem
             builder.Services.AddDbContext<SafeguardDbContext>(options =>
                 options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
-            
-            builder.Services.AddHttpContextAccessor();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            // Cấu hình Firebase
+            var firebaseConfig = builder.Configuration.GetSection("FIREBASE_CONFIG").Get<Dictionary<string, string>>();
+            var jsonConfig = System.Text.Json.JsonSerializer.Serialize(firebaseConfig);
+            var credential = GoogleCredential.FromJson(jsonConfig);
+
+            FirebaseApp.Create(new AppOptions()
+            {
+                Credential = credential
+            });
+
+            // Cấu hình Swagger API
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "SafeguardSystem API",
+                    Version = "v1",
+                    Description = "API for Safeguard System",
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Safeguard System",
+                        Url = new Uri("https://github.com/Vietanh2703/SafeguardSystemBE.git")
+                    }
+                });
+                var xmlFile = Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml");
+                c.IncludeXmlComments(xmlFile);
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Description = "Please enter your JWT token without 'Bearer' prefix.",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey,
+                    BearerFormat = "JWT",
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                        {
+                            new OpenApiSecurityScheme
+                            {
+                                Reference = new OpenApiReference
+                                {
+                                    Type = ReferenceType.SecurityScheme,
+                                    Id = "Bearer"
+                                }
+                            },
+                            new string[] {}
+                        }
+                });
+            });
 
             // Cấu hình xác thực
             builder.Services.AddAuthentication(options =>
@@ -41,17 +93,36 @@ namespace SafeguardSystem
             })
             .AddJwtBearer(options =>
             {
+                options.Events = new JwtBearerEvents
+                {
+                    OnMessageReceived = async context =>
+                    {
+                        var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+                        if (token != null)
+                        {
+                            try
+                            {
+                                var decodedToken = await FirebaseAuth.DefaultInstance.VerifyIdTokenAsync(token);
+                                context.Principal = new ClaimsPrincipal(new ClaimsIdentity(decodedToken.Claims.Select(c => new Claim(c.Key, c.Value.ToString())), "firebase"));
+                                context.Success();
+                            }
+                            catch (Exception)
+                            {
+                                context.Fail("Unauthorized");
+                            }
+                        }
+                    }
+                };
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JWTSettingModel.SecretKey)),
                     ValidateIssuer = true,
-                    ValidIssuer = JWTSettingModel.Issuer,
+                    ValidIssuer = "https://securetoken.google.com/safeguard-authen",
                     ValidateAudience = true,
-                    ValidAudience = JWTSettingModel.Audience,
+                    ValidAudience = "safeguard-authen",
                     ValidateLifetime = true,
                 };
             });
+
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("AllowFrontendOrigin", policy =>
@@ -65,6 +136,9 @@ namespace SafeguardSystem
             // Add controllers
             builder.Services.AddControllers();
 
+            //Add IHttpContextAccessor
+            builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -76,8 +150,8 @@ namespace SafeguardSystem
 
             app.UseHttpsRedirection();
 
+            app.UseAuthentication();
             app.UseAuthorization();
-
 
             app.MapControllers();
 

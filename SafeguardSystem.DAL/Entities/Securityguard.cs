@@ -22,7 +22,7 @@ public class SecurityGuard
     public decimal Longitude { get; set; }
 
     [ForeignKey("User")]
-    public Guid UserId { get; set; }
+    public string? UserId { get; set; }
 
 
     public virtual ICollection<ShiftAssignment> ShiftAssignments { get; set; } = new List<ShiftAssignment>();

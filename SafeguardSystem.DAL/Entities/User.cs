@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Security;
 
 namespace SafeguardSystem.DAL.Entities;
 
@@ -9,7 +10,7 @@ public class User
 {
     [Key]
     [Required(ErrorMessage = "Id is required")]
-    public Guid UserId { get; set; }
+    public string UserId { get; set; }  //Firebase UID
 
     [Required, MaxLength(100)]
     public string UserName { get; set; }
@@ -24,10 +25,6 @@ public class User
     public string Phone { get; set; }
 
     public DateTime? BirthDay { get; set; }
-
-    public string PasswordHash { get; set; }
-
-    public string PasswordSalt { get; set; }
 
     public string? ActivationToken { get; set; }
 

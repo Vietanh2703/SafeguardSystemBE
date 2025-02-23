@@ -21,7 +21,7 @@
   },
   {
     "ContainingType": "SafeguardSystem.Web.Controllers.LoginController",
-    "Method": "LoginAsync",
+    "Method": "Login",
     "RelativePath": "api/auth/login",
     "HttpMethod": "POST",
     "IsController": true,
@@ -30,6 +30,22 @@
       {
         "Name": "loginDTO",
         "Type": "SafeguardSystem.Common.DTOs.LoginDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SafeguardSystem.Web.Controllers.LoginController",
+    "Method": "SignInWithGoogle",
+    "RelativePath": "api/auth/login/signin-google",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "googleLoginDTO",
+        "Type": "SafeguardSystem.Common.DTOs.GoogleLoginDTO",
         "IsRequired": true
       }
     ],

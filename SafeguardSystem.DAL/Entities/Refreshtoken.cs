@@ -12,7 +12,7 @@ public class RefreshToken
     public Guid RefreshTokenId { get; set; }
 
     [ForeignKey("User")]
-    public Guid UserId { get; set; }
+    public string? UserId { get; set; }
 
     public string? RefreshTokenKey { get; set; }
 

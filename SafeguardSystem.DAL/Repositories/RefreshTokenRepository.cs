@@ -18,7 +18,7 @@ namespace SafeguardSystem.DAL.Repositories
             _context = context;
         }
 
-        public async Task<RefreshToken> GetRefreshTokenByUserID(Guid userId)
+        public async Task<RefreshToken> GetRefreshTokenByUserID(string userId)
         {
             
             return await _context.Refreshtokens

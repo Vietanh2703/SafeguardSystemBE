@@ -8,17 +8,24 @@ namespace SafeguardSystem.Web.Controllers
     [ApiController]
     public class LoginController : ControllerBase
     {
-        private readonly ILoginService _loginService;
+        private readonly IAuthService _loginService;
 
-        public LoginController(ILoginService loginService)
+        public LoginController(IAuthService loginService)
         {
             _loginService = loginService;
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> LoginAsync([FromBody] LoginDTO loginDTO)
+        public async Task<IActionResult> Login([FromBody] LoginDTO loginDTO)
         {
-            var response = await _loginService.Login(loginDTO);
+            var response = await _loginService.LoginAsync(loginDTO);
+            return StatusCode(response.StatusCode, response);
+        }
+
+        [HttpPost("login/signin-google")]
+        public async Task<IActionResult> SignInWithGoogle([FromBody] GoogleLoginDTO googleLoginDTO)
+        {
+            var response = await _loginService.SignInWithGoogleAsync(googleLoginDTO);
             return StatusCode(response.StatusCode, response);
         }
     }
