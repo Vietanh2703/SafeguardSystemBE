@@ -271,4 +271,3 @@ D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.Web\bin\Debug\net8.0\runtim
 D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.Web\bin\Debug\net8.0\SafeguardSystem.Web.xml
 D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.Web\obj\Debug\net8.0\SafeguardSystem.Web.xml
 D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.Web\bin\Debug\net8.0\FirebaseAdminAuthentication.DependencyInjection.dll
-D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.Web\bin\Debug\net8.0\firebase.json
