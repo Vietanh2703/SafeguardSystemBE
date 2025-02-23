@@ -10,3 +10,4 @@
 /SafeguardSystem.Web/firebase.json
 /SafeguardSystem.DAL/Migrations/20250223170449_InitialMigration.cs
 /SafeguardSystem.DAL/Extensions/ModelBuilderExtension.cs
+/SafeguardSystem.Web/appsettings.json
