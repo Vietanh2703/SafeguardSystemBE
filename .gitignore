@@ -5,3 +5,5 @@
 /SafeguardSystem.Web/SafeguardSystem.Web.csproj
 /SafeguardSystem.Web/appsettings.json
 /SafeguardSystem.DAL/DBContext/SafeguardDbContext.cs
+/SafeguardSystem.DAL/Migrations/20250223035019_InitialMigration.cs
+/SafeguardSystem.DAL/Migrations/SafeguardDbContextModelSnapshot.cs
