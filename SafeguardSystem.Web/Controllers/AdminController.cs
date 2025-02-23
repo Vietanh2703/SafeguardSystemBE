@@ -2,8 +2,8 @@
 using SafeguardSystem.BLL.IServices;
 using SafeguardSystem.DAL.UnitOfWork;
 using System.Threading.Tasks;
-using SafeguardSystem.DAL.DBContext;
 using SafeguardSystem.Common.DTOs;
+using SafeguardSystem.DAL;
 
 namespace SafeguardSystem.Controllers
 {

@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SafeguardSystem.DAL.Entities;
 
-public partial class Securityguard
+public class SecurityGuard
 {
+    [Key]
+    [Required(ErrorMessage = "Id is required")]
     public Guid GuardId { get; set; }
 
     public string IdentityNumber { get; set; }
@@ -17,13 +21,11 @@ public partial class Securityguard
 
     public decimal Longitude { get; set; }
 
+    [ForeignKey("User")]
     public Guid UserId { get; set; }
 
-    public Guid TeamId { get; set; }
 
-    public virtual ICollection<Shiftassignment> Shiftassignments { get; set; } = new List<Shiftassignment>();
-
-    public virtual Team Team { get; set; }
+    public virtual ICollection<ShiftAssignment> ShiftAssignments { get; set; } = new List<ShiftAssignment>();
 
     public virtual User User { get; set; }
 }

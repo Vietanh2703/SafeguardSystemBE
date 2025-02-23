@@ -1,12 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SafeguardSystem.DAL.Entities;
 
-public partial class Refreshtoken
+public class RefreshToken
 {
+    [Key]
+    [Required(ErrorMessage = "Id is required")]
     public Guid RefreshTokenId { get; set; }
 
+    [ForeignKey("User")]
     public Guid UserId { get; set; }
 
     public string? RefreshTokenKey { get; set; }

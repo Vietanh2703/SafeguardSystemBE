@@ -18,5 +18,21 @@
         "StatusCode": 200
       }
     ]
+  },
+  {
+    "ContainingType": "SafeguardSystem.Web.Controllers.LoginController",
+    "Method": "LoginAsync",
+    "RelativePath": "api/auth/login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "loginDTO",
+        "Type": "SafeguardSystem.Common.DTOs.LoginDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
   }
 ]

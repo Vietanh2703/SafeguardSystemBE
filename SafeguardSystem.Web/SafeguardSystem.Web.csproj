@@ -31,4 +31,9 @@
     <ProjectReference Include="..\SafeguardSystem.DAL\SafeguardSystem.DAL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Authentication\" />
+    <Folder Include="IAuthentication\" />
+  </ItemGroup>
+
 </Project>

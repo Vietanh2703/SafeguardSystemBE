@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SafeguardSystem.DAL.Entities;
 
-public partial class Shifttype
+public class ShiftType
 {
+    [Key]
+    [Required(ErrorMessage = "Id is required")]
     public Guid TypeId { get; set; }
 
     public string Name { get; set; }
@@ -17,5 +21,5 @@ public partial class Shifttype
 
     public bool IsDeleted { get; set; }
 
-    public virtual ICollection<Securityshift> Securityshifts { get; set; } = new List<Securityshift>();
+    public virtual ICollection<SecurityShift> SecurityShifts { get; set; } = new List<SecurityShift>();
 }

@@ -256,3 +256,7 @@ D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.Web\bin\Debug\net8.0\Safegu
 D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.Web\bin\Debug\net8.0\SafeguardSystem.Common.pdb
 D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.Web\bin\Debug\net8.0\SafeguardSystem.DAL.pdb
 D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.Web\obj\Debug\net8.0\SafeguardSystem.Web.sourcelink.json
+D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.Web\bin\Debug\net8.0\BCrypt.Net-Next.dll
+D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.Web\bin\Debug\net8.0\Microsoft.Bcl.Memory.dll
+D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.Web\bin\Debug\net8.0\Microsoft.Extensions.ObjectPool.dll
+D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.Web\bin\Debug\net8.0\Microsoft.Extensions.Options.dll

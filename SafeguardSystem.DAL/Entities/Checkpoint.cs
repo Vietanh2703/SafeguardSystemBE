@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SafeguardSystem.DAL.Entities;
 
 public partial class Checkpoint
 {
+    [Key]
+    [Required(ErrorMessage = "Id is required")]
     public Guid CheckpointId { get; set; }
 
     public string Name { get; set; }
@@ -13,13 +17,12 @@ public partial class Checkpoint
 
     public decimal Longitude { get; set; }
 
-    public Guid? PlaceId { get; set; }
-
+    [ForeignKey("Location")]
     public Guid LocationId { get; set; }
 
     public bool IsDeleted { get; set; }
 
     public virtual Location Location { get; set; }
 
-    public virtual ICollection<Shiftassignment> Shiftassignments { get; set; } = new List<Shiftassignment>();
+    public virtual ICollection<ShiftAssignment> ShiftAssignments { get; set; } = new List<ShiftAssignment>();
 }

@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SafeguardSystem.DAL.Entities;
 
-public partial class Contract
+public class Contract
 {
+    [Key]
+    [Required(ErrorMessage = "Id is required")]
     public Guid ContractId { get; set; }
 
     public string ContractCode { get; set; }
@@ -17,6 +21,7 @@ public partial class Contract
 
     public string Status { get; set; }
 
+    [ForeignKey("Team")]
     public Guid TeamId { get; set; }
 
     public bool IsDeleted { get; set; }

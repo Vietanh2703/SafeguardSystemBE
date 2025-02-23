@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SafeguardSystem.DAL.Entities;
 
 public partial class Business
 {
+    [Key]
+    [Required(ErrorMessage = "Id is required")]
     public Guid BusinessId { get; set; }
 
     public string Name { get; set; }
@@ -17,6 +21,7 @@ public partial class Business
 
     public bool IsDeleted { get; set; }
 
+    [ForeignKey("User")]
     public Guid UserId { get; set; }
 
     public virtual ICollection<Location> Locations { get; set; } = new List<Location>();

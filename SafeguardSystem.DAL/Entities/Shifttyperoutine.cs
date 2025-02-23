@@ -1,15 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SafeguardSystem.DAL.Entities;
 
-public partial class Shifttyperoutine
+public class ShiftTypeRoutine
 {
-    public int Id { get; set; }
+    [Key]
+    [Required(ErrorMessage = "Id is required")]
+    public Guid RoutineId { get; set; }
 
-    public int ShiftTypeId { get; set; }
+    [ForeignKey("ShiftType")]
+    public Guid ShiftTypeId { get; set; }
 
-    public int CheckpointId { get; set; }
+    [ForeignKey("Checkpoint")]
+    public Guid CheckpointId { get; set; }
 
     public TimeOnly TimeConstraintStart { get; set; }
 
@@ -17,5 +23,5 @@ public partial class Shifttyperoutine
 
     public virtual Checkpoint Checkpoint { get; set; }
 
-    public virtual Shifttype ShiftType { get; set; }
+    public virtual ShiftType ShiftType { get; set; }
 }

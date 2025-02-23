@@ -1,14 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SafeguardSystem.DAL.Entities;
 
-public partial class User
+public class User
 {
+    [Key]
+    [Required(ErrorMessage = "Id is required")]
     public Guid UserId { get; set; }
 
+    [Required, MaxLength(100)]
     public string UserName { get; set; }
 
+    [Required, EmailAddress, MaxLength(100)]
     public string Email { get; set; }
 
     public string FullName { get; set; } 
@@ -19,9 +25,9 @@ public partial class User
 
     public DateTime? BirthDay { get; set; }
 
-    public byte[] PasswordHash { get; set; } = new byte[32];
+    public string PasswordHash { get; set; }
 
-    public byte[] PasswordSalt { get; set; } = new byte[32];
+    public string PasswordSalt { get; set; }
 
     public string? ActivationToken { get; set; }
 
@@ -35,14 +41,13 @@ public partial class User
 
     public bool IsEmailConfirmed { get; set; }
 
-    public DateTime? UpdateAt { get; set; }
-
     public bool IsDeleted { get; set; }
 
+    [ForeignKey("Role")]
+    public Guid RoleID { get; set; }
+
     public virtual ICollection<Business> Businesses { get; set; } = new List<Business>();
-
-    public virtual ICollection<Securityguard> Securityguards { get; set; } = new List<Securityguard>();
-
-    public virtual ICollection<Role> Roles { get; set; } = new List<Role>();
-    public virtual ICollection<Refreshtoken> Refreshtokens { get; set; }
+    public virtual ICollection<SecurityGuard> SecurityGuards { get; set; } = new List<SecurityGuard>();
+    public virtual Role Role { get; set; }
+    public virtual ICollection<RefreshToken> RefreshTokens { get; set; }
 }

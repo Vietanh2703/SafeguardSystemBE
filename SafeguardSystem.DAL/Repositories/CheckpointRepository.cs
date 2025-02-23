@@ -1,5 +1,4 @@
-﻿using SafeguardSystem.DAL.DBContext;
-using SafeguardSystem.DAL.Entities;
+﻿using SafeguardSystem.DAL.Entities;
 using SafeguardSystem.DAL.IRepositories;
 using System;
 using System.Collections.Generic;

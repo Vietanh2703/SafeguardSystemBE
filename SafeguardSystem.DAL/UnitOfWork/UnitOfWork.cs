@@ -1,11 +1,11 @@
 ﻿using SafeguardSystem.DAL.IRepositories;
 using SafeguardSystem.DAL.Repositories;
-using SafeguardSystem.DAL.DBContext;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Reflection.Metadata;
 
 namespace SafeguardSystem.DAL.UnitOfWork
 {
@@ -26,6 +26,9 @@ namespace SafeguardSystem.DAL.UnitOfWork
             Shiftincidents = new ShiftincidentRepository(_context);
             Shifttypes = new ShifttypeRepository(_context);
             Shifttyperoutines = new ShifttyperoutineRepository(_context);*/ //làm sau
+            Roles = new RoleRepository(_context);
+            RefreshTokens = new RefreshTokenRepository(_context);
+            Users = new UserRepository(_context);
         }
 
         public IBusinessRepository Businesses { get; private set; }
@@ -38,6 +41,9 @@ namespace SafeguardSystem.DAL.UnitOfWork
         public IShiftincidentRepository Shiftincidents { get; private set; }
         public IShifttypeRepository Shifttypes { get; private set; }
         public IShifttyperoutineRepository Shifttyperoutines { get; private set; } */ //làm sau
+        public IRoleRepository Roles { get; private set; }
+        public IRefreshTokenRepository RefreshTokens { get; private set; }
+        public IUserRepository Users { get; private set; }
 
         public void Dispose()
         {

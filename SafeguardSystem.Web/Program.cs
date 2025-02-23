@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SafeguardSystem.DAL.DBContext;
 using SafeguardSystem.DAL.UnitOfWork;
 using SafeguardSystem.BLL.IServices;
 using SafeguardSystem.BLL.Services;
@@ -7,6 +6,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using SafeguardSystem.Common.JWTSettings;
+using SafeguardSystem.DAL;
 
 namespace SafeguardSystem
 {
@@ -18,14 +18,15 @@ namespace SafeguardSystem
 
             // Dependency Injection cho các dịch vụ
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-            builder.Services.AddScoped<IUnitOfWorkFactory, UnitOfWorkFactory>();
+            builder.Services.AddScoped<ILoginService, LoginService>();
             builder.Services.AddScoped<IBusinessService, BusinessService>();
 
             // Cấu hình context database
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
             builder.Services.AddDbContext<SafeguardDbContext>(options =>
-                options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString), b => b.MigrationsAssembly("DAL")));
+                options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
+            
             builder.Services.AddHttpContextAccessor();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
