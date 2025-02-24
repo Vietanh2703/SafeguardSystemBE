@@ -22,7 +22,7 @@
   {
     "ContainingType": "SafeguardSystem.Web.Controllers.LoginController",
     "Method": "Login",
-    "RelativePath": "api/auth/login",
+    "RelativePath": "api/login",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -38,7 +38,7 @@
   {
     "ContainingType": "SafeguardSystem.Web.Controllers.LoginController",
     "Method": "SignInWithGoogle",
-    "RelativePath": "api/auth/login/signin-google",
+    "RelativePath": "api/login/signin-google",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -46,6 +46,22 @@
       {
         "Name": "googleLoginDTO",
         "Type": "SafeguardSystem.Common.DTOs.GoogleLoginDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SafeguardSystem.Web.Controllers.LoginController",
+    "Method": "Logout",
+    "RelativePath": "api/logout",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "refreshToken",
+        "Type": "System.String",
         "IsRequired": true
       }
     ],

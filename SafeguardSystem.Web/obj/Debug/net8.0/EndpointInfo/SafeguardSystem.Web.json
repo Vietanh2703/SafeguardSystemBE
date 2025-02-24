@@ -39,7 +39,7 @@
         }
       }
     },
-    "/api/auth/login": {
+    "/api/login": {
       "post": {
         "tags": [
           "Login"
@@ -70,7 +70,7 @@
         }
       }
     },
-    "/api/auth/login/signin-google": {
+    "/api/login/signin-google": {
       "post": {
         "tags": [
           "Login"
@@ -90,6 +90,37 @@
             "application/*+json": {
               "schema": {
                 "$ref": "#/components/schemas/GoogleLoginDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/logout": {
+      "post": {
+        "tags": [
+          "Login"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "string"
               }
             }
           }

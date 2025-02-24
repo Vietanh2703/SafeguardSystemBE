@@ -11,7 +11,8 @@ namespace SafeguardSystem.DAL.IRepositories
     {
         T GetById(string id);
         T GetByGuid(Guid id);
-        Task<T> GetByIdAsync(Guid id);
+        Task<T> GetByGuIdAsync(Guid id);
+        Task<T> GetByIdAsync(string id);
         IQueryable<T> GetAll();
         IQueryable<T> FindAll(Expression<Func<T, bool>> expression);
         IEnumerable<T> FindAllAsync(Expression<Func<T, bool>> expression);

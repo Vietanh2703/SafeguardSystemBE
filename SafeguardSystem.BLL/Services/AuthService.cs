@@ -12,6 +12,7 @@ using System.Net.Http.Json;
 using System.Security.Claims;
 using System.Text;
 using System.Text.Json;
+using static SafeguardSystem.BLL.Providers.JWTProvider;
 
 
 namespace SafeguardSystem.BLL.Services
@@ -66,9 +67,9 @@ namespace SafeguardSystem.BLL.Services
                 return new ResponseDTO("Cannot collect any data from Firebase", 400, false);
             }
 
-            string firebaseUid = userIdElement.GetString();
-            string email = root.GetProperty("email").GetString();
-            string displayName = root.GetProperty("displayName").GetString(); // có thể null
+            string firebaseUid = userIdElement.GetString() ?? string.Empty;
+            string email = root.GetProperty("email").GetString() ?? string.Empty;
+            string displayName = root.GetProperty("displayName").GetString() ?? string.Empty; // có thể null
 
             // Kiểm tra User trong database, nếu chưa có thì tạo mới
             var user = await _unitOfWork.Users.GetUserByFirebaseUidAsync(firebaseUid);
@@ -89,19 +90,58 @@ namespace SafeguardSystem.BLL.Services
                 await _unitOfWork.Users.CreateUserAsync(user);
             }
 
-            var role = await _unitOfWork.Roles.GetByIdAsync(user.RoleID);
+            var exitsRefreshToken = await _unitOfWork.RefreshTokens.GetRefreshTokenByUserID(user.UserId);
+            if (exitsRefreshToken != null)
+            {
+                // nếu có thì thu hồi
+                exitsRefreshToken.IsRevoked = true;
+                await _unitOfWork.RefreshTokens.UpdateAsync(exitsRefreshToken); // cập nhật
+            }
+
+            //khởi tạo claim
+            var claims = new List<Claim>
+            {
+                new Claim(JwtConstant.KeyClaim.Email, user.Email ?? string.Empty),
+                new Claim(JwtConstant.KeyClaim.userId, user.UserId.ToString()),
+                new Claim(JwtConstant.KeyClaim.fullName, user.FullName ?? string.Empty)
+            };
+
+            //tạo refesh token
+            var refreshTokenKey = JwtProvider.GenerateRefreshToken(claims);
+
+            //tạo access token
+            var accessTokenKey = JwtProvider.GenerateAccessToken(claims);
+
+            //Cập nhật mới refreshToken
+            var refreshToken = new RefreshToken
+            {
+                RefreshTokenId = Guid.NewGuid(),
+                UserId = user.UserId,
+                RefreshTokenKey = refreshTokenKey,
+                IsRevoked = false,
+                CreateAt = DateTime.UtcNow
+            };
+
+            _unitOfWork.RefreshTokens.Add(refreshToken);
+            try
+            {
+                await _unitOfWork.SaveChangeAsync();
+            }
+            catch (Exception ex)
+            {
+                return new ResponseDTO($"Error saving refresh token: {ex.Message}", 500, false);
+            }
+
+            var role = await _unitOfWork.Roles.GetByGuIdAsync(user.RoleID);
             var roleName = role.RoleName;
 
-
             // Tạo JWT token cục bộ cho ứng dụng
-            string localJwtToken = GenerateLocalJwtToken(user);
             return new ResponseDTO("Login successful", 200, true, new
             {
-                Token = localJwtToken,
+                AccessToken = accessTokenKey,
+                RefreshToken = refreshToken.RefreshTokenKey,
                 Email = user.Email,
                 FullName = user.FullName,
-                Phone = user.Phone,
-                Birthday = user.BirthDay,
                 Role = roleName
             });
         }
@@ -125,7 +165,7 @@ namespace SafeguardSystem.BLL.Services
             string Email = decodedToken.Claims.ContainsKey("email") ? decodedToken.Claims["email"].ToString() : null;
             string Name = decodedToken.Claims.ContainsKey("name") ? decodedToken.Claims["name"].ToString() : null;
 
-            if (string.IsNullOrEmpty(UserId) || string.IsNullOrEmpty(Email)) 
+            if (string.IsNullOrEmpty(UserId) || string.IsNullOrEmpty(Email))
                 new ResponseDTO("Invalid Google token", 400, false);
 
             //Kiểm tra User trong database, nếu chưa có thì tạo mới
@@ -146,146 +186,172 @@ namespace SafeguardSystem.BLL.Services
                 await _unitOfWork.Users.CreateUserAsync(user);
             }
 
-            var role = await _unitOfWork.Roles.GetByIdAsync(user.RoleID);
+            var exitsRefreshToken = await _unitOfWork.RefreshTokens.GetRefreshTokenByUserID(user.UserId);
+            if (exitsRefreshToken != null)
+            {
+                // nếu có thì thu hồi
+                exitsRefreshToken.IsRevoked = true;
+                await _unitOfWork.RefreshTokens.UpdateAsync(exitsRefreshToken); // cập nhật
+            }
+
+            //khởi tạo claim
+            var claims = new List<Claim>
+            {
+                new Claim(JwtConstant.KeyClaim.Email, user.Email ?? string.Empty),
+                new Claim(JwtConstant.KeyClaim.userId, user.UserId.ToString()),
+                new Claim(JwtConstant.KeyClaim.fullName, user.FullName ?? string.Empty)
+            };
+
+            //tạo refesh token
+            var refreshTokenKey = JwtProvider.GenerateRefreshToken(claims);
+
+            //tạo access token
+            var accessTokenKey = JwtProvider.GenerateAccessToken(claims);
+
+            //Cập nhật mới refreshToken
+            var refreshToken = new RefreshToken
+            {
+                RefreshTokenId = Guid.NewGuid(),
+                UserId = user.UserId,
+                RefreshTokenKey = refreshTokenKey,
+                IsRevoked = false,
+                CreateAt = DateTime.UtcNow
+            };
+
+            _unitOfWork.RefreshTokens.Add(refreshToken);
+            try
+            {
+                await _unitOfWork.SaveChangeAsync();
+            }
+            catch (Exception ex)
+            {
+                return new ResponseDTO($"Error saving refresh token: {ex.Message}", 500, false);
+            }
+
+            var role = await _unitOfWork.Roles.GetByGuIdAsync(user.RoleID);
             var roleName = role.RoleName;
 
             //Tạo JWT token cục bộ cho ứng dụng
-            string localJwtToken = GenerateLocalJwtToken(user);
             return new ResponseDTO("Login successful", 200, true, new
             {
-                Token = localJwtToken,
+                AccessToken = accessTokenKey,
+                RefreshToken = refreshToken.RefreshTokenKey,
                 Email = user.Email,
                 FullName = user.FullName,
-                Phone = user.Phone,
-                Birthday = user.BirthDay,
                 Role = roleName
             });
 
         }
 
-        public string GenerateLocalJwtToken(User user)
-        {
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.UTF8.GetBytes(_configuration["JWTSettings:SecretKey"]);
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(new[]
-                {
-                new Claim(ClaimTypes.NameIdentifier, user.UserId),
-                new Claim(ClaimTypes.Email, user.Email)
-            }),
-                Expires = DateTime.UtcNow.AddHours(1),
-                Issuer = _configuration["JWTSettings:Issuer"],
-                Audience = _configuration["JWTSettings:Audience"],
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            };
 
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            return tokenHandler.WriteToken(token);
+        public async Task<ResponseDTO> LogoutAsync(LogoutDTO logoutDTO)
+        {
+            try
+            {
+                await FirebaseAuth.DefaultInstance.RevokeRefreshTokensAsync(logoutDTO.Token);
+                return new ResponseDTO("Logout successful", 200, true);
+            }
+            catch (Exception ex)
+            {
+                return new ResponseDTO($"Error during logout: {ex.Message}", 500, false);
+            }
         }
 
 
+        // Refresh token
+        public async Task<ResponseDTO> RefreshBothTokens(string oldAccessToken, string refreshTokenKey)
+        {
+            // Kiểm tra tính hợp lệ của refresh token
+            var claimsPrincipal = JwtProvider.Validation(refreshTokenKey);
+            if (claimsPrincipal == null)
+            {
+                return new ResponseDTO("Invalid refresh token", 400, false);
+            }
 
+            // Lấy đối tượng RefreshToken từ refresh token Key
+            var refreshTokenDTO = await _unitOfWork.RefreshTokens.GetRefreshTokenByKey(refreshTokenKey);
+            if (refreshTokenDTO == null || refreshTokenDTO.IsRevoked)
+            {
+                return new ResponseDTO("Refresh token not found or has been revoked", 403, false);
+            }
+
+            // Kiểm tra nếu refresh token đã hết hạn
+            var tokenExpirationDate = refreshTokenDTO.CreateAt?.AddDays(JWTSettingModel.ExpireDayRefreshToken);
+            if (tokenExpirationDate == null || DateTime.UtcNow > tokenExpirationDate)
+            {
+                return new ResponseDTO("Refresh token expired, please login again", 403, false);
+            }
+
+            // Lấy thông tin người dùng từ UserId
+            var user = await _unitOfWork.Users.GetByIdAsync(refreshTokenDTO.UserId);
+            if (user == null)
+            {
+                return new ResponseDTO("User not found", 404, false);
+            }
+
+            //khởi tạo claim
+            var claims = new List<Claim>
+            {
+                new Claim(JwtConstant.KeyClaim.Email, user.Email ?? string.Empty),
+                new Claim(JwtConstant.KeyClaim.userId, user.UserId.ToString()),
+                new Claim(JwtConstant.KeyClaim.fullName, user.FullName ?? string.Empty)
+            };
+
+            // Tạo access token mới
+            var newAccessToken = JwtProvider.GenerateAccessToken(claims);
+
+            // Lưu refresh token mới vào database
+            var newRefreshToken = new RefreshToken
+            {
+                RefreshTokenId = Guid.NewGuid(),
+                UserId = user.UserId,
+                RefreshTokenKey = refreshTokenKey,
+                IsRevoked = false,
+                CreateAt = DateTime.UtcNow // Lưu thời gian tạo
+            };
+
+            // Xóa refresh token cũ
+            _unitOfWork.RefreshTokens.Delete(refreshTokenDTO);
+            // Thêm refresh token mới
+            _unitOfWork.RefreshTokens.Add(newRefreshToken);
+            try
+            {
+                await _unitOfWork.SaveChangeAsync();
+            }
+            catch (Exception ex)
+            {
+                return new ResponseDTO($"Error refreshing tokens: {ex.Message}", 500, false);
+            }
+
+            return new ResponseDTO("Token refreshed successfully", 200, true);
+        }
+
+        // Đăng xuất
+        public async Task<ResponseDTO> LogoutAsync(string refreshTokenKey)
+        {
+            // Tìm refresh token trong cơ sở dữ liệu
+            var refreshToken = await _unitOfWork.RefreshTokens.GetRefreshTokenByKey(refreshTokenKey);
+
+            // Kiểm tra xem refresh token có tồn tại không
+            if (refreshToken == null)
+            {
+                return new ResponseDTO("Refresh token not found", 404, false);
+            }
+
+            // Đánh dấu refresh token là đã thu hồi
+            refreshToken.IsRevoked = true;
+            _unitOfWork.RefreshTokens.UpdateAsync(refreshToken); // Cập nhật trạng thái token
+
+            try
+            {
+                await _unitOfWork.SaveChangeAsync();
+            }
+            catch (Exception ex)
+            {
+                return new ResponseDTO($"Error during logout: {ex.Message}", 500, false);
+            }
+
+            return new ResponseDTO("Logout successful", 200, true);
+        }
     }
-
-
-    // Refresh token
-    //public async Task<ResponseDTO> RefreshBothTokens(string oldAccessToken, string refreshTokenKey)
-    //{
-    //    // Kiểm tra tính hợp lệ của refresh token
-    //    var claimsPrincipal = JwtProvider.Validation(refreshTokenKey);
-    //    if (claimsPrincipal == null)
-    //    {
-    //        return new ResponseDTO("Invalid refresh token", 400, false);
-    //    }
-
-    //    // Lấy đối tượng RefreshToken từ refresh token Key
-    //    var refreshTokenDTO = await _unitOfWork.RefreshTokens.GetRefreshTokenByKey(refreshTokenKey);
-    //    if (refreshTokenDTO == null || refreshTokenDTO.IsRevoked)
-    //    {
-    //        return new ResponseDTO("Refresh token not found or has been revoked", 403, false);
-    //    }
-
-    //    // Kiểm tra nếu refresh token đã hết hạn
-    //    var tokenExpirationDate = refreshTokenDTO.CreateAt?.AddDays(JWTSettingModel.ExpireDayRefreshToken);
-    //    if (tokenExpirationDate == null || DateTime.UtcNow > tokenExpirationDate)
-    //    {
-    //        return new ResponseDTO("Refresh token expired, please login again", 403, false);
-    //    }
-
-    //    // Lấy thông tin người dùng từ UserId
-    //    var user = await _unitOfWork.Users.GetByIdAsync(refreshTokenDTO.UserId);
-    //    if (user == null)
-    //    {
-    //        return new ResponseDTO("User not found", 404, false);
-    //    }
-
-    //    // Khởi tạo danh sách claims
-    //    var claims = new List<Claim>();
-
-    //    // Thêm email vào claims
-    //    claims.Add(new Claim(JwtConstant.KeyClaim.Email, user.Email));
-
-
-
-    //    // Thêm UserId vào claims
-    //    claims.Add(new Claim(JwtConstant.KeyClaim.userId, user.UserId.ToString()));
-
-
-    //    // Tạo access token mới
-    //    var newAccessToken = JwtProvider.GenerateAccessToken(claims);
-
-    //    // Lưu refresh token mới vào database
-    //    var newRefreshToken = new RefreshToken
-    //    {
-    //        RefreshTokenId = Guid.NewGuid(),
-    //        UserId = user.UserId,
-    //        RefreshTokenKey = refreshTokenKey,
-    //        IsRevoked = false,
-    //        CreateAt = DateTime.UtcNow // Lưu thời gian tạo
-    //    };
-
-    //    // Xóa refresh token cũ
-    //    _unitOfWork.RefreshTokens.Delete(refreshTokenDTO);
-    //    // Thêm refresh token mới
-    //    _unitOfWork.RefreshTokens.Add(newRefreshToken);
-    //    try
-    //    {
-    //        await _unitOfWork.SaveChangeAsync();
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        return new ResponseDTO($"Error refreshing tokens: {ex.Message}", 500, false);
-    //    }
-
-    //    return new ResponseDTO("Token refreshed successfully", 200, true);
-    //}
-
-    // Đăng xuất
-    //public async Task<ResponseDTO> LogoutAsync(string refreshTokenKey)
-    //{
-    //    // Tìm refresh token trong cơ sở dữ liệu
-    //    var refreshToken = await _unitOfWork.RefreshTokens.GetRefreshTokenByKey(refreshTokenKey);
-
-    //    // Kiểm tra xem refresh token có tồn tại không
-    //    if (refreshToken == null)
-    //    {
-    //        return new ResponseDTO("Refresh token not found", 404, false);
-    //    }
-
-    //    // Đánh dấu refresh token là đã thu hồi
-    //    refreshToken.IsRevoked = true;
-    //    _unitOfWork.RefreshTokens.UpdateAsync(refreshToken); // Cập nhật trạng thái token
-
-    //    try
-    //    {
-    //        await _unitOfWork.SaveChangeAsync();
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        return new ResponseDTO($"Error during logout: {ex.Message}", 500, false);
-    //    }
-
-    //    return new ResponseDTO("Logout successful", 200, true);
-    //}
 }

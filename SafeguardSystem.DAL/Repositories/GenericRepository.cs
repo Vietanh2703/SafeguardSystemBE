@@ -40,7 +40,7 @@ namespace SafeguardSystem.DAL.Repositories
 
         public async Task DeleteAsync(Guid id)
         {
-            var entity = await GetByIdAsync(id);
+            var entity = await GetByGuIdAsync(id);
             if (entity != null)
             {
                 Delete(entity);
@@ -87,7 +87,7 @@ namespace SafeguardSystem.DAL.Repositories
             return _dbSet.Find(id);
         }
 
-        public async Task<T> GetByIdAsync(Guid id)
+        public async Task<T> GetByGuIdAsync(Guid id)
         {
             if (id == Guid.Empty)
             {
@@ -96,6 +96,8 @@ namespace SafeguardSystem.DAL.Repositories
 
             return await _dbSet.FindAsync(id);
         }
+
+
 
         public async Task<T> GetByIdsAsync(int id)
         {
@@ -142,6 +144,15 @@ namespace SafeguardSystem.DAL.Repositories
         public Task<List<T>> ToListAsync()
         {
             return _dbSet.ToListAsync();
+        }
+        public async Task<T> GetByIdAsync(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                throw new ArgumentException("Id cannot be null or empty", nameof(id));
+            }
+
+            return await _dbSet.FindAsync(id);
         }
     }
 }

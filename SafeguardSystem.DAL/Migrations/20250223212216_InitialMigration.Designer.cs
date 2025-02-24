@@ -12,7 +12,7 @@ using SafeguardSystem.DAL;
 namespace SafeguardSystem.DAL.Migrations
 {
     [DbContext(typeof(SafeguardDbContext))]
-    [Migration("20250223170449_InitialMigration")]
+    [Migration("20250223212216_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
