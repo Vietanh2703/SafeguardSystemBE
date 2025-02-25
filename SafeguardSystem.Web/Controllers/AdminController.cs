@@ -12,11 +12,12 @@ namespace SafeguardSystem.Controllers
     public class AdminController : ControllerBase
     {
         private readonly IBusinessService _businessService;
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IUserService _userService;
 
-        public AdminController(IBusinessService businessService, SafeguardDbContext safeguardDbContext)
+        public AdminController(IBusinessService businessService, IUserService userService)
         {
             _businessService = businessService;
+            _userService = userService;
         }
 
         [Route("view-all-business-partners")]
@@ -25,6 +26,14 @@ namespace SafeguardSystem.Controllers
         {
             var results = _businessService.GetAllBusinessesAsync();
             return results;
+        }
+
+        [Route("create-user")]
+        [HttpPost]
+        public async Task<IActionResult> CreateUser([FromBody] CreateUserDTO createUserDTO)
+        {
+            var results = await _userService.CreateUserAsync(createUserDTO);
+            return StatusCode(results.StatusCode, results);
         }
     }
 }

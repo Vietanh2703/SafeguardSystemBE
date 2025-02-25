@@ -1,6 +1,22 @@
 [
   {
     "ContainingType": "SafeguardSystem.Controllers.AdminController",
+    "Method": "CreateUser",
+    "RelativePath": "api/Admin/create-user",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "createUserDTO",
+        "Type": "SafeguardSystem.Common.DTOs.CreateUserDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SafeguardSystem.Controllers.AdminController",
     "Method": "GetAllBusinesses",
     "RelativePath": "api/Admin/view-all-business-partners",
     "HttpMethod": "GET",

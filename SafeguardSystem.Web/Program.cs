@@ -26,6 +26,7 @@ namespace SafeguardSystem
             // Dependency Injection cho các dịch vụ
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<IAuthService, AuthService>();
+            builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IBusinessService, BusinessService>();
 
             // Cấu hình context database
