@@ -32,13 +32,5 @@ namespace SafeguardSystem.Controllers
             var results = await _userService.CreateUserAsync(createUserDTO);
             return StatusCode(results.StatusCode, results);
         }
-
-        [Route("verify-email")]
-        [HttpPost]
-        public async Task<IActionResult> VerifyOtp([FromBody] OtpDTO otpDTO)
-        {
-            var results = await _userService.VerifyOtpAsync(otpDTO);
-            return StatusCode(results.StatusCode, results);
-        }
     }
 }

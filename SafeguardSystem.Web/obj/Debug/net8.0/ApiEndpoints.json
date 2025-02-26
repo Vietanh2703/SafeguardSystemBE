@@ -17,22 +17,6 @@
   },
   {
     "ContainingType": "SafeguardSystem.Controllers.AdminController",
-    "Method": "VerifyOtp",
-    "RelativePath": "api/Admin/verify-email",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "otpDTO",
-        "Type": "SafeguardSystem.Common.DTOs.OtpDTO",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "SafeguardSystem.Controllers.AdminController",
     "Method": "GetAllBusinesses",
     "RelativePath": "api/Admin/view-all-business-partners",
     "HttpMethod": "GET",
@@ -94,6 +78,22 @@
       {
         "Name": "refreshToken",
         "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SafeguardSystem.Web.Controllers.UserController",
+    "Method": "VerifyOtp",
+    "RelativePath": "verify-email",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "otpDTO",
+        "Type": "SafeguardSystem.Common.DTOs.OtpDTO",
         "IsRequired": true
       }
     ],
