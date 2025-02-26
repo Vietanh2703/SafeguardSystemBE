@@ -1,4 +1,6 @@
 ﻿using FirebaseAdmin.Auth;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using SafeguardSystem.BLL.IServices;
 using SafeguardSystem.Common.DTOs;
 using SafeguardSystem.DAL.Entities;
@@ -15,10 +17,13 @@ namespace SafeguardSystem.BLL.Services
     public class UserService : IUserService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IEmailService _emailService;
+        private readonly IUrlHelper Url;
 
-        public UserService(IUnitOfWork unitOfWork)
+        public UserService(IUnitOfWork unitOfWork, IEmailService emailService)
         {
             _unitOfWork = unitOfWork;
+            _emailService = emailService;
         }
 
         public async Task<ResponseDTO> CreateUserAsync(CreateUserDTO createUserDTO)
@@ -31,6 +36,7 @@ namespace SafeguardSystem.BLL.Services
                 {
                     return new ResponseDTO("User with this email or username already exists", 400, false);
                 }
+
 
                 var userRecordArgs = new UserRecordArgs
                 {
@@ -50,6 +56,9 @@ namespace SafeguardSystem.BLL.Services
                     return new ResponseDTO($"Firebase error: {ex.Message}", 500, false);
                 }
 
+                var activationToken = Guid.NewGuid().ToString();
+                var activationTokenExpiry = DateTime.UtcNow.AddHours(12); // Thời gian hết hạn token
+
                 // Tạo record người dùng mới trong MySQL
                 var newUser = new User
                 {
@@ -60,6 +69,8 @@ namespace SafeguardSystem.BLL.Services
                     Avatar = "https://www.didongmy.com/vnt_upload/news/05_2024/anh-13-meme-dang-yeu-didongmy.jpg",
                     Phone = createUserDTO.Phone,
                     RoleID = Guid.Parse("be19e4b3-6664-4afd-9ebb-98e0a073edc9"),
+                    ActivationToken = activationToken,
+                    ActivationTokenExpiry = activationTokenExpiry,
                     IsActive = false,
                     IsEmailConfirmed = false,  // Tùy theo luồng xác nhận email của bạn
                     IsDeleted = false
@@ -69,12 +80,44 @@ namespace SafeguardSystem.BLL.Services
                  _unitOfWork.Users.Add(newUser);
                 await _unitOfWork.SaveChangeAsync();
 
-                return new ResponseDTO("User created successfully", 200, true, newUser);
+                return new ResponseDTO(newUser.ActivationToken, 200, true,"Create new user successfully");
             }
             catch (Exception ex)
             {
                 var errorDetails = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
                 return new ResponseDTO($"Error creating user: {errorDetails}", 500, false);
+            }
+        }
+
+        public async Task<ResponseDTO> VerifyEmailAsync(string ActivationToken)
+        {
+            try
+            {
+                // Find user by activation token
+                var user = await _unitOfWork.Users.FirstOrDefaultAsync(u => u.ActivationToken == ActivationToken);
+                if (user == null)
+                {
+                    return new ResponseDTO("Invalid or expired activation token", 400, false);
+                }
+
+                // Check if token is expired
+                if (user.ActivationTokenExpiry < DateTime.UtcNow)
+                {
+                    return new ResponseDTO("Activation token has expired", 400, false);
+                }
+
+                // Activate the user
+                user.IsActive = true;
+                user.IsEmailConfirmed = true;
+                user.ActivationToken = null; // Remove token after activation
+                user.ActivationTokenExpiry = null;
+                await _unitOfWork.SaveChangeAsync();
+
+                return new ResponseDTO("Email successfully verified!", 200, true);
+            }
+            catch (Exception ex)
+            {
+                return new ResponseDTO($"Error verifying email: {ex.Message}", 500, false);
             }
         }
     }

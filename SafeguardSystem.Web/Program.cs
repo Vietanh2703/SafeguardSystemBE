@@ -11,8 +11,7 @@ using FirebaseAdmin.Auth;
 using System.Security.Claims;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
-using FirebaseAdminAuthentication.DependencyInjection.Extensions;
-using SafeguardSystem.DAL.Extensions;
+
 
 
 namespace SafeguardSystem
@@ -27,6 +26,7 @@ namespace SafeguardSystem
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<IEmailService, EmailService>();
             builder.Services.AddScoped<IBusinessService, BusinessService>();
 
             // Cấu hình context database

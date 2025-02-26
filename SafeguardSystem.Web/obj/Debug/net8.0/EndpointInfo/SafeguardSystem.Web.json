@@ -70,6 +70,27 @@
         }
       }
     },
+    "/api/Admin/verify-email": {
+      "post": {
+        "tags": [
+          "Admin"
+        ],
+        "parameters": [
+          {
+            "name": "ActivationToken",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/login": {
       "post": {
         "tags": [

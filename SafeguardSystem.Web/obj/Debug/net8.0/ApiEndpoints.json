@@ -17,6 +17,22 @@
   },
   {
     "ContainingType": "SafeguardSystem.Controllers.AdminController",
+    "Method": "VerifyEmail",
+    "RelativePath": "api/Admin/verify-email",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "ActivationToken",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SafeguardSystem.Controllers.AdminController",
     "Method": "GetAllBusinesses",
     "RelativePath": "api/Admin/view-all-business-partners",
     "HttpMethod": "GET",
