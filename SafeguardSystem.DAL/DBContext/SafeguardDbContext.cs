@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SafeguardSystem.DAL.Entities;
-using SafeguardSystem.DAL.Extensions;
+
 
 namespace SafeguardSystem.DAL;
 
@@ -40,7 +40,7 @@ public class SafeguardDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-        modelBuilder.Seed();
+      
 
         modelBuilder.Entity<Business>(entity =>
         {

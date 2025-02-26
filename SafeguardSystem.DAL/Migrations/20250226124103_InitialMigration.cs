@@ -3,8 +3,6 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
-
 namespace SafeguardSystem.DAL.Migrations
 {
     /// <inheritdoc />
@@ -362,26 +360,6 @@ namespace SafeguardSystem.DAL.Migrations
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.InsertData(
-                table: "Roles",
-                columns: new[] { "RoleId", "RoleName" },
-                values: new object[,]
-                {
-                    { new Guid("6be95231-36aa-4a26-8c61-b65e040ec32a"), "Manager" },
-                    { new Guid("7a04e1d4-c176-467d-ac7d-6e1433ce6f3e"), "Admin" },
-                    { new Guid("be19e4b3-6664-4afd-9ebb-98e0a073edc9"), "Business partner" },
-                    { new Guid("d1616b66-90cc-479f-b45e-1e86378937f7"), "Guard" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Users",
-                columns: new[] { "UserId", "ActivationToken", "ActivationTokenExpiry", "Avatar", "BirthDay", "Email", "FullName", "IsActive", "IsDeleted", "IsEmailConfirmed", "Phone", "ResetToken", "ResetTokenExpiry", "RoleID", "UserName" },
-                values: new object[,]
-                {
-                    { "kRw3cZIvwwZC4wDN8SJN9lrEbwP2", null, null, "https://www.freepik.com/free-vector/simple-vibing-cat-square-meme_58459053.htm#fromView=keyword&page=1&position=0&uuid=f4bd18ef-8de6-4b6e-8e68-06073abf526b&query=Animal+Memes", new DateTime(2004, 3, 27, 0, 0, 0, 0, DateTimeKind.Unspecified), "admin@test.com", "Viet Anh", true, false, true, "0123456789", null, null, new Guid("7a04e1d4-c176-467d-ac7d-6e1433ce6f3e"), "Admin" },
-                    { "ukwN487LifQFzMK51XkNVbqsfXB2", null, null, "https://www.freepik.com/free-vector/simple-vibing-cat-square-meme_58459053.htm#fromView=keyword&page=1&position=0&uuid=f4bd18ef-8de6-4b6e-8e68-06073abf526b&query=Animal+Memes", new DateTime(2004, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "manager@test.com", "Nhat Nam", true, false, true, "0123456789", null, null, new Guid("6be95231-36aa-4a26-8c61-b65e040ec32a"), "Manager" }
-                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Businesses_UserId",

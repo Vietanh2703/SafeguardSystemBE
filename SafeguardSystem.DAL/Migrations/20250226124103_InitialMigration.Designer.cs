@@ -12,7 +12,7 @@ using SafeguardSystem.DAL;
 namespace SafeguardSystem.DAL.Migrations
 {
     [DbContext(typeof(SafeguardDbContext))]
-    [Migration("20250223212216_InitialMigration")]
+    [Migration("20250226124103_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -199,28 +199,6 @@ namespace SafeguardSystem.DAL.Migrations
                     b.HasKey("RoleId");
 
                     b.ToTable("Roles");
-
-                    b.HasData(
-                        new
-                        {
-                            RoleId = new Guid("d1616b66-90cc-479f-b45e-1e86378937f7"),
-                            RoleName = "Guard"
-                        },
-                        new
-                        {
-                            RoleId = new Guid("7a04e1d4-c176-467d-ac7d-6e1433ce6f3e"),
-                            RoleName = "Admin"
-                        },
-                        new
-                        {
-                            RoleId = new Guid("6be95231-36aa-4a26-8c61-b65e040ec32a"),
-                            RoleName = "Manager"
-                        },
-                        new
-                        {
-                            RoleId = new Guid("be19e4b3-6664-4afd-9ebb-98e0a073edc9"),
-                            RoleName = "Business partner"
-                        });
                 });
 
             modelBuilder.Entity("SafeguardSystem.DAL.Entities.SecurityGuard", b =>
@@ -452,36 +430,6 @@ namespace SafeguardSystem.DAL.Migrations
                     b.HasIndex("RoleID");
 
                     b.ToTable("Users");
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "kRw3cZIvwwZC4wDN8SJN9lrEbwP2",
-                            Avatar = "https://www.freepik.com/free-vector/simple-vibing-cat-square-meme_58459053.htm#fromView=keyword&page=1&position=0&uuid=f4bd18ef-8de6-4b6e-8e68-06073abf526b&query=Animal+Memes",
-                            BirthDay = new DateTime(2004, 3, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "admin@test.com",
-                            FullName = "Viet Anh",
-                            IsActive = true,
-                            IsDeleted = false,
-                            IsEmailConfirmed = true,
-                            Phone = "0123456789",
-                            RoleID = new Guid("7a04e1d4-c176-467d-ac7d-6e1433ce6f3e"),
-                            UserName = "Admin"
-                        },
-                        new
-                        {
-                            UserId = "ukwN487LifQFzMK51XkNVbqsfXB2",
-                            Avatar = "https://www.freepik.com/free-vector/simple-vibing-cat-square-meme_58459053.htm#fromView=keyword&page=1&position=0&uuid=f4bd18ef-8de6-4b6e-8e68-06073abf526b&query=Animal+Memes",
-                            BirthDay = new DateTime(2004, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "manager@test.com",
-                            FullName = "Nhat Nam",
-                            IsActive = true,
-                            IsDeleted = false,
-                            IsEmailConfirmed = true,
-                            Phone = "0123456789",
-                            RoleID = new Guid("6be95231-36aa-4a26-8c61-b65e040ec32a"),
-                            UserName = "Manager"
-                        });
                 });
 
             modelBuilder.Entity("SafeguardSystem.DAL.Entities.Business", b =>

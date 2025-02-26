@@ -68,7 +68,7 @@ namespace SafeguardSystem.BLL.Services
                     FullName = createUserDTO.FullName,
                     Avatar = "https://www.didongmy.com/vnt_upload/news/05_2024/anh-13-meme-dang-yeu-didongmy.jpg",
                     Phone = createUserDTO.Phone,
-                    RoleID = Guid.Parse("be19e4b3-6664-4afd-9ebb-98e0a073edc9"),
+                    RoleID = Guid.Parse("67f3495c-edd4-42a7-bba3-ef85e98edf4a"),
                     ActivationToken = activationToken,
                     ActivationTokenExpiry = activationTokenExpiry,
                     IsActive = false,

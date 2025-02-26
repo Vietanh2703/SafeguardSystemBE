@@ -126,13 +126,13 @@ namespace SafeguardSystem
 
             builder.Services.AddCors(options =>
             {
-                options.AddPolicy("AllowFrontendOrigin", policy =>
-                {
-                    policy.WithOrigins("http://localhost:3002") // Replace with your frontend origin
-                          .AllowAnyHeader()
-                          .AllowAnyMethod();
-                });
+                options.AddPolicy("AllowFrontend",
+             builder => builder.WithOrigins("http://localhost:5173")
+                               .AllowAnyMethod()
+                               .AllowAnyHeader()
+                               .AllowCredentials());
             });
+           
 
             // Add controllers
             builder.Services.AddControllers();
@@ -148,6 +148,7 @@ namespace SafeguardSystem
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+            app.UseCors("AllowFrontend");
 
             app.UseHttpsRedirection();
 

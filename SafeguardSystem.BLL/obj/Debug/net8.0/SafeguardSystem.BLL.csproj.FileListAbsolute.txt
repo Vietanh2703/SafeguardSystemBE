@@ -16,3 +16,21 @@ D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.BLL\bin\Debug\net8.0\Safegu
 D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.BLL\obj\Debug\net8.0\SafeguardSystem.BLL.csproj.AssemblyReference.cache
 D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.BLL\obj\Debug\net8.0\Safeguar.7A2D0B47.Up2Date
 D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.BLL\obj\Debug\net8.0\SafeguardSystem.BLL.sourcelink.json
+C:\Users\nhatn\Desktop\ky 7\SWD\SafeguardSystemBE\SafeguardSystem.BLL\bin\Debug\net8.0\SafeguardSystem.BLL.deps.json
+C:\Users\nhatn\Desktop\ky 7\SWD\SafeguardSystemBE\SafeguardSystem.BLL\bin\Debug\net8.0\SafeguardSystem.BLL.dll
+C:\Users\nhatn\Desktop\ky 7\SWD\SafeguardSystemBE\SafeguardSystem.BLL\bin\Debug\net8.0\SafeguardSystem.BLL.pdb
+C:\Users\nhatn\Desktop\ky 7\SWD\SafeguardSystemBE\SafeguardSystem.BLL\bin\Debug\net8.0\SafeguardSystem.Common.dll
+C:\Users\nhatn\Desktop\ky 7\SWD\SafeguardSystemBE\SafeguardSystem.BLL\bin\Debug\net8.0\SafeguardSystem.DAL.dll
+C:\Users\nhatn\Desktop\ky 7\SWD\SafeguardSystemBE\SafeguardSystem.BLL\bin\Debug\net8.0\SafeguardSystem.Common.pdb
+C:\Users\nhatn\Desktop\ky 7\SWD\SafeguardSystemBE\SafeguardSystem.BLL\bin\Debug\net8.0\SafeguardSystem.DAL.pdb
+C:\Users\nhatn\Desktop\ky 7\SWD\SafeguardSystemBE\SafeguardSystem.BLL\obj\Debug\net8.0\SafeguardSystem.BLL.csproj.AssemblyReference.cache
+C:\Users\nhatn\Desktop\ky 7\SWD\SafeguardSystemBE\SafeguardSystem.BLL\obj\Debug\net8.0\SafeguardSystem.BLL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\nhatn\Desktop\ky 7\SWD\SafeguardSystemBE\SafeguardSystem.BLL\obj\Debug\net8.0\SafeguardSystem.BLL.AssemblyInfoInputs.cache
+C:\Users\nhatn\Desktop\ky 7\SWD\SafeguardSystemBE\SafeguardSystem.BLL\obj\Debug\net8.0\SafeguardSystem.BLL.AssemblyInfo.cs
+C:\Users\nhatn\Desktop\ky 7\SWD\SafeguardSystemBE\SafeguardSystem.BLL\obj\Debug\net8.0\SafeguardSystem.BLL.csproj.CoreCompileInputs.cache
+C:\Users\nhatn\Desktop\ky 7\SWD\SafeguardSystemBE\SafeguardSystem.BLL\obj\Debug\net8.0\SafeguardSystem.BLL.sourcelink.json
+C:\Users\nhatn\Desktop\ky 7\SWD\SafeguardSystemBE\SafeguardSystem.BLL\obj\Debug\net8.0\Safeguar.7A2D0B47.Up2Date
+C:\Users\nhatn\Desktop\ky 7\SWD\SafeguardSystemBE\SafeguardSystem.BLL\obj\Debug\net8.0\SafeguardSystem.BLL.dll
+C:\Users\nhatn\Desktop\ky 7\SWD\SafeguardSystemBE\SafeguardSystem.BLL\obj\Debug\net8.0\refint\SafeguardSystem.BLL.dll
+C:\Users\nhatn\Desktop\ky 7\SWD\SafeguardSystemBE\SafeguardSystem.BLL\obj\Debug\net8.0\SafeguardSystem.BLL.pdb
+C:\Users\nhatn\Desktop\ky 7\SWD\SafeguardSystemBE\SafeguardSystem.BLL\obj\Debug\net8.0\ref\SafeguardSystem.BLL.dll
