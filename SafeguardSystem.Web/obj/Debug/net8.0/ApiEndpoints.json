@@ -17,16 +17,16 @@
   },
   {
     "ContainingType": "SafeguardSystem.Controllers.AdminController",
-    "Method": "VerifyEmail",
+    "Method": "VerifyOtp",
     "RelativePath": "api/Admin/verify-email",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "ActivationToken",
-        "Type": "System.String",
-        "IsRequired": false
+        "Name": "otpDTO",
+        "Type": "SafeguardSystem.Common.DTOs.OtpDTO",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []

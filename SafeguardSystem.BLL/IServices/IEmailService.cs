@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SafeguardSystem.Common.DTOs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,7 @@ namespace SafeguardSystem.BLL.IServices
 {
     public interface IEmailService
     {
-        Task SendActivationEmailAsync(string email, string activationLink);
+        Task SendActivationEmailAsync(EmailRequest emailRequest);
+        string GenerateEmailBody(string FullName, string OtpText);
     }
 }

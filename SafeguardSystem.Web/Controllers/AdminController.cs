@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SafeguardSystem.BLL.IServices;
-using SafeguardSystem.DAL.UnitOfWork;
-using System.Threading.Tasks;
 using SafeguardSystem.Common.DTOs;
-using SafeguardSystem.DAL;
 
 namespace SafeguardSystem.Controllers
 {
@@ -13,13 +10,11 @@ namespace SafeguardSystem.Controllers
     {
         private readonly IBusinessService _businessService;
         private readonly IUserService _userService;
-        private readonly IEmailService _emailService;
 
-        public AdminController(IBusinessService businessService, IUserService userService, IEmailService emailService)
+        public AdminController(IBusinessService businessService, IUserService userService)
         {
             _businessService = businessService;
             _userService = userService;
-            _emailService = emailService;
         }
 
         [Route("view-all-business-partners")]
@@ -35,22 +30,15 @@ namespace SafeguardSystem.Controllers
         public async Task<IActionResult> CreateUser([FromBody] CreateUserDTO createUserDTO)
         {
             var results = await _userService.CreateUserAsync(createUserDTO);
-            if (results.IsSuccess)
-            {
-                var activationToken = results.Message;
-                Console.WriteLine(activationToken);
-                var activationLink = Url.Action(nameof(VerifyEmail), "Admin", new { ActivationToken = activationToken }, Request.Scheme);
-                await _emailService.SendActivationEmailAsync(createUserDTO.Email, activationLink);
-            }
             return StatusCode(results.StatusCode, results);
         }
 
         [Route("verify-email")]
         [HttpPost]
-        public async Task<IActionResult> VerifyEmail(string ActivationToken)
+        public async Task<IActionResult> VerifyOtp([FromBody] OtpDTO otpDTO)
         {
-            var results = await _userService.VerifyEmailAsync(ActivationToken);
-            return Redirect($"http://localhost:5173/");
+            var results = await _userService.VerifyOtpAsync(otpDTO);
+            return StatusCode(results.StatusCode, results);
         }
     }
 }

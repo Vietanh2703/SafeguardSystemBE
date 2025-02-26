@@ -1,16 +1,9 @@
 ﻿using FirebaseAdmin.Auth;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SafeguardSystem.BLL.IServices;
 using SafeguardSystem.Common.DTOs;
 using SafeguardSystem.DAL.Entities;
 using SafeguardSystem.DAL.UnitOfWork;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Net.WebRequestMethods;
 
 namespace SafeguardSystem.BLL.Services
 {
@@ -56,8 +49,8 @@ namespace SafeguardSystem.BLL.Services
                     return new ResponseDTO($"Firebase error: {ex.Message}", 500, false);
                 }
 
-                var activationToken = Guid.NewGuid().ToString();
-                var activationTokenExpiry = DateTime.UtcNow.AddHours(12); // Thời gian hết hạn token
+                var otp = new Random().Next(100000, 999999).ToString();
+                var otpExpiry = DateTime.UtcNow.AddMinutes(10); // OTP hết hạn sau 10 phút
 
                 // Tạo record người dùng mới trong MySQL
                 var newUser = new User
@@ -69,8 +62,8 @@ namespace SafeguardSystem.BLL.Services
                     Avatar = "https://www.didongmy.com/vnt_upload/news/05_2024/anh-13-meme-dang-yeu-didongmy.jpg",
                     Phone = createUserDTO.Phone,
                     RoleID = Guid.Parse("be19e4b3-6664-4afd-9ebb-98e0a073edc9"),
-                    ActivationToken = activationToken,
-                    ActivationTokenExpiry = activationTokenExpiry,
+                    ActivationToken = otp,
+                    ActivationTokenExpiry = otpExpiry,
                     IsActive = false,
                     IsEmailConfirmed = false,  // Tùy theo luồng xác nhận email của bạn
                     IsDeleted = false
@@ -79,8 +72,8 @@ namespace SafeguardSystem.BLL.Services
 
                  _unitOfWork.Users.Add(newUser);
                 await _unitOfWork.SaveChangeAsync();
-
-                return new ResponseDTO(newUser.ActivationToken, 200, true,"Create new user successfully");
+                await SendOtpEmail(newUser.Email, otp, newUser.FullName);
+                return new ResponseDTO("User created successfully.", 200, true);
             }
             catch (Exception ex)
             {
@@ -89,35 +82,47 @@ namespace SafeguardSystem.BLL.Services
             }
         }
 
-        public async Task<ResponseDTO> VerifyEmailAsync(string ActivationToken)
+        public async Task SendOtpEmail(string Email, string OtpText, string FullName)
+        {
+            var emailRequest = new EmailRequest();
+            emailRequest.Email = Email;
+            emailRequest.Subject = "Your OTP Code for Account Activation";
+            emailRequest.EmailBody = _emailService.GenerateEmailBody(FullName, OtpText);
+            await _emailService.SendActivationEmailAsync(emailRequest);
+        }
+
+        public async Task<ResponseDTO> VerifyOtpAsync(OtpDTO OtpDTO)
         {
             try
             {
-                // Find user by activation token
-                var user = await _unitOfWork.Users.FirstOrDefaultAsync(u => u.ActivationToken == ActivationToken);
+                var user = await _unitOfWork.Users.GetUserByEmailAsync(OtpDTO.Email);
                 if (user == null)
                 {
-                    return new ResponseDTO("Invalid or expired activation token", 400, false);
+                    return new ResponseDTO("User not found.", 404, false);
                 }
 
-                // Check if token is expired
+                if (user.ActivationToken != OtpDTO.Otp)
+                {
+                    return new ResponseDTO("Invalid OTP.", 400, false);
+                }
+
                 if (user.ActivationTokenExpiry < DateTime.UtcNow)
                 {
-                    return new ResponseDTO("Activation token has expired", 400, false);
+                    return new ResponseDTO("OTP has expired.", 400, false);
                 }
 
-                // Activate the user
+                // Cập nhật tài khoản khi OTP hợp lệ
                 user.IsActive = true;
                 user.IsEmailConfirmed = true;
-                user.ActivationToken = null; // Remove token after activation
-                user.ActivationTokenExpiry = null;
+                user.ActivationToken = null;  // Xóa OTP
+                user.ActivationTokenExpiry = null;  // Xóa thời gian hết hạn OTP
                 await _unitOfWork.SaveChangeAsync();
 
-                return new ResponseDTO("Email successfully verified!", 200, true);
+                return new ResponseDTO("Email verified successfully.", 200, true);
             }
             catch (Exception ex)
             {
-                return new ResponseDTO($"Error verifying email: {ex.Message}", 500, false);
+                return new ResponseDTO($"Error verifying OTP: {ex.Message}", 500, false);
             }
         }
     }

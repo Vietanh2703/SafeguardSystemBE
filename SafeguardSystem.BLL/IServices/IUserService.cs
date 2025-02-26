@@ -10,7 +10,7 @@ namespace SafeguardSystem.BLL.IServices
     public interface IUserService
     {
         Task<ResponseDTO> CreateUserAsync(CreateUserDTO createUserDTO);
-        Task<ResponseDTO> VerifyEmailAsync(string ActivationToken);
+        Task<ResponseDTO> VerifyOtpAsync(OtpDTO otpDTO);
         //Task<ResponseDTO> UpdateUserAsync(UpdateUserDTO updateUserDTO);
         //Task<ResponseDTO> DeleteUserAsync(string userId);
         //Task<ResponseDTO> GetUserAsync(string userId);

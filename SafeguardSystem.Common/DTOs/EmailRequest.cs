@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace SafeguardSystem.Common.DTOs
 {
-    public class EmailVerificationDTO
+    public class EmailRequest
     {
-        public string? ActivationToken { get; set; }
+        public string? Email { get; set; }       
+        public string? Subject { get; set; }
+        public string? EmailBody { get; set; }
     }
 }
