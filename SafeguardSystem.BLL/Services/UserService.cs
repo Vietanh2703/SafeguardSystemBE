@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using SafeguardSystem.BLL.IServices;
 using SafeguardSystem.Common.DTOs;
 using SafeguardSystem.DAL.Entities;
+using SafeguardSystem.DAL.Extensions;
 using SafeguardSystem.DAL.UnitOfWork;
 
 namespace SafeguardSystem.BLL.Services
@@ -19,6 +20,7 @@ namespace SafeguardSystem.BLL.Services
             _emailService = emailService;
         }
 
+        // Tạo người dùng mới trên Firebase và MySQL
         public async Task<ResponseDTO> CreateUserAsync(CreateUserDTO createUserDTO)
         {
             try
@@ -82,6 +84,7 @@ namespace SafeguardSystem.BLL.Services
             }
         }
 
+        // Gửi email xác thực OTP
         public async Task SendOtpEmail(string Email, string OtpText, string FullName)
         {
             var emailRequest = new EmailRequest();
@@ -91,6 +94,7 @@ namespace SafeguardSystem.BLL.Services
             await _emailService.SendActivationEmailAsync(emailRequest);
         }
 
+        // Xác thực OTP và kích hoạt tài khoản
         public async Task<ResponseDTO> VerifyOtpAsync(OtpDTO OtpDTO)
         {
             try
@@ -125,5 +129,62 @@ namespace SafeguardSystem.BLL.Services
                 return new ResponseDTO($"Error verifying OTP: {ex.Message}", 500, false);
             }
         }
+
+        // Lấy thông tin người dùng và phân trang
+        public async Task<ResponseDTO> GetAllUsersAsync(int pageIndex, int pageSize)
+        {
+            var paginatedUsers = await _unitOfWork.Users.GetAllUsersWithPagingAsync(pageIndex, pageSize);
+            if (paginatedUsers == null || !paginatedUsers.Any())
+            {
+                return new ResponseDTO("No users found in list.", 200, false);
+            }
+
+            var userDTOs = paginatedUsers
+                .Where(u => !u.IsDeleted)
+                .Select(u => new ViewUserListDTO
+                {
+                    Email = u.Email,
+                    FullName = u.FullName,
+                    Phone = u.Phone,
+                    Avatar = u.Avatar
+                }).ToList();
+
+            return new ResponseDTO("User list:", 200, true, new PaginatedList<ViewUserListDTO>(userDTOs, paginatedUsers.Count, pageIndex, pageSize));
+        }
+
+        // Xóa người dùng khỏi cả MySQL và Firebase
+        public async Task<ResponseDTO> DeleteUserAsync(string userId)
+        {
+            try
+            {
+                // Tìm người dùng trong MySQL bằng UserId
+                var user = await _unitOfWork.Users.GetUserByFirebaseUidAsync(userId);
+                if (user == null)
+                {
+                    return new ResponseDTO("User not found", 404, false);
+                }
+
+                // Xóa người dùng khỏi Firebase Authentication
+                try
+                {
+                    await FirebaseAuth.DefaultInstance.DeleteUserAsync(userId);
+                }
+                catch (FirebaseAuthException ex)
+                {
+                    return new ResponseDTO($"Firebase error: {ex.Message}", 500, false);
+                }
+
+                // Xóa người dùng khỏi MySQL
+                _unitOfWork.Users.Delete(user);
+                await _unitOfWork.SaveChangeAsync();
+
+                return new ResponseDTO("User deleted successfully", 200, true);
+            }
+            catch (Exception ex)
+            {
+                return new ResponseDTO($"Error deleting user: {ex.Message}", 500, false);
+            }
+        }
+
     }
 }

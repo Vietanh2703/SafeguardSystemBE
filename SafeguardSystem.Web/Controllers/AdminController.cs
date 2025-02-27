@@ -32,5 +32,20 @@ namespace SafeguardSystem.Controllers
             var results = await _userService.CreateUserAsync(createUserDTO);
             return StatusCode(results.StatusCode, results);
         }
+
+        [Route("view-all-users")]
+        [HttpGet]
+        public async Task<IActionResult> GetAllUsers(int pageIndex, int pageSize)
+        {
+            var results = await _userService.GetAllUsersAsync(pageIndex, pageSize);
+            return StatusCode(results.StatusCode, results);
+        }
+
+        [HttpDelete("delete-user/{userId}")]
+        public async Task<IActionResult> DeleteUser(string userId)
+        {
+            var result = await _userService.DeleteUserAsync(userId);
+            return StatusCode(result.StatusCode, result);
+        }
     }
 }

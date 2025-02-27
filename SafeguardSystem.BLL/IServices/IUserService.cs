@@ -12,8 +12,8 @@ namespace SafeguardSystem.BLL.IServices
         Task<ResponseDTO> CreateUserAsync(CreateUserDTO createUserDTO);
         Task<ResponseDTO> VerifyOtpAsync(OtpDTO otpDTO);
         //Task<ResponseDTO> UpdateUserAsync(UpdateUserDTO updateUserDTO);
-        //Task<ResponseDTO> DeleteUserAsync(string userId);
+        Task<ResponseDTO> DeleteUserAsync(string userId);
         //Task<ResponseDTO> GetUserAsync(string userId);
-        //Task<ResponseDTO> GetAllUsersAsync();
+        Task<ResponseDTO> GetAllUsersAsync(int pageIndex, int pageSize);
     }
 }

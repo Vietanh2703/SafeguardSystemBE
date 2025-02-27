@@ -17,6 +17,22 @@
   },
   {
     "ContainingType": "SafeguardSystem.Controllers.AdminController",
+    "Method": "DeleteUser",
+    "RelativePath": "api/Admin/delete-user/{userId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SafeguardSystem.Controllers.AdminController",
     "Method": "GetAllBusinesses",
     "RelativePath": "api/Admin/view-all-business-partners",
     "HttpMethod": "GET",
@@ -34,6 +50,27 @@
         "StatusCode": 200
       }
     ]
+  },
+  {
+    "ContainingType": "SafeguardSystem.Controllers.AdminController",
+    "Method": "GetAllUsers",
+    "RelativePath": "api/Admin/view-all-users",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "pageIndex",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
   },
   {
     "ContainingType": "SafeguardSystem.Web.Controllers.LoginController",

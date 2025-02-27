@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SafeguardSystem.BLL")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5b2219e8eb612d85c12f40d6036af30461e91945")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a1a4723f8609a0be45823369fbc9050ebeb3470e")]
 [assembly: System.Reflection.AssemblyProductAttribute("SafeguardSystem.BLL")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SafeguardSystem.BLL")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SafeguardSystem.DAL.Entities;
+using SafeguardSystem.DAL.Extensions;
 using SafeguardSystem.DAL.IRepositories;
 
 namespace SafeguardSystem.DAL.Repositories
@@ -28,6 +29,12 @@ namespace SafeguardSystem.DAL.Repositories
             await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
             return user;
+        }
+
+        public async Task<PaginatedList<User>> GetAllUsersWithPagingAsync(int pageIndex, int pageSize)
+        {
+            var query = _context.Users.AsQueryable();
+            return await PaginatedList<User>.CreateAsync(query, pageIndex, pageSize);
         }
     }
 }
