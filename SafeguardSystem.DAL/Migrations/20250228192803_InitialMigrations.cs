@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SafeguardSystem.DAL.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class InitialMigrations : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -39,8 +39,8 @@ namespace SafeguardSystem.DAL.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Description = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    StartTime = table.Column<TimeOnly>(type: "time(6)", nullable: false),
-                    EndTime = table.Column<TimeOnly>(type: "time(6)", nullable: false),
+                    StartTime = table.Column<TimeSpan>(type: "TIME(6)", nullable: false),
+                    EndTime = table.Column<TimeSpan>(type: "TIME(6)", nullable: false),
                     IsDeleted = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
                 constraints: table =>
@@ -370,8 +370,18 @@ namespace SafeguardSystem.DAL.Migrations
                 {
                     { new Guid("6be95231-36aa-4a26-8c61-b65e040ec32a"), "Manager" },
                     { new Guid("7a04e1d4-c176-467d-ac7d-6e1433ce6f3e"), "Admin" },
-                    { new Guid("be19e4b3-6664-4afd-9ebb-98e0a073edc9"), "Business partner" },
-                    { new Guid("d1616b66-90cc-479f-b45e-1e86378937f7"), "Guard" }
+                    { new Guid("be19e4b3-6664-4afd-9ebb-98e0a073edc9"), "Business Partner" },
+                    { new Guid("d1616b66-90cc-479f-b45e-1e86378937f7"), "Security Guard" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "ShiftTypes",
+                columns: new[] { "TypeId", "Description", "EndTime", "IsDeleted", "Name", "StartTime" },
+                values: new object[,]
+                {
+                    { new Guid("4112683c-a85f-4429-b6ac-292ca9364155"), "Morning shift", new TimeSpan(0, 12, 0, 0, 0), false, "Morning", new TimeSpan(0, 5, 0, 0, 0) },
+                    { new Guid("c333cd26-e186-445b-969f-e2fc983b18b8"), "Afternoon shift", new TimeSpan(0, 19, 0, 0, 0), false, "Afternoon", new TimeSpan(0, 12, 0, 0, 0) },
+                    { new Guid("cdbb6b9e-c537-4659-b909-60712082038d"), "Night shift", new TimeSpan(0, 2, 0, 0, 0), false, "Night", new TimeSpan(0, 19, 0, 0, 0) }
                 });
 
             migrationBuilder.InsertData(
@@ -379,8 +389,8 @@ namespace SafeguardSystem.DAL.Migrations
                 columns: new[] { "UserId", "ActivationToken", "ActivationTokenExpiry", "Avatar", "BirthDay", "Email", "FullName", "IsActive", "IsDeleted", "IsEmailConfirmed", "Phone", "ResetToken", "ResetTokenExpiry", "RoleID", "UserName" },
                 values: new object[,]
                 {
-                    { "kRw3cZIvwwZC4wDN8SJN9lrEbwP2", null, null, "https://www.freepik.com/free-vector/simple-vibing-cat-square-meme_58459053.htm#fromView=keyword&page=1&position=0&uuid=f4bd18ef-8de6-4b6e-8e68-06073abf526b&query=Animal+Memes", new DateTime(2004, 3, 27, 0, 0, 0, 0, DateTimeKind.Unspecified), "admin@test.com", "Viet Anh", true, false, true, "0123456789", null, null, new Guid("7a04e1d4-c176-467d-ac7d-6e1433ce6f3e"), "Admin" },
-                    { "ukwN487LifQFzMK51XkNVbqsfXB2", null, null, "https://www.freepik.com/free-vector/simple-vibing-cat-square-meme_58459053.htm#fromView=keyword&page=1&position=0&uuid=f4bd18ef-8de6-4b6e-8e68-06073abf526b&query=Animal+Memes", new DateTime(2004, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "manager@test.com", "Nhat Nam", true, false, true, "0123456789", null, null, new Guid("6be95231-36aa-4a26-8c61-b65e040ec32a"), "Manager" }
+                    { "58sErANL7bbv096ghTnNN3qIiqX2", null, null, "https://www.freepik.com/free-vector/simple-vibing-cat-square-meme_58459053.htm#fromView=keyword&page=1&position=0&uuid=f4bd18ef-8de6-4b6e-8e68-06073abf526b&query=Animal+Memes", new DateTime(2004, 3, 27, 0, 0, 0, 0, DateTimeKind.Unspecified), "admin@test.com", "Viet Anh", true, false, true, "0123456789", null, null, new Guid("7a04e1d4-c176-467d-ac7d-6e1433ce6f3e"), "Admin" },
+                    { "UCdsPNEZpKeUlbPE8q478r60f5o1", null, null, "https://www.freepik.com/free-vector/simple-vibing-cat-square-meme_58459053.htm#fromView=keyword&page=1&position=0&uuid=f4bd18ef-8de6-4b6e-8e68-06073abf526b&query=Animal+Memes", new DateTime(2004, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "manager@test.com", "Nhat Nam", true, false, true, "0123456789", null, null, new Guid("6be95231-36aa-4a26-8c61-b65e040ec32a"), "Manager" }
                 });
 
             migrationBuilder.CreateIndex(

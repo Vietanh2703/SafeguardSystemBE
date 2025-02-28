@@ -215,6 +215,119 @@
         }
       }
     },
+    "/shift-types": {
+      "get": {
+        "tags": [
+          "Shift"
+        ],
+        "summary": "Security manager gets all shift type.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/create-shift-type": {
+      "post": {
+        "tags": [
+          "Shift"
+        ],
+        "summary": "Security manager creates a new shift type.",
+        "requestBody": {
+          "description": "Lưu ý khi nhập thông tin time vào nhớ định dạng hh:mm:ss\r\n            (12:30:05) chứ nhập 12:30 lỗi ráng chịu",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ShiftTypeDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ShiftTypeDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ShiftTypeDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/update-shift-type/{typeId}": {
+      "put": {
+        "tags": [
+          "Shift"
+        ],
+        "summary": "Security manager updates a shift type.",
+        "parameters": [
+          {
+            "name": "typeId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Lưu ý khi nhập thông tin time vào nhớ định dạng hh:mm:ss\r\n            (12:30:05) chứ nhập 12:30 lỗi ráng chịu",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ShiftTypeDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ShiftTypeDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ShiftTypeDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/delete-shift-type/{typeId}": {
+      "put": {
+        "tags": [
+          "Shift"
+        ],
+        "parameters": [
+          {
+            "name": "typeId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/roles": {
       "get": {
         "tags": [
@@ -389,6 +502,33 @@
           },
           "result": {
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ShiftTypeDTO": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-span"
+          },
+          "endTime": {
+            "type": "string",
+            "format": "date-span"
+          },
+          "shiftTime": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
           }
         },
         "additionalProperties": false

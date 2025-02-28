@@ -7,10 +7,7 @@ using System.Threading.Tasks;
 
 namespace SafeguardSystem.DAL.IRepositories
 {
-    public interface IRoleRepository : IGenericRepository<Role>
+    public interface ISecurityGuardRepository : IGenericRepository<SecurityGuard>
     {
-            Task<Role> GetByGuidAsync(Guid id);
-
-            Task<Guid> GetSecurityGuardRoleIdAsync();
     }
 }

@@ -121,6 +121,38 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "SafeguardSystem.Web.Controllers.ShiftController",
+    "Method": "CreateShiftType",
+    "RelativePath": "create-shift-type",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "shiftTypeDTO",
+        "Type": "SafeguardSystem.Common.DTOs.ShiftTypeDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SafeguardSystem.Web.Controllers.ShiftController",
+    "Method": "DeleteShiftType",
+    "RelativePath": "delete-shift-type/{typeId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "typeId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "SafeguardSystem.Web.Controllers.UserController",
     "Method": "GetRoles",
     "RelativePath": "roles",
@@ -128,6 +160,37 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SafeguardSystem.Web.Controllers.ShiftController",
+    "Method": "GetShiftTypes",
+    "RelativePath": "shift-types",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SafeguardSystem.Web.Controllers.ShiftController",
+    "Method": "UpdateShiftType",
+    "RelativePath": "update-shift-type/{typeId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "typeId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "shiftTypeDTO",
+        "Type": "SafeguardSystem.Common.DTOs.ShiftTypeDTO",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   },
   {

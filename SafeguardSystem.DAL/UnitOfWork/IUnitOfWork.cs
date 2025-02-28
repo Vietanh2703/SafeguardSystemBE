@@ -1,9 +1,5 @@
 ﻿using SafeguardSystem.DAL.IRepositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SafeguardSystem.DAL.Repositories;
 
 namespace SafeguardSystem.DAL.UnitOfWork
 {
@@ -12,8 +8,8 @@ namespace SafeguardSystem.DAL.UnitOfWork
         IBusinessRepository Businesses { get; }
         ICheckpointRepository Checkpoints { get; }
         ILocationRepository Locations { get; }
+        ISecurityGuardRepository SecurityGuards { get; }
         /*IContractRepository Contracts { get; }
-        ISecurityguardRepository Securityguards { get; }
         ISecurityshiftRepository Securityshifts { get; }
         IShiftassignmentRepository Shiftassignments { get; }
         IShiftincidentRepository Shiftincidents { get; }
@@ -21,6 +17,7 @@ namespace SafeguardSystem.DAL.UnitOfWork
         IShifttyperoutineRepository Shifttyperoutines { get; } */ //làm sau
         IRoleRepository Roles { get; }
         IRefreshTokenRepository RefreshTokens { get; }
+        IShiftTypeRepository ShiftTypes { get; }
         IUserRepository Users { get; }
 
         void Dispose();

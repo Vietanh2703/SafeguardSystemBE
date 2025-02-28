@@ -15,9 +15,11 @@ public class ShiftType
 
     public string? Description { get; set; }
 
-    public TimeOnly StartTime { get; set; }
+    [Column(TypeName = "TIME(6)")]
+    public TimeSpan StartTime { get; set; }
 
-    public TimeOnly EndTime { get; set; }
+    [Column(TypeName = "TIME(6)")]
+    public TimeSpan EndTime { get; set; }
 
     public bool IsDeleted { get; set; }
 

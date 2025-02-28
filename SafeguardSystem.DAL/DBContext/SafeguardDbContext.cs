@@ -10,7 +10,6 @@ public class SafeguardDbContext : DbContext
         : base(options)
     {
     }
-
     public DbSet<Business> Businesses { get; set; }
 
     public DbSet<Checkpoint> Checkpoints { get; set; }

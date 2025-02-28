@@ -23,5 +23,14 @@ namespace SafeguardSystem.DAL.Repositories
         {
             return await _context.Roles.FirstOrDefaultAsync(x => x.RoleId == id);
         }
+
+
+            public async Task<Guid> GetSecurityGuardRoleIdAsync()
+        {
+            return await _context.Roles
+                .Where(r => r.RoleName == "Security Guard")
+                .Select(r => r.RoleId)
+                .FirstOrDefaultAsync();
+        }
     }
 }

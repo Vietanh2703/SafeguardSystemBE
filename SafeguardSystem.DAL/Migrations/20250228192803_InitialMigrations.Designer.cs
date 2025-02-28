@@ -12,8 +12,8 @@ using SafeguardSystem.DAL;
 namespace SafeguardSystem.DAL.Migrations
 {
     [DbContext(typeof(SafeguardDbContext))]
-    [Migration("20250223212216_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20250228192803_InitialMigrations")]
+    partial class InitialMigrations
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -204,7 +204,7 @@ namespace SafeguardSystem.DAL.Migrations
                         new
                         {
                             RoleId = new Guid("d1616b66-90cc-479f-b45e-1e86378937f7"),
-                            RoleName = "Guard"
+                            RoleName = "Security Guard"
                         },
                         new
                         {
@@ -219,7 +219,7 @@ namespace SafeguardSystem.DAL.Migrations
                         new
                         {
                             RoleId = new Guid("be19e4b3-6664-4afd-9ebb-98e0a073edc9"),
-                            RoleName = "Business partner"
+                            RoleName = "Business Partner"
                         });
                 });
 
@@ -352,8 +352,8 @@ namespace SafeguardSystem.DAL.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("longtext");
 
-                    b.Property<TimeOnly>("EndTime")
-                        .HasColumnType("time(6)");
+                    b.Property<TimeSpan>("EndTime")
+                        .HasColumnType("TIME(6)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("tinyint(1)");
@@ -362,12 +362,41 @@ namespace SafeguardSystem.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<TimeOnly>("StartTime")
-                        .HasColumnType("time(6)");
+                    b.Property<TimeSpan>("StartTime")
+                        .HasColumnType("TIME(6)");
 
                     b.HasKey("TypeId");
 
                     b.ToTable("ShiftTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            TypeId = new Guid("4112683c-a85f-4429-b6ac-292ca9364155"),
+                            Description = "Morning shift",
+                            EndTime = new TimeSpan(0, 12, 0, 0, 0),
+                            IsDeleted = false,
+                            Name = "Morning",
+                            StartTime = new TimeSpan(0, 5, 0, 0, 0)
+                        },
+                        new
+                        {
+                            TypeId = new Guid("c333cd26-e186-445b-969f-e2fc983b18b8"),
+                            Description = "Afternoon shift",
+                            EndTime = new TimeSpan(0, 19, 0, 0, 0),
+                            IsDeleted = false,
+                            Name = "Afternoon",
+                            StartTime = new TimeSpan(0, 12, 0, 0, 0)
+                        },
+                        new
+                        {
+                            TypeId = new Guid("cdbb6b9e-c537-4659-b909-60712082038d"),
+                            Description = "Night shift",
+                            EndTime = new TimeSpan(0, 2, 0, 0, 0),
+                            IsDeleted = false,
+                            Name = "Night",
+                            StartTime = new TimeSpan(0, 19, 0, 0, 0)
+                        });
                 });
 
             modelBuilder.Entity("SafeguardSystem.DAL.Entities.Team", b =>
@@ -456,7 +485,7 @@ namespace SafeguardSystem.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "kRw3cZIvwwZC4wDN8SJN9lrEbwP2",
+                            UserId = "58sErANL7bbv096ghTnNN3qIiqX2",
                             Avatar = "https://www.freepik.com/free-vector/simple-vibing-cat-square-meme_58459053.htm#fromView=keyword&page=1&position=0&uuid=f4bd18ef-8de6-4b6e-8e68-06073abf526b&query=Animal+Memes",
                             BirthDay = new DateTime(2004, 3, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "admin@test.com",
@@ -470,7 +499,7 @@ namespace SafeguardSystem.DAL.Migrations
                         },
                         new
                         {
-                            UserId = "ukwN487LifQFzMK51XkNVbqsfXB2",
+                            UserId = "UCdsPNEZpKeUlbPE8q478r60f5o1",
                             Avatar = "https://www.freepik.com/free-vector/simple-vibing-cat-square-meme_58459053.htm#fromView=keyword&page=1&position=0&uuid=f4bd18ef-8de6-4b6e-8e68-06073abf526b&query=Animal+Memes",
                             BirthDay = new DateTime(2004, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "manager@test.com",

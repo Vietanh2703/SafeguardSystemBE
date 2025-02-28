@@ -28,6 +28,7 @@ namespace SafeguardSystem
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IEmailService, EmailService>();
             builder.Services.AddScoped<IBusinessService, BusinessService>();
+            builder.Services.AddScoped<IShiftTypeService, ShiftTypeService>();
 
             // Cấu hình context database
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");

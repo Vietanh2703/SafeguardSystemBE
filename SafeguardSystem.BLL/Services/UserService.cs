@@ -1,5 +1,4 @@
 ﻿using FirebaseAdmin.Auth;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SafeguardSystem.BLL.IServices;
 using SafeguardSystem.Common.DTOs;
@@ -13,7 +12,6 @@ namespace SafeguardSystem.BLL.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IEmailService _emailService;
-        private readonly IUrlHelper Url;
 
         public UserService(IUnitOfWork unitOfWork, IEmailService emailService)
         {
@@ -26,11 +24,11 @@ namespace SafeguardSystem.BLL.Services
         {
             try
             {
-                // Check if a user with the given email or username already exists
+                // Check if a user with the given email already exists
                 var existingUserResponse = await _unitOfWork.Users.GetUserByEmailAsync(createUserDTO.Email);
                 if (existingUserResponse != null)
                 {
-                    return new ResponseDTO("User with this email or username already exists", 400, false);
+                    return new ResponseDTO("User with this email already exists", 400, false);
                 }
 
                 // Check if the provided RoleID exists
@@ -55,19 +53,18 @@ namespace SafeguardSystem.BLL.Services
                 }
                 catch (FirebaseAuthException ex)
                 {
-                    // Handle Firebase errors (e.g., email already exists on Firebase)
                     return new ResponseDTO($"Firebase error: {ex.Message}", 500, false);
                 }
 
                 var otp = new Random().Next(100000, 999999).ToString();
-                var otpExpiry = DateTime.UtcNow.AddMinutes(10); // OTP expires after 10 minutes
+                var otpExpiry = DateTime.UtcNow.AddMinutes(10);
 
-                // Create new user record in MySQL
+                // Create new user in MySQL
                 var newUser = new User
                 {
-                    UserId = userRecord.Uid,   // UID from Firebase
+                    UserId = userRecord.Uid,
                     Email = createUserDTO.Email,
-                    UserName = createUserDTO.Email,      // Can be changed if there is a separate username
+                    UserName = createUserDTO.Email,
                     FullName = createUserDTO.FullName,
                     Avatar = "https://www.didongmy.com/vnt_upload/news/05_2024/anh-13-meme-dang-yeu-didongmy.jpg",
                     Phone = createUserDTO.Phone,
@@ -75,13 +72,32 @@ namespace SafeguardSystem.BLL.Services
                     ActivationToken = otp,
                     ActivationTokenExpiry = otpExpiry,
                     IsActive = false,
-                    IsEmailConfirmed = false,  // Depending on your email confirmation flow
+                    IsEmailConfirmed = false,
                     IsDeleted = false
-                    // Other properties if needed
                 };
 
                 _unitOfWork.Users.Add(newUser);
                 await _unitOfWork.SaveChangeAsync();
+
+                //Tạo SecurityGuard nếu Role là Security Guard
+                var securityGuardRoleId = await _unitOfWork.Roles.GetSecurityGuardRoleIdAsync();
+                if (createUserDTO.RoleId == securityGuardRoleId)
+                {
+                    var newGuard = new SecurityGuard
+                    {
+                        GuardId = Guid.NewGuid(),
+                        UserId = newUser.UserId,
+                        Status = "PENDING", // hoặc dùng Enum
+                        Latitude = 0,
+                        Longitude = 0,
+                        IdentityNumber = "",
+                        StartDate = DateTime.UtcNow
+                    };
+
+                    _unitOfWork.SecurityGuards.Add(newGuard);
+                    await _unitOfWork.SaveChangeAsync();
+                }
+
                 await SendOtpEmail(newUser.Email, otp, newUser.FullName);
                 return new ResponseDTO("User created successfully.", 200, true);
             }
@@ -91,6 +107,7 @@ namespace SafeguardSystem.BLL.Services
                 return new ResponseDTO($"Error creating user: {errorDetails}", 500, false);
             }
         }
+
 
 
         // Gửi email xác thực OTP
@@ -195,6 +212,7 @@ namespace SafeguardSystem.BLL.Services
             }
         }
 
+        // Cập nhật thông tin người dùng
         public async Task<ResponseDTO> UpdateUserAsync(string userId, UpdateUserDTO updateUserDTO)
         {
             try

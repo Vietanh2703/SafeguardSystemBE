@@ -7,7 +7,7 @@ namespace SafeguardSystem.DAL.Repositories
 {
     public class UserRepository : GenericRepository<User>, IUserRepository
     {
-       private readonly SafeguardDbContext _context;
+        private readonly SafeguardDbContext _context;
 
         public UserRepository(SafeguardDbContext context) : base(context)
         {
@@ -16,13 +16,14 @@ namespace SafeguardSystem.DAL.Repositories
 
         public async Task<User> GetUserByEmailAsync(string email)
         {
-            return await _context.Users.FirstOrDefaultAsync(x => x.Email == email);
+            return await _context.Users.FirstOrDefaultAsync(x => x.Email == email && !x.IsDeleted);
         }
 
         public async Task<User> GetUserByFirebaseUidAsync(string userId)
         {
-            return await _context.Users.FirstOrDefaultAsync(u => u.UserId == userId);
+            return await _context.Users.FirstOrDefaultAsync(u => u.UserId == userId && !u.IsDeleted);
         }
+
 
         public async Task<User> CreateUserAsync(User user)
         {
@@ -33,8 +34,9 @@ namespace SafeguardSystem.DAL.Repositories
 
         public async Task<PaginatedList<User>> GetAllUsersWithPagingAsync(int pageIndex, int pageSize)
         {
-            var query = _context.Users.AsQueryable();
+            var query = _context.Users.Where(u => !u.IsDeleted).AsQueryable();
             return await PaginatedList<User>.CreateAsync(query, pageIndex, pageSize);
         }
+
     }
 }
