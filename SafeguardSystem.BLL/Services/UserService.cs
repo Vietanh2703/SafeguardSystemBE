@@ -1,5 +1,6 @@
 ﻿using FirebaseAdmin.Auth;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SafeguardSystem.BLL.IServices;
 using SafeguardSystem.Common.DTOs;
 using SafeguardSystem.DAL.Entities;
@@ -32,6 +33,12 @@ namespace SafeguardSystem.BLL.Services
                     return new ResponseDTO("User with this email or username already exists", 400, false);
                 }
 
+                // Check if the provided RoleID exists
+                var role = await _unitOfWork.Roles.GetByGuidAsync(createUserDTO.RoleId);
+                if (role == null)
+                {
+                    return new ResponseDTO("Invalid RoleID provided", 400, false);
+                }
 
                 var userRecordArgs = new UserRecordArgs
                 {
@@ -39,7 +46,8 @@ namespace SafeguardSystem.BLL.Services
                     Password = createUserDTO.PassWord,
                     DisplayName = createUserDTO.FullName,
                 };
-                // Tạo user trên Firebase
+
+                // Create user on Firebase
                 UserRecord userRecord;
                 try
                 {
@@ -47,32 +55,32 @@ namespace SafeguardSystem.BLL.Services
                 }
                 catch (FirebaseAuthException ex)
                 {
-                    // Xử lý lỗi của Firebase (ví dụ email đã tồn tại trên Firebase)
+                    // Handle Firebase errors (e.g., email already exists on Firebase)
                     return new ResponseDTO($"Firebase error: {ex.Message}", 500, false);
                 }
 
                 var otp = new Random().Next(100000, 999999).ToString();
-                var otpExpiry = DateTime.UtcNow.AddMinutes(10); // OTP hết hạn sau 10 phút
+                var otpExpiry = DateTime.UtcNow.AddMinutes(10); // OTP expires after 10 minutes
 
-                // Tạo record người dùng mới trong MySQL
+                // Create new user record in MySQL
                 var newUser = new User
                 {
-                    UserId = userRecord.Uid,   // UID từ Firebase
+                    UserId = userRecord.Uid,   // UID from Firebase
                     Email = createUserDTO.Email,
-                    UserName = createUserDTO.Email,      // Có thể thay đổi nếu có username riêng
+                    UserName = createUserDTO.Email,      // Can be changed if there is a separate username
                     FullName = createUserDTO.FullName,
                     Avatar = "https://www.didongmy.com/vnt_upload/news/05_2024/anh-13-meme-dang-yeu-didongmy.jpg",
                     Phone = createUserDTO.Phone,
-                    RoleID = Guid.Parse("be19e4b3-6664-4afd-9ebb-98e0a073edc9"),
+                    RoleID = createUserDTO.RoleId,
                     ActivationToken = otp,
                     ActivationTokenExpiry = otpExpiry,
                     IsActive = false,
-                    IsEmailConfirmed = false,  // Tùy theo luồng xác nhận email của bạn
+                    IsEmailConfirmed = false,  // Depending on your email confirmation flow
                     IsDeleted = false
-                    // Các thuộc tính khác nếu cần
+                    // Other properties if needed
                 };
 
-                 _unitOfWork.Users.Add(newUser);
+                _unitOfWork.Users.Add(newUser);
                 await _unitOfWork.SaveChangeAsync();
                 await SendOtpEmail(newUser.Email, otp, newUser.FullName);
                 return new ResponseDTO("User created successfully.", 200, true);
@@ -83,6 +91,7 @@ namespace SafeguardSystem.BLL.Services
                 return new ResponseDTO($"Error creating user: {errorDetails}", 500, false);
             }
         }
+
 
         // Gửi email xác thực OTP
         public async Task SendOtpEmail(string Email, string OtpText, string FullName)
@@ -174,11 +183,11 @@ namespace SafeguardSystem.BLL.Services
                     return new ResponseDTO($"Firebase error: {ex.Message}", 500, false);
                 }
 
-                // Xóa người dùng khỏi MySQL
-                _unitOfWork.Users.Delete(user);
+                // Cập nhật trạng thái soft delete trong MySQL
+                user.IsDeleted = true;
                 await _unitOfWork.SaveChangeAsync();
 
-                return new ResponseDTO("User deleted successfully", 200, true);
+                return new ResponseDTO("User has been deleted successfully", 200, true);
             }
             catch (Exception ex)
             {
@@ -186,5 +195,75 @@ namespace SafeguardSystem.BLL.Services
             }
         }
 
+        public async Task<ResponseDTO> UpdateUserAsync(string userId, UpdateUserDTO updateUserDTO)
+        {
+            try
+            {
+                // Kiểm tra user có tồn tại trong MySQL không
+                var user = await _unitOfWork.Users.GetUserByFirebaseUidAsync(userId);
+                if (user == null)
+                {
+                    return new ResponseDTO("User not found in database", 404, false);
+                }
+
+                // Kiểm tra nếu người dùng muốn đổi mật khẩu
+                if (!string.IsNullOrEmpty(updateUserDTO.Password))
+                {
+                    if (updateUserDTO.Password != updateUserDTO.ConfirmPassword)
+                    {
+                        return new ResponseDTO("Password and Confirm Password do not match", 400, false);
+                    }
+                }
+
+                // Cập nhật thông tin trên Firebase
+                try
+                {
+                    var firebaseUser = await FirebaseAuth.DefaultInstance.GetUserAsync(userId);
+                    var userRecordArgs = new UserRecordArgs
+                    {
+                        Uid = userId,
+                        DisplayName = updateUserDTO.FullName ?? firebaseUser.DisplayName,
+                    };
+
+                    // Nếu có mật khẩu mới, cập nhật trên Firebase
+                    if (!string.IsNullOrEmpty(updateUserDTO.Password))
+                    {
+                        userRecordArgs.Password = updateUserDTO.Password;
+                    }
+
+                    await FirebaseAuth.DefaultInstance.UpdateUserAsync(userRecordArgs);
+                }
+                catch (FirebaseAuthException ex)
+                {
+                    return new ResponseDTO($"Firebase error: {ex.Message}", 500, false);
+                }
+
+                // Cập nhật thông tin trong MySQL
+                user.UserName = updateUserDTO.UserName ?? user.UserName;
+                user.FullName = updateUserDTO.FullName ?? user.FullName;
+                user.Phone = updateUserDTO.Phone ?? user.Phone;
+                user.Avatar = updateUserDTO.Avatar ?? user.Avatar;
+                user.BirthDay = updateUserDTO.Birthday != DateTime.MinValue ? updateUserDTO.Birthday : user.BirthDay;
+                await _unitOfWork.SaveChangeAsync();
+
+                return new ResponseDTO("User profile updated successfully", 200, true, user);
+            }
+            catch (Exception ex)
+            {
+                return new ResponseDTO($"Error updating user profile: {ex.Message}", 500, false);
+            }
+        }
+
+        public async Task<ResponseDTO> GetAllRolesAsync()
+        {
+            var roles = await _unitOfWork.Roles.GetAll().ToListAsync();
+            var roleDTOs = roles.Select(r => new RoleDTO
+            {
+                RoleId = r.RoleId,
+                RoleName = r.RoleName
+            }).ToList();
+
+            return new ResponseDTO("Roles list:", 200, true, roleDTOs);
+        }
     }
 }

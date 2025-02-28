@@ -11,8 +11,8 @@ namespace SafeguardSystem.DAL.UnitOfWork
     {
         IBusinessRepository Businesses { get; }
         ICheckpointRepository Checkpoints { get; }
-        /*IContractRepository Contracts { get; }
         ILocationRepository Locations { get; }
+        /*IContractRepository Contracts { get; }
         ISecurityguardRepository Securityguards { get; }
         ISecurityshiftRepository Securityshifts { get; }
         IShiftassignmentRepository Shiftassignments { get; }

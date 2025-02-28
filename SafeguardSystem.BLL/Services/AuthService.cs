@@ -181,7 +181,9 @@ namespace SafeguardSystem.BLL.Services
                     IsActive = true,
                     IsEmailConfirmed = true,
                     IsDeleted = false,
-                    RoleID = Guid.NewGuid() // Thiết lập Role mặc định hoặc lấy từ cấu hình
+                    Phone = "",
+                    Avatar = "https://www.veryicon.com/icons/miscellaneous/generic-icon-3/avatar-real.html",
+                    RoleID = Guid.Parse("be19e4b3-6664-4afd-9ebb-98e0a073edc9") 
                 };
                 await _unitOfWork.Users.CreateUserAsync(user);
             }

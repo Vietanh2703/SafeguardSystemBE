@@ -124,13 +124,16 @@ namespace SafeguardSystem
                 };
             });
 
+            // Cấu hình CORS cho frontend
             builder.Services.AddCors(options =>
             {
-                options.AddPolicy("AllowFrontendOrigin", policy =>
+                builder.Services.AddCors(options =>
                 {
-                    policy.WithOrigins("http://localhost:3002") // Replace with your frontend origin
-                          .AllowAnyHeader()
-                          .AllowAnyMethod();
+                    options.AddPolicy("AllowFrontend",
+                 builder => builder.WithOrigins("http://localhost:5173")
+                                   .AllowAnyMethod()
+                                   .AllowAnyHeader()
+                                   .AllowCredentials());
                 });
             });
 

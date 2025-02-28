@@ -41,7 +41,8 @@ namespace SafeguardSystem.Controllers
             return StatusCode(results.StatusCode, results);
         }
 
-        [HttpDelete("delete-user/{userId}")]
+        [Route("delete-user/{userId}")]
+        [HttpPut]
         public async Task<IActionResult> DeleteUser(string userId)
         {
             var result = await _userService.DeleteUserAsync(userId);

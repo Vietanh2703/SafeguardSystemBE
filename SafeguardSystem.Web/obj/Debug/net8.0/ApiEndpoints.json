@@ -19,7 +19,7 @@
     "ContainingType": "SafeguardSystem.Controllers.AdminController",
     "Method": "DeleteUser",
     "RelativePath": "api/Admin/delete-user/{userId}",
-    "HttpMethod": "DELETE",
+    "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
     "Parameters": [
@@ -115,6 +115,37 @@
       {
         "Name": "refreshToken",
         "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SafeguardSystem.Web.Controllers.UserController",
+    "Method": "GetRoles",
+    "RelativePath": "roles",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SafeguardSystem.Web.Controllers.UserController",
+    "Method": "UpdateUser",
+    "RelativePath": "update-user/{userId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "updateUserDTO",
+        "Type": "SafeguardSystem.Common.DTOs.UpdateUserDTO",
         "IsRequired": true
       }
     ],

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Reflection.Metadata;
+using SafeguardSystem.DAL.Entities;
 
 namespace SafeguardSystem.DAL.UnitOfWork
 {
@@ -18,8 +19,8 @@ namespace SafeguardSystem.DAL.UnitOfWork
             _context = context;
             Businesses = new BusinessRepository(_context);
             Checkpoints = new CheckpointRepository(_context);
-            /*Contracts = new ContractRepository(_context);
             Locations = new LocationRepository(_context);
+            /*Contracts = new ContractRepository(_context);
             Securityguards = new SecurityguardRepository(_context);
             Securityshifts = new SecurityshiftRepository(_context);
             Shiftassignments = new ShiftassignmentRepository(_context);
@@ -33,8 +34,8 @@ namespace SafeguardSystem.DAL.UnitOfWork
 
         public IBusinessRepository Businesses { get; private set; }
         public ICheckpointRepository Checkpoints { get; private set; }
-        /*public IContractRepository Contracts { get; private set; }
         public ILocationRepository Locations { get; private set; }
+        /*public IContractRepository Contracts { get; private set; }
         public ISecurityguardRepository Securityguards { get; private set; }
         public ISecurityshiftRepository Securityshifts { get; private set; }
         public IShiftassignmentRepository Shiftassignments { get; private set; }
