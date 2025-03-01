@@ -90,22 +90,6 @@
   },
   {
     "ContainingType": "SafeguardSystem.Web.Controllers.LoginController",
-    "Method": "SignInWithGoogle",
-    "RelativePath": "api/login/signin-google",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "googleLoginDTO",
-        "Type": "SafeguardSystem.Common.DTOs.GoogleLoginDTO",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "SafeguardSystem.Web.Controllers.LoginController",
     "Method": "Logout",
     "RelativePath": "api/logout",
     "HttpMethod": "POST",
@@ -115,6 +99,22 @@
       {
         "Name": "refreshToken",
         "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SafeguardSystem.Web.Controllers.LoginController",
+    "Method": "SignInWithGoogle",
+    "RelativePath": "api/sign-in-google",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "googleLoginDTO",
+        "Type": "SafeguardSystem.Common.DTOs.GoogleLoginDTO",
         "IsRequired": true
       }
     ],
@@ -147,6 +147,43 @@
       {
         "Name": "typeId",
         "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SafeguardSystem.Web.Controllers.GuardController",
+    "Method": "GetGuardProfileById",
+    "RelativePath": "guard/{guardId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "guardId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SafeguardSystem.Web.Controllers.GuardController",
+    "Method": "UpdateGuardProfile",
+    "RelativePath": "guard/update/{guardId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "guardId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "guardDTO",
+        "Type": "SafeguardSystem.Common.DTOs.SecurityGuardDTO",
         "IsRequired": true
       }
     ],

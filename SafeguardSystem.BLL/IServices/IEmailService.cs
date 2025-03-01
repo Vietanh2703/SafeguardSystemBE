@@ -11,5 +11,6 @@ namespace SafeguardSystem.BLL.IServices
     {
         Task SendActivationEmailAsync(EmailRequest emailRequest);
         string GenerateEmailBody(string FullName, string OtpText);
+        string GenerateActivationSuccessEmailBody(string FullName);
     }
 }

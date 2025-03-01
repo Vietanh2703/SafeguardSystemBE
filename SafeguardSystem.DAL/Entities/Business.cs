@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SafeguardSystem.DAL.Entities;
 
-public partial class Business
+public class Business
 {
     [Key]
     [Required(ErrorMessage = "Id is required")]

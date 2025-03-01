@@ -121,7 +121,7 @@ namespace SafeguardSystem.BLL.Services
         }
 
         // Xác thực OTP và kích hoạt tài khoản
-        public async Task<ResponseDTO> VerifyOtpAsync(OtpDTO OtpDTO)
+        public async Task<ResponseDTO> VerifyOtpAsync(string Email, OtpDTO OtpDTO)
         {
             try
             {
@@ -147,6 +147,13 @@ namespace SafeguardSystem.BLL.Services
                 user.ActivationToken = null;  // Xóa OTP
                 user.ActivationTokenExpiry = null;  // Xóa thời gian hết hạn OTP
                 await _unitOfWork.SaveChangeAsync();
+
+                // Gửi email thông báo xác thực thành công
+                var emailRequest = new EmailRequest();
+                emailRequest.Email = Email;
+                emailRequest.Subject = "Your OTP Code for Account Activation Successfully";
+                emailRequest.EmailBody = _emailService.GenerateActivationSuccessEmailBody(user.FullName);
+                await _emailService.SendActivationEmailAsync(emailRequest);
 
                 return new ResponseDTO("Email verified successfully.", 200, true);
             }
@@ -272,6 +279,7 @@ namespace SafeguardSystem.BLL.Services
             }
         }
 
+        // Lấy danh sách các Role
         public async Task<ResponseDTO> GetAllRolesAsync()
         {
             var roles = await _unitOfWork.Roles.GetAll().ToListAsync();

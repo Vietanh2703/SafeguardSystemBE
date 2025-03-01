@@ -25,7 +25,7 @@ namespace SafeguardSystem.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> VerifyOtp([FromBody] OtpDTO otpDTO)
         {
-            var results = await _userService.VerifyOtpAsync(otpDTO);
+            var results = await _userService.VerifyOtpAsync(otpDTO.Email,otpDTO);
             return StatusCode(results.StatusCode, results);
         }
 

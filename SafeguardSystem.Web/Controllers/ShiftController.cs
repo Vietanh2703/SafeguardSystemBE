@@ -27,7 +27,7 @@ namespace SafeguardSystem.Web.Controllers
         /// Security manager creates a new shift type.
         /// </summary>
         /// <param name="shiftTypeDTO" >Lưu ý khi nhập thông tin time vào nhớ định dạng hh:mm:ss
-        /// (12:30:05) chứ nhập 12:30 lỗi ráng chịu</param>
+        /// (12:30:05 hay 05:45:12) chứ nhập 12:30 hay 5:45:12 hay 24:00:00 thay vì 00:00:00 lỗi ráng chịu</param>
         [Route("create-shift-type")]
         [HttpPost]
         public async Task<IActionResult> CreateShiftType([FromBody] ShiftTypeDTO shiftTypeDTO)
@@ -40,7 +40,7 @@ namespace SafeguardSystem.Web.Controllers
         /// Security manager updates a shift type.
         /// </summary>
         /// <param name="shiftTypeDTO" >Lưu ý khi nhập thông tin time vào nhớ định dạng hh:mm:ss
-        /// (12:30:05) chứ nhập 12:30 lỗi ráng chịu</param>
+        /// (12:30:05 hay 05:45:12) chứ nhập 12:30 hay 5:45:12 hay 24:00:00 thay vì 00:00:00 lỗi ráng chịu</param>
         [Route("update-shift-type/{typeId}")]
         [HttpPut]
         public async Task<IActionResult> UpdateShiftType(Guid typeId, [FromBody] ShiftTypeDTO shiftTypeDTO)

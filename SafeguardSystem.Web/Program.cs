@@ -11,6 +11,7 @@ using FirebaseAdmin.Auth;
 using System.Security.Claims;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
+using SafeguardSystem.BLL.Providers;
 
 
 
@@ -29,6 +30,8 @@ namespace SafeguardSystem
             builder.Services.AddScoped<IEmailService, EmailService>();
             builder.Services.AddScoped<IBusinessService, BusinessService>();
             builder.Services.AddScoped<IShiftTypeService, ShiftTypeService>();
+            builder.Services.AddScoped<IGuardService, GuardService>();
+
 
             // Cấu hình context database
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -44,6 +47,7 @@ namespace SafeguardSystem
             {
                 Credential = credential
             });
+
 
             // Cấu hình Swagger API
             builder.Services.AddEndpointsApiExplorer();
@@ -128,14 +132,14 @@ namespace SafeguardSystem
             // Cấu hình CORS cho frontend
             builder.Services.AddCors(options =>
             {
-                builder.Services.AddCors(options =>
-                {
-                    options.AddPolicy("AllowFrontend",
-                 builder => builder.WithOrigins("http://localhost:5173")
-                                   .AllowAnyMethod()
-                                   .AllowAnyHeader()
-                                   .AllowCredentials());
-                });
+                options.AddPolicy("AllowFrontend",
+                    policy =>
+                    {
+                        policy.WithOrigins("http://localhost:5173")
+                              .AllowAnyMethod()
+                              .AllowAnyHeader()
+                              .AllowCredentials();
+                    });
             });
 
             // Add controllers
@@ -152,9 +156,10 @@ namespace SafeguardSystem
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-
+            app.UseRouting();
+            app.UseCors();
             app.UseHttpsRedirection();
-
+            app.UseCors("AllowFrontend");
             app.UseAuthentication();
             app.UseAuthorization();
 

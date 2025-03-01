@@ -11,6 +11,6 @@ namespace SafeguardSystem.Common.DTOs
         /// <summary>
         /// The ID token received from Google after authentication.
         /// </summary>
-        public required string? IdToken { get; set; }
+        public required string IdToken { get; set; }
     }
 }

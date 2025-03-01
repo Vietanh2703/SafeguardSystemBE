@@ -1,10 +1,6 @@
-﻿using SafeguardSystem.DAL.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using SafeguardSystem.DAL.Entities;
 using SafeguardSystem.DAL.IRepositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SafeguardSystem.DAL.Repositories
 {
@@ -15,6 +11,13 @@ namespace SafeguardSystem.DAL.Repositories
         public SecurityGuardRepository(SafeguardDbContext context) : base(context)
         {
             _context = context;
+        }
+
+        public async Task<SecurityGuard?> GetByIdAsync(Guid guardId)
+        {
+            return await _context.SecurityGuards
+                .Include(g => g.User)
+                .SingleOrDefaultAsync(g => g.GuardId == guardId);
         }
     }
 }

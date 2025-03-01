@@ -45,10 +45,10 @@ namespace SafeguardSystem.BLL.Services
             body += "<div style='background-color: #fff; padding: 20px; border-radius: 10px;'>";
             body += "<div style='text-align: left;'>";
             body += "<img src='" + logoUrl + "' alt='Safeguard System' style='width: 100px; height: 100px; display: block; margin-bottom: 20px;'>";
-            body += "<h1 style='color: #333; font-size: 24px; margin-bottom: 20px;'>Safeguard System OTP Sender</h1>";
+            body += "<h1 style='color: #333; font-size: 24px; margin-bottom: 20px;'>Safeguard System Automatic Sender</h1>";
             body += "<p style='color: #333; font-size: 12px; margin-bottom: 10px;'>Hi " + FullName + ",</p>";
             body += "<p style='color: #333; font-size: 12px; margin-bottom: 10px;'>Your OTP is: <strong>" + OtpText + "</strong></p>";
-            body += "<p style='color: #333; font-size: 12px; margin-bottom: 10px;'>Please use this OTP to activate your account.</p>";
+            body += "<p style='color: #333; font-size: 12px; margin-bottom: 10px;'>Please use this OTP to activate your account and don't send it to anyone.</p>";
             body += "</div>";
             body += "<div style='text-align: center; margin-top: 40px;'>"; // Increased margin-top to 40px
             body += "<p style='color: #999; font-size: 14px;'>© 2025 Safeguard Assignment & Management System. All rights reserved.</p>";
@@ -60,6 +60,30 @@ namespace SafeguardSystem.BLL.Services
 
             return body;
 
+        }
+
+        public string GenerateActivationSuccessEmailBody(string FullName)
+        {
+            string body = string.Empty;
+            body = "<div style='font-family: Arial, sans-serif;'>";
+            body += "<div style='background-color: #f8f8f8; padding: 20px;'>";
+            body += "<div style='background-color: #fff; padding: 20px; border-radius: 10px;'>";
+            body += "<div style='text-align: left;'>";
+            body += "<img src='" + logoUrl + "' alt='Safeguard System' style='width: 100px; height: 100px; display: block; margin-bottom: 20px;'>";
+            body += "<h1 style='color: #333; font-size: 24px; margin-bottom: 20px;'>Safeguard System Automatic Sender</h1>";
+            body += "<p style='color: #333; font-size: 12px; margin-bottom: 10px;'>Hi " + FullName + ",</p>";
+            body += "<p style='color: #333; font-size: 12px; margin-bottom: 10px;'>Your account has been activated successfully.</p>";
+            body += "<p style='color: #333; font-size: 12px; margin-bottom: 10px;'>You can now login to the system.</p>";
+            body += "</div>";
+            body += "<div style='text-align: center; margin-top: 40px;'>"; // Increased margin-top to 40px
+            body += "<p style='color: #999; font-size: 14px;'>© 2025 Safeguard Assignment & Management System. All rights reserved.</p>";
+            body += "</div>";
+            body += "</div>";
+            body += "</div>";
+            body += "</div>";
+
+
+            return body;
         }
     }   
 }

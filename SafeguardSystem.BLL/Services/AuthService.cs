@@ -1,16 +1,13 @@
 ﻿using FirebaseAdmin.Auth;
 using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
 using SafeguardSystem.BLL.IServices;
 using SafeguardSystem.Common.Constants;
 using SafeguardSystem.Common.DTOs;
 using SafeguardSystem.Common.JWTSettings;
 using SafeguardSystem.DAL.Entities;
 using SafeguardSystem.DAL.UnitOfWork;
-using System.IdentityModel.Tokens.Jwt;
 using System.Net.Http.Json;
 using System.Security.Claims;
-using System.Text;
 using System.Text.Json;
 using static SafeguardSystem.BLL.Providers.JWTProvider;
 
@@ -183,7 +180,7 @@ namespace SafeguardSystem.BLL.Services
                     IsDeleted = false,
                     Phone = "",
                     Avatar = "https://www.veryicon.com/icons/miscellaneous/generic-icon-3/avatar-real.html",
-                    RoleID = Guid.Parse("be19e4b3-6664-4afd-9ebb-98e0a073edc9") 
+                    RoleID = Guid.Parse("be19e4b3-6664-4afd-9ebb-98e0a073edc9"), // Security Guard
                 };
                 await _unitOfWork.Users.CreateUserAsync(user);
             }
@@ -246,6 +243,7 @@ namespace SafeguardSystem.BLL.Services
         }
 
 
+        // Đăng xuất
         public async Task<ResponseDTO> LogoutAsync(LogoutDTO logoutDTO)
         {
             try

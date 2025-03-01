@@ -9,5 +9,6 @@ namespace SafeguardSystem.DAL.IRepositories
 {
     public interface ISecurityGuardRepository : IGenericRepository<SecurityGuard>
     {
+        Task<SecurityGuard> GetByIdAsync(Guid guardId);
     }
 }

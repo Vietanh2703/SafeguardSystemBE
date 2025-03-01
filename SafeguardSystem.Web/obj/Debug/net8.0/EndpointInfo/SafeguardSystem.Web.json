@@ -122,6 +122,71 @@
         }
       }
     },
+    "/guard/{guardId}": {
+      "get": {
+        "tags": [
+          "Guard"
+        ],
+        "parameters": [
+          {
+            "name": "guardId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/guard/update/{guardId}": {
+      "put": {
+        "tags": [
+          "Guard"
+        ],
+        "parameters": [
+          {
+            "name": "guardId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SecurityGuardDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SecurityGuardDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SecurityGuardDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/login": {
       "post": {
         "tags": [
@@ -153,7 +218,7 @@
         }
       }
     },
-    "/api/login/signin-google": {
+    "/api/sign-in-google": {
       "post": {
         "tags": [
           "Login"
@@ -235,7 +300,7 @@
         ],
         "summary": "Security manager creates a new shift type.",
         "requestBody": {
-          "description": "Lưu ý khi nhập thông tin time vào nhớ định dạng hh:mm:ss\r\n            (12:30:05) chứ nhập 12:30 lỗi ráng chịu",
+          "description": "Lưu ý khi nhập thông tin time vào nhớ định dạng hh:mm:ss\r\n            (12:30:05 hay 05:45:12) chứ nhập 12:30 hay 5:45:12 hay 24:00:00 thay vì 00:00:00 lỗi ráng chịu",
           "content": {
             "application/json": {
               "schema": {
@@ -279,7 +344,7 @@
           }
         ],
         "requestBody": {
-          "description": "Lưu ý khi nhập thông tin time vào nhớ định dạng hh:mm:ss\r\n            (12:30:05) chứ nhập 12:30 lỗi ráng chịu",
+          "description": "Lưu ý khi nhập thông tin time vào nhớ định dạng hh:mm:ss\r\n            (12:30:05 hay 05:45:12) chứ nhập 12:30 hay 5:45:12 hay 24:00:00 thay vì 00:00:00 lỗi ráng chịu",
           "content": {
             "application/json": {
               "schema": {
@@ -501,6 +566,45 @@
             "type": "boolean"
           },
           "result": {
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SecurityGuardDTO": {
+        "type": "object",
+        "properties": {
+          "identityNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "fullName": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "password": {
+            "type": "string",
+            "nullable": true
+          },
+          "confirmPassword": {
+            "type": "string",
+            "nullable": true
+          },
+          "avatar": {
+            "type": "string",
+            "nullable": true
+          },
+          "phoneNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "birthDay": {
+            "type": "string",
+            "format": "date-time",
             "nullable": true
           }
         },

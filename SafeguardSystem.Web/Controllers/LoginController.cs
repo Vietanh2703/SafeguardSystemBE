@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FirebaseAdmin.Auth;
+using Microsoft.AspNetCore.Mvc;
 using SafeguardSystem.BLL.IServices;
 using SafeguardSystem.BLL.Services;
 using SafeguardSystem.Common.DTOs;
@@ -23,11 +24,12 @@ namespace SafeguardSystem.Web.Controllers
             return StatusCode(response.StatusCode, response);
         }
 
-        [HttpPost("login/signin-google")]
+        [Route("sign-in-google")]
+        [HttpPost]
         public async Task<IActionResult> SignInWithGoogle([FromBody] GoogleLoginDTO googleLoginDTO)
         {
-            var response = await _authService.SignInWithGoogleAsync(googleLoginDTO);
-            return StatusCode(response.StatusCode, response);
+            var result = await _authService.SignInWithGoogleAsync(googleLoginDTO);
+            return StatusCode(result.StatusCode, result);
         }
 
         [HttpPost("logout")]
