@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SafeguardSystem.DAL.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigrations : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -391,18 +391,19 @@ namespace SafeguardSystem.DAL.Migrations
                 {
                     { "58sErANL7bbv096ghTnNN3qIiqX2", null, null, "https://www.freepik.com/free-vector/simple-vibing-cat-square-meme_58459053.htm#fromView=keyword&page=1&position=0&uuid=f4bd18ef-8de6-4b6e-8e68-06073abf526b&query=Animal+Memes", new DateTime(2004, 3, 27, 0, 0, 0, 0, DateTimeKind.Unspecified), "admin@test.com", "Viet Anh", true, false, true, "0123456789", null, null, new Guid("7a04e1d4-c176-467d-ac7d-6e1433ce6f3e"), "Admin" },
                     { "IuyPY3ie8OQG60w0gasxQNkXHzS2", null, null, "https://www.freepik.com/free-vector/simple-vibing-cat-square-meme_58459053.htm#fromView=keyword&page=1&position=0&uuid=f4bd18ef-8de6-4b6e-8e68-06073abf526b&query=Animal+Memes", new DateTime(2001, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "phong@test.com", "Nguyen Phuc Hau", true, false, true, "0123456789", null, null, new Guid("be19e4b3-6664-4afd-9ebb-98e0a073edc9"), "Business Partner" },
+                    { "ksyosShXa2QizFvCVkpe6dAG3ax1", null, null, "https://www.freepik.com/free-vector/simple-vibing-cat-square-meme_58459053.htm#fromView=keyword&page=1&position=0&uuid=f4bd18ef-8de6-4b6e-8e68-06073abf526b&query=Animal+Memes", new DateTime(2001, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "guard@test.com", "Nguyen Khai Minh", true, false, true, "0123456789", null, null, new Guid("d1616b66-90cc-479f-b45e-1e86378937f7"), "Security Guard" },
                     { "UCdsPNEZpKeUlbPE8q478r60f5o1", null, null, "https://www.freepik.com/free-vector/simple-vibing-cat-square-meme_58459053.htm#fromView=keyword&page=1&position=0&uuid=f4bd18ef-8de6-4b6e-8e68-06073abf526b&query=Animal+Memes", new DateTime(2004, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "manager@test.com", "Nhat Nam", true, false, true, "0123456789", null, null, new Guid("6be95231-36aa-4a26-8c61-b65e040ec32a"), "Manager" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Businesses",
                 columns: new[] { "BusinessId", "ContractExpiry", "Description", "IsActive", "IsDeleted", "Name", "UserId" },
-                values: new object[] { new Guid("7c54454f-337d-4b5b-a2d0-74ad4088686b"), new DateTime(2026, 3, 2, 0, 34, 58, 593, DateTimeKind.Utc).AddTicks(5494), "Nơi sinh hoạt văn hóa, giải trí dành cho sinh viên", true, false, "Nhà văn hóa sinh viên", "IuyPY3ie8OQG60w0gasxQNkXHzS2" });
+                values: new object[] { new Guid("7c54454f-337d-4b5b-a2d0-74ad4088686b"), new DateTime(2026, 3, 2, 16, 9, 3, 178, DateTimeKind.Utc).AddTicks(2365), "Nơi sinh hoạt văn hóa, giải trí dành cho sinh viên", true, false, "Nhà văn hóa sinh viên", "IuyPY3ie8OQG60w0gasxQNkXHzS2" });
 
             migrationBuilder.InsertData(
                 table: "Locations",
                 columns: new[] { "LocationId", "BusinessId", "CreatedAt", "IsDeleted", "Latitude", "Longitude", "Name", "PlaceId", "UpdatedAt" },
-                values: new object[] { new Guid("c86114da-36c8-4644-8ab0-dbdcb5c2f830"), new Guid("7c54454f-337d-4b5b-a2d0-74ad4088686b"), new DateTime(2025, 3, 2, 0, 34, 58, 593, DateTimeKind.Utc).AddTicks(5585), false, 10.882934m, 106.785746m, "Nhà văn hóa sinh viên", new Guid("b49d8b9c-1574-4117-b1d5-43412dc174c4"), null });
+                values: new object[] { new Guid("c86114da-36c8-4644-8ab0-dbdcb5c2f830"), new Guid("7c54454f-337d-4b5b-a2d0-74ad4088686b"), new DateTime(2025, 3, 2, 16, 9, 3, 178, DateTimeKind.Utc).AddTicks(2440), false, 10.882934m, 106.785746m, "Nhà văn hóa sinh viên", new Guid("07b246c8-222f-4cd5-a99b-757f754ea525"), null });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Businesses_UserId",

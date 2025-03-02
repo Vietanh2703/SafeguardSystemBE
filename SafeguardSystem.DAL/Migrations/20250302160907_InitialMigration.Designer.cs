@@ -12,8 +12,8 @@ using SafeguardSystem.DAL;
 namespace SafeguardSystem.DAL.Migrations
 {
     [DbContext(typeof(SafeguardDbContext))]
-    [Migration("20250302003459_InitialMigrations")]
-    partial class InitialMigrations
+    [Migration("20250302160907_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -61,7 +61,7 @@ namespace SafeguardSystem.DAL.Migrations
                         new
                         {
                             BusinessId = new Guid("7c54454f-337d-4b5b-a2d0-74ad4088686b"),
-                            ContractExpiry = new DateTime(2026, 3, 2, 0, 34, 58, 593, DateTimeKind.Utc).AddTicks(5494),
+                            ContractExpiry = new DateTime(2026, 3, 2, 16, 9, 3, 178, DateTimeKind.Utc).AddTicks(2365),
                             Description = "Nơi sinh hoạt văn hóa, giải trí dành cho sinh viên",
                             IsActive = true,
                             IsDeleted = false,
@@ -177,12 +177,12 @@ namespace SafeguardSystem.DAL.Migrations
                         {
                             LocationId = new Guid("c86114da-36c8-4644-8ab0-dbdcb5c2f830"),
                             BusinessId = new Guid("7c54454f-337d-4b5b-a2d0-74ad4088686b"),
-                            CreatedAt = new DateTime(2025, 3, 2, 0, 34, 58, 593, DateTimeKind.Utc).AddTicks(5585),
+                            CreatedAt = new DateTime(2025, 3, 2, 16, 9, 3, 178, DateTimeKind.Utc).AddTicks(2440),
                             IsDeleted = false,
                             Latitude = 10.882934m,
                             Longitude = 106.785746m,
                             Name = "Nhà văn hóa sinh viên",
-                            PlaceId = new Guid("b49d8b9c-1574-4117-b1d5-43412dc174c4")
+                            PlaceId = new Guid("07b246c8-222f-4cd5-a99b-757f754ea525")
                         });
                 });
 
@@ -549,6 +549,20 @@ namespace SafeguardSystem.DAL.Migrations
                             Phone = "0123456789",
                             RoleID = new Guid("be19e4b3-6664-4afd-9ebb-98e0a073edc9"),
                             UserName = "Business Partner"
+                        },
+                        new
+                        {
+                            UserId = "ksyosShXa2QizFvCVkpe6dAG3ax1",
+                            Avatar = "https://www.freepik.com/free-vector/simple-vibing-cat-square-meme_58459053.htm#fromView=keyword&page=1&position=0&uuid=f4bd18ef-8de6-4b6e-8e68-06073abf526b&query=Animal+Memes",
+                            BirthDay = new DateTime(2001, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "guard@test.com",
+                            FullName = "Nguyen Khai Minh",
+                            IsActive = true,
+                            IsDeleted = false,
+                            IsEmailConfirmed = true,
+                            Phone = "0123456789",
+                            RoleID = new Guid("d1616b66-90cc-479f-b45e-1e86378937f7"),
+                            UserName = "Security Guard"
                         });
                 });
 

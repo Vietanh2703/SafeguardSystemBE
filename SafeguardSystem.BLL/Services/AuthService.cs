@@ -162,7 +162,7 @@ namespace SafeguardSystem.BLL.Services
             if (user == null)
             {
                 // Gán vai trò mặc định BusinessPartner nếu user mới
-                var defaultRole = await _unitOfWork.Roles.GetRoleIdByNameAsync("");
+                var defaultRole = await _unitOfWork.Roles.GetRoleIdByNameAsync("Business Partner");
 
                 user = new User
                 {

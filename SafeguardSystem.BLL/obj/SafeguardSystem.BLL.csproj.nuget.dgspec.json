@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\nhatn\\Desktop\\ky 7\\SWD\\SafeguardSystemBE\\SafeguardSystem.BLL\\SafeguardSystem.BLL.csproj": {}
+    "D:\\SafeguardSystemBE\\SafeguardSystem.BLL\\SafeguardSystem.BLL.csproj": {}
   },
   "projects": {
-    "C:\\Users\\nhatn\\Desktop\\ky 7\\SWD\\SafeguardSystemBE\\SafeguardSystem.BLL\\SafeguardSystem.BLL.csproj": {
+    "D:\\SafeguardSystemBE\\SafeguardSystem.BLL\\SafeguardSystem.BLL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\nhatn\\Desktop\\ky 7\\SWD\\SafeguardSystemBE\\SafeguardSystem.BLL\\SafeguardSystem.BLL.csproj",
+        "projectUniqueName": "D:\\SafeguardSystemBE\\SafeguardSystem.BLL\\SafeguardSystem.BLL.csproj",
         "projectName": "SafeguardSystem.BLL",
-        "projectPath": "C:\\Users\\nhatn\\Desktop\\ky 7\\SWD\\SafeguardSystemBE\\SafeguardSystem.BLL\\SafeguardSystem.BLL.csproj",
-        "packagesPath": "C:\\Users\\nhatn\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\nhatn\\Desktop\\ky 7\\SWD\\SafeguardSystemBE\\SafeguardSystem.BLL\\obj\\",
+        "projectPath": "D:\\SafeguardSystemBE\\SafeguardSystem.BLL\\SafeguardSystem.BLL.csproj",
+        "packagesPath": "C:\\Users\\anhnt\\.nuget\\packages\\",
+        "outputPath": "D:\\SafeguardSystemBE\\SafeguardSystem.BLL\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\nhatn\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\anhnt\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,18 +26,17 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\nhatn\\Desktop\\ky 7\\SWD\\SafeguardSystemBE\\SafeguardSystem.Common\\SafeguardSystem.Common.csproj": {
-                "projectPath": "C:\\Users\\nhatn\\Desktop\\ky 7\\SWD\\SafeguardSystemBE\\SafeguardSystem.Common\\SafeguardSystem.Common.csproj"
+              "D:\\SafeguardSystemBE\\SafeguardSystem.Common\\SafeguardSystem.Common.csproj": {
+                "projectPath": "D:\\SafeguardSystemBE\\SafeguardSystem.Common\\SafeguardSystem.Common.csproj"
               },
-              "C:\\Users\\nhatn\\Desktop\\ky 7\\SWD\\SafeguardSystemBE\\SafeguardSystem.DAL\\SafeguardSystem.DAL.csproj": {
-                "projectPath": "C:\\Users\\nhatn\\Desktop\\ky 7\\SWD\\SafeguardSystemBE\\SafeguardSystem.DAL\\SafeguardSystem.DAL.csproj"
+              "D:\\SafeguardSystemBE\\SafeguardSystem.DAL\\SafeguardSystem.DAL.csproj": {
+                "projectPath": "D:\\SafeguardSystemBE\\SafeguardSystem.DAL\\SafeguardSystem.DAL.csproj"
               }
             }
           }
@@ -47,7 +50,8 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        }
+        },
+        "SdkAnalysisLevel": "9.0.200"
       },
       "frameworks": {
         "net8.0": {
@@ -68,21 +72,25 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\nhatn\\Desktop\\ky 7\\SWD\\SafeguardSystemBE\\SafeguardSystem.Common\\SafeguardSystem.Common.csproj": {
+    "D:\\SafeguardSystemBE\\SafeguardSystem.Common\\SafeguardSystem.Common.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\nhatn\\Desktop\\ky 7\\SWD\\SafeguardSystemBE\\SafeguardSystem.Common\\SafeguardSystem.Common.csproj",
+        "projectUniqueName": "D:\\SafeguardSystemBE\\SafeguardSystem.Common\\SafeguardSystem.Common.csproj",
         "projectName": "SafeguardSystem.Common",
-        "projectPath": "C:\\Users\\nhatn\\Desktop\\ky 7\\SWD\\SafeguardSystemBE\\SafeguardSystem.Common\\SafeguardSystem.Common.csproj",
-        "packagesPath": "C:\\Users\\nhatn\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\nhatn\\Desktop\\ky 7\\SWD\\SafeguardSystemBE\\SafeguardSystem.Common\\obj\\",
+        "projectPath": "D:\\SafeguardSystemBE\\SafeguardSystem.Common\\SafeguardSystem.Common.csproj",
+        "packagesPath": "C:\\Users\\anhnt\\.nuget\\packages\\",
+        "outputPath": "D:\\SafeguardSystemBE\\SafeguardSystem.Common\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\nhatn\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\anhnt\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -90,15 +98,14 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\nhatn\\Desktop\\ky 7\\SWD\\SafeguardSystemBE\\SafeguardSystem.DAL\\SafeguardSystem.DAL.csproj": {
-                "projectPath": "C:\\Users\\nhatn\\Desktop\\ky 7\\SWD\\SafeguardSystemBE\\SafeguardSystem.DAL\\SafeguardSystem.DAL.csproj"
+              "D:\\SafeguardSystemBE\\SafeguardSystem.DAL\\SafeguardSystem.DAL.csproj": {
+                "projectPath": "D:\\SafeguardSystemBE\\SafeguardSystem.DAL\\SafeguardSystem.DAL.csproj"
               }
             }
           }
@@ -112,7 +119,8 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        }
+        },
+        "SdkAnalysisLevel": "9.0.200"
       },
       "frameworks": {
         "net8.0": {
@@ -133,21 +141,25 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\nhatn\\Desktop\\ky 7\\SWD\\SafeguardSystemBE\\SafeguardSystem.DAL\\SafeguardSystem.DAL.csproj": {
+    "D:\\SafeguardSystemBE\\SafeguardSystem.DAL\\SafeguardSystem.DAL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\nhatn\\Desktop\\ky 7\\SWD\\SafeguardSystemBE\\SafeguardSystem.DAL\\SafeguardSystem.DAL.csproj",
+        "projectUniqueName": "D:\\SafeguardSystemBE\\SafeguardSystem.DAL\\SafeguardSystem.DAL.csproj",
         "projectName": "SafeguardSystem.DAL",
-        "projectPath": "C:\\Users\\nhatn\\Desktop\\ky 7\\SWD\\SafeguardSystemBE\\SafeguardSystem.DAL\\SafeguardSystem.DAL.csproj",
-        "packagesPath": "C:\\Users\\nhatn\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\nhatn\\Desktop\\ky 7\\SWD\\SafeguardSystemBE\\SafeguardSystem.DAL\\obj\\",
+        "projectPath": "D:\\SafeguardSystemBE\\SafeguardSystem.DAL\\SafeguardSystem.DAL.csproj",
+        "packagesPath": "C:\\Users\\anhnt\\.nuget\\packages\\",
+        "outputPath": "D:\\SafeguardSystemBE\\SafeguardSystem.DAL\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\nhatn\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\anhnt\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -155,7 +167,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -173,7 +184,8 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        }
+        },
+        "SdkAnalysisLevel": "9.0.200"
       },
       "frameworks": {
         "net8.0": {
@@ -272,7 +284,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

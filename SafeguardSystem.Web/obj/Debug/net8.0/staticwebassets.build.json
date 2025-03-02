@@ -1,11 +1,12 @@
 {
   "Version": 1,
-  "Hash": "QRVlgZ0iNJkZG/HCW6lzENw0jsJ9XC4FhmLg1EyJjb0=",
+  "Hash": "9Hcz5pfMcdJMTA+4T3v/2bCucSZ0mpVMkU5oz+Rac4s=",
   "Source": "SafeguardSystem.Web",
   "BasePath": "_content/SafeguardSystem.Web",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
   "DiscoveryPatterns": [],
-  "Assets": []
+  "Assets": [],
+  "Endpoints": []
 }

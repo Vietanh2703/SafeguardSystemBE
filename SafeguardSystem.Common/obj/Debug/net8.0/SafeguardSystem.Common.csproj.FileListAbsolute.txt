@@ -30,3 +30,19 @@ C:\Users\nhatn\Desktop\ky 7\SWD\SafeguardSystemBE\SafeguardSystem.Common\obj\Deb
 C:\Users\nhatn\Desktop\ky 7\SWD\SafeguardSystemBE\SafeguardSystem.Common\obj\Debug\net8.0\refint\SafeguardSystem.Common.dll
 C:\Users\nhatn\Desktop\ky 7\SWD\SafeguardSystemBE\SafeguardSystem.Common\obj\Debug\net8.0\SafeguardSystem.Common.pdb
 C:\Users\nhatn\Desktop\ky 7\SWD\SafeguardSystemBE\SafeguardSystem.Common\obj\Debug\net8.0\ref\SafeguardSystem.Common.dll
+D:\SafeguardSystemBE\SafeguardSystem.Common\bin\Debug\net8.0\SafeguardSystem.Common.deps.json
+D:\SafeguardSystemBE\SafeguardSystem.Common\bin\Debug\net8.0\SafeguardSystem.Common.dll
+D:\SafeguardSystemBE\SafeguardSystem.Common\bin\Debug\net8.0\SafeguardSystem.Common.pdb
+D:\SafeguardSystemBE\SafeguardSystem.Common\bin\Debug\net8.0\SafeguardSystem.DAL.dll
+D:\SafeguardSystemBE\SafeguardSystem.Common\bin\Debug\net8.0\SafeguardSystem.DAL.pdb
+D:\SafeguardSystemBE\SafeguardSystem.Common\obj\Debug\net8.0\SafeguardSystem.Common.csproj.AssemblyReference.cache
+D:\SafeguardSystemBE\SafeguardSystem.Common\obj\Debug\net8.0\SafeguardSystem.Common.GeneratedMSBuildEditorConfig.editorconfig
+D:\SafeguardSystemBE\SafeguardSystem.Common\obj\Debug\net8.0\SafeguardSystem.Common.AssemblyInfoInputs.cache
+D:\SafeguardSystemBE\SafeguardSystem.Common\obj\Debug\net8.0\SafeguardSystem.Common.AssemblyInfo.cs
+D:\SafeguardSystemBE\SafeguardSystem.Common\obj\Debug\net8.0\SafeguardSystem.Common.csproj.CoreCompileInputs.cache
+D:\SafeguardSystemBE\SafeguardSystem.Common\obj\Debug\net8.0\SafeguardSystem.Common.sourcelink.json
+D:\SafeguardSystemBE\SafeguardSystem.Common\obj\Debug\net8.0\Safeguar.726FF789.Up2Date
+D:\SafeguardSystemBE\SafeguardSystem.Common\obj\Debug\net8.0\SafeguardSystem.Common.dll
+D:\SafeguardSystemBE\SafeguardSystem.Common\obj\Debug\net8.0\refint\SafeguardSystem.Common.dll
+D:\SafeguardSystemBE\SafeguardSystem.Common\obj\Debug\net8.0\SafeguardSystem.Common.pdb
+D:\SafeguardSystemBE\SafeguardSystem.Common\obj\Debug\net8.0\ref\SafeguardSystem.Common.dll
