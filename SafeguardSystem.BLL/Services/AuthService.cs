@@ -146,7 +146,7 @@ namespace SafeguardSystem.BLL.Services
         //Đăng nhập bằng Google
         public async Task<ResponseDTO> SignInWithGoogleAsync(GoogleLoginDTO googleLoginDTO)
         {
-            //Xác thực Google token bằng Firebase Admin SDK
+            // Xác thực Google token bằng Firebase Admin SDK
             FirebaseToken decodedToken;
             try
             {
@@ -157,15 +157,15 @@ namespace SafeguardSystem.BLL.Services
                 return new ResponseDTO($"Error verifying Google token: {ex.Message}", 400, false);
             }
 
-            //Kiểm tra các thông tin trong token
+            // Kiểm tra các thông tin trong token
             string UserId = decodedToken.Uid;
             string Email = decodedToken.Claims.ContainsKey("email") ? decodedToken.Claims["email"].ToString() : null;
             string Name = decodedToken.Claims.ContainsKey("name") ? decodedToken.Claims["name"].ToString() : null;
 
             if (string.IsNullOrEmpty(UserId) || string.IsNullOrEmpty(Email))
-                new ResponseDTO("Invalid Google token", 400, false);
+                return new ResponseDTO("Invalid Google token", 400, false);
 
-            //Kiểm tra User trong database, nếu chưa có thì tạo mới
+            // Kiểm tra User trong database, nếu chưa có thì tạo mới
             var user = await _unitOfWork.Users.GetUserByFirebaseUidAsync(UserId);
             if (user == null)
             {
@@ -180,9 +180,40 @@ namespace SafeguardSystem.BLL.Services
                     IsDeleted = false,
                     Phone = "",
                     Avatar = "https://www.veryicon.com/icons/miscellaneous/generic-icon-3/avatar-real.html",
-                    RoleID = Guid.Parse("be19e4b3-6664-4afd-9ebb-98e0a073edc9"), // Security Guard
+                    RoleID = Guid.Parse("be19e4b3-6664-4afd-9ebb-98e0a073edc9"), // Business Role
                 };
                 await _unitOfWork.Users.CreateUserAsync(user);
+
+                // Tạo mới Business
+                var business = new Business
+                {
+                    BusinessId = Guid.NewGuid(),
+                    Name = user.FullName,
+                    IsActive = true,
+                    UserId = user.UserId,
+                    ContractExpiry = DateTime.UtcNow.AddYears(1), // Example expiry date
+                    IsDeleted = false
+                };
+                await _unitOfWork.Businesses.CreateAsync(business);
+            }
+            else
+            {
+                // Kiểm tra xem Business đã tồn tại chưa
+                var existingBusiness = await _unitOfWork.Businesses.GetBusinessByUserIdAsync(user.UserId);
+                if (existingBusiness == null)
+                {
+                    // Tạo mới Business nếu chưa tồn tại
+                    var business = new Business
+                    {
+                        BusinessId = Guid.NewGuid(),
+                        Name = user.FullName,
+                        IsActive = true,
+                        UserId = user.UserId,
+                        ContractExpiry = DateTime.UtcNow.AddYears(1), // Example expiry date
+                        IsDeleted = false
+                    };
+                    await _unitOfWork.Businesses.CreateAsync(business);
+                }
             }
 
             var exitsRefreshToken = await _unitOfWork.RefreshTokens.GetRefreshTokenByUserID(user.UserId);
@@ -193,21 +224,21 @@ namespace SafeguardSystem.BLL.Services
                 await _unitOfWork.RefreshTokens.UpdateAsync(exitsRefreshToken); // cập nhật
             }
 
-            //khởi tạo claim
+            // khởi tạo claim
             var claims = new List<Claim>
-            {
-                new Claim(JwtConstant.KeyClaim.Email, user.Email ?? string.Empty),
-                new Claim(JwtConstant.KeyClaim.userId, user.UserId.ToString()),
-                new Claim(JwtConstant.KeyClaim.fullName, user.FullName ?? string.Empty)
-            };
+    {
+        new Claim(JwtConstant.KeyClaim.Email, user.Email ?? string.Empty),
+        new Claim(JwtConstant.KeyClaim.userId, user.UserId.ToString()),
+        new Claim(JwtConstant.KeyClaim.fullName, user.FullName ?? string.Empty)
+    };
 
-            //tạo refesh token
+            // tạo refesh token
             var refreshTokenKey = JwtProvider.GenerateRefreshToken(claims);
 
-            //tạo access token
+            // tạo access token
             var accessTokenKey = JwtProvider.GenerateAccessToken(claims);
 
-            //Cập nhật mới refreshToken
+            // Cập nhật mới refreshToken
             var refreshToken = new RefreshToken
             {
                 RefreshTokenId = Guid.NewGuid(),
@@ -230,7 +261,7 @@ namespace SafeguardSystem.BLL.Services
             var role = await _unitOfWork.Roles.GetByGuIdAsync(user.RoleID);
             var roleName = role.RoleName;
 
-            //Tạo JWT token cục bộ cho ứng dụng
+            // Tạo JWT token cục bộ cho ứng dụng
             return new ResponseDTO("Login successful", 200, true, new
             {
                 AccessToken = accessTokenKey,
@@ -239,7 +270,6 @@ namespace SafeguardSystem.BLL.Services
                 FullName = user.FullName,
                 Role = roleName
             });
-
         }
 
 

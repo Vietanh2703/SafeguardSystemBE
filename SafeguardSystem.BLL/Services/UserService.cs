@@ -108,8 +108,6 @@ namespace SafeguardSystem.BLL.Services
             }
         }
 
-
-
         // Gửi email xác thực OTP
         public async Task SendOtpEmail(string Email, string OtpText, string FullName)
         {
@@ -282,7 +280,10 @@ namespace SafeguardSystem.BLL.Services
         // Lấy danh sách các Role
         public async Task<ResponseDTO> GetAllRolesAsync()
         {
-            var roles = await _unitOfWork.Roles.GetAll().ToListAsync();
+            var roles = await _unitOfWork.Roles.GetAll()
+                .Where(r => !r.RoleName.ToLower().Equals("Admin"))
+                .ToListAsync();
+
             var roleDTOs = roles.Select(r => new RoleDTO
             {
                 RoleId = r.RoleId,

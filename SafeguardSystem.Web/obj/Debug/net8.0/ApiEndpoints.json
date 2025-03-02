@@ -121,6 +121,27 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "SafeguardSystem.Web.Controllers.LocationController",
+    "Method": "CreateLocation",
+    "RelativePath": "create-location",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "businessId",
+        "Type": "System.Guid",
+        "IsRequired": false
+      },
+      {
+        "Name": "locationDTO",
+        "Type": "SafeguardSystem.Common.DTOs.LocationDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "SafeguardSystem.Web.Controllers.ShiftController",
     "Method": "CreateShiftType",
     "RelativePath": "create-shift-type",
@@ -190,6 +211,27 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "SafeguardSystem.Web.Controllers.LocationController",
+    "Method": "GetLocations",
+    "RelativePath": "locations",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "pageNumber",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "SafeguardSystem.Web.Controllers.UserController",
     "Method": "GetRoles",
     "RelativePath": "roles",
@@ -197,6 +239,22 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SafeguardSystem.Web.Controllers.LocationController",
+    "Method": "GetLocationByName",
+    "RelativePath": "search-location/{locationName}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "locationName",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   },
   {

@@ -1,4 +1,5 @@
-﻿using SafeguardSystem.DAL.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using SafeguardSystem.DAL.Entities;
 using SafeguardSystem.DAL.Extensions;
 using SafeguardSystem.DAL.IRepositories;
 using System;
@@ -22,6 +23,35 @@ namespace SafeguardSystem.DAL.Repositories
         {
             var query = _context.Locations.AsQueryable();
             return await PaginatedList<Location>.CreateAsync(query, pageNumber, pageSize);
+        }
+
+        // Lấy Location theo tên
+        public async Task<Location> GetLocationByName(string locationName)
+        {
+            return await _context.Locations
+                .FirstOrDefaultAsync(loc => loc.Name == locationName);
+        }
+
+
+
+        // Thêm Location mới
+        public async Task AddLocation(Location location)
+        {
+            await _context.Locations.AddAsync(location);
+        }
+
+        // Lấy Location theo tọa độ
+        public async Task<Location> GetByCoordinatesAsync(decimal latitude, decimal longitude)
+        {
+            return await _context.Locations
+                .FirstOrDefaultAsync(loc => loc.Latitude == latitude && loc.Longitude == longitude);
+        }
+        // Lấy Location theo BusinessId
+        public async Task<List<Location>> GetLocationByBusinessId(Guid businessId)
+        {
+            return await _context.Locations
+                .Where(loc => loc.BusinessId == businessId)
+                .ToListAsync();
         }
     }
 }

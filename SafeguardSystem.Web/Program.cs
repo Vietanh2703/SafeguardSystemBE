@@ -11,7 +11,6 @@ using FirebaseAdmin.Auth;
 using System.Security.Claims;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
-using SafeguardSystem.BLL.Providers;
 
 
 
@@ -31,6 +30,8 @@ namespace SafeguardSystem
             builder.Services.AddScoped<IBusinessService, BusinessService>();
             builder.Services.AddScoped<IShiftTypeService, ShiftTypeService>();
             builder.Services.AddScoped<IGuardService, GuardService>();
+            builder.Services.AddScoped<ILocationService, LocationService>();
+
 
 
             // Cấu hình context database

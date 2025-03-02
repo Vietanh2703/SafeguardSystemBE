@@ -11,11 +11,10 @@ namespace SafeguardSystem.DAL.IRepositories
     public interface ILocationRepository
     {
         Task<PaginatedList<Location>> GetAllLocations(int pageNumber, int pageSize);
-        //Task<Location> GetLocationById(Guid locationId);
-        //Task<Location> GetLocationByName(string locationName);
-        //Task AddLocation(Location location);
-        //Task UpdateLocation(Location location);
-        //Task DeleteLocation(Guid locationId);
+        Task<Location> GetLocationByName(string locationName);
+        Task AddLocation(Location location);
+        Task<Location> GetByCoordinatesAsync(decimal latitude, decimal longitude);
+        Task<List<Location>> GetLocationByBusinessId(Guid businessId);
 
     }
 }

@@ -12,7 +12,7 @@ using SafeguardSystem.DAL;
 namespace SafeguardSystem.DAL.Migrations
 {
     [DbContext(typeof(SafeguardDbContext))]
-    [Migration("20250228192803_InitialMigrations")]
+    [Migration("20250302003459_InitialMigrations")]
     partial class InitialMigrations
     {
         /// <inheritdoc />
@@ -56,6 +56,18 @@ namespace SafeguardSystem.DAL.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Businesses");
+
+                    b.HasData(
+                        new
+                        {
+                            BusinessId = new Guid("7c54454f-337d-4b5b-a2d0-74ad4088686b"),
+                            ContractExpiry = new DateTime(2026, 3, 2, 0, 34, 58, 593, DateTimeKind.Utc).AddTicks(5494),
+                            Description = "Nơi sinh hoạt văn hóa, giải trí dành cho sinh viên",
+                            IsActive = true,
+                            IsDeleted = false,
+                            Name = "Nhà văn hóa sinh viên",
+                            UserId = "IuyPY3ie8OQG60w0gasxQNkXHzS2"
+                        });
                 });
 
             modelBuilder.Entity("SafeguardSystem.DAL.Entities.Checkpoint", b =>
@@ -159,6 +171,19 @@ namespace SafeguardSystem.DAL.Migrations
                     b.HasIndex("BusinessId");
 
                     b.ToTable("Locations");
+
+                    b.HasData(
+                        new
+                        {
+                            LocationId = new Guid("c86114da-36c8-4644-8ab0-dbdcb5c2f830"),
+                            BusinessId = new Guid("7c54454f-337d-4b5b-a2d0-74ad4088686b"),
+                            CreatedAt = new DateTime(2025, 3, 2, 0, 34, 58, 593, DateTimeKind.Utc).AddTicks(5585),
+                            IsDeleted = false,
+                            Latitude = 10.882934m,
+                            Longitude = 106.785746m,
+                            Name = "Nhà văn hóa sinh viên",
+                            PlaceId = new Guid("b49d8b9c-1574-4117-b1d5-43412dc174c4")
+                        });
                 });
 
             modelBuilder.Entity("SafeguardSystem.DAL.Entities.RefreshToken", b =>
@@ -510,6 +535,20 @@ namespace SafeguardSystem.DAL.Migrations
                             Phone = "0123456789",
                             RoleID = new Guid("6be95231-36aa-4a26-8c61-b65e040ec32a"),
                             UserName = "Manager"
+                        },
+                        new
+                        {
+                            UserId = "IuyPY3ie8OQG60w0gasxQNkXHzS2",
+                            Avatar = "https://www.freepik.com/free-vector/simple-vibing-cat-square-meme_58459053.htm#fromView=keyword&page=1&position=0&uuid=f4bd18ef-8de6-4b6e-8e68-06073abf526b&query=Animal+Memes",
+                            BirthDay = new DateTime(2001, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "phong@test.com",
+                            FullName = "Nguyen Phuc Hau",
+                            IsActive = true,
+                            IsDeleted = false,
+                            IsEmailConfirmed = true,
+                            Phone = "0123456789",
+                            RoleID = new Guid("be19e4b3-6664-4afd-9ebb-98e0a073edc9"),
+                            UserName = "Business Partner"
                         });
                 });
 
