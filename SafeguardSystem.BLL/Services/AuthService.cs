@@ -95,6 +95,9 @@ namespace SafeguardSystem.BLL.Services
                 await _unitOfWork.RefreshTokens.UpdateAsync(exitsRefreshToken); // cập nhật
             }
 
+            var role = await _unitOfWork.Roles.GetByGuIdAsync(user.RoleID);
+            var roleName = role.RoleName;
+
             //khởi tạo claim
             var claims = new List<Claim>
             {
@@ -102,6 +105,12 @@ namespace SafeguardSystem.BLL.Services
                 new Claim(JwtConstant.KeyClaim.userId, user.UserId.ToString()),
                 new Claim(JwtConstant.KeyClaim.fullName, user.FullName ?? string.Empty)
             };
+            if (roleName == "Admin")
+                claims.Add(new Claim(JwtConstant.KeyClaim.Role, user.Role?.RoleName ?? "Admin"));
+            else if (roleName == "Manager")
+                claims.Add(new Claim(JwtConstant.KeyClaim.Role, user.Role?.RoleName ?? "Manager"));
+            else if (roleName == "Security Guard")
+                claims.Add(new Claim(JwtConstant.KeyClaim.Role, user.Role?.RoleName ?? "Security Guard"));
 
             //tạo refesh token
             var refreshTokenKey = JwtProvider.GenerateRefreshToken(claims);
@@ -129,8 +138,7 @@ namespace SafeguardSystem.BLL.Services
                 return new ResponseDTO($"Error saving refresh token: {ex.Message}", 500, false);
             }
 
-            var role = await _unitOfWork.Roles.GetByGuIdAsync(user.RoleID);
-            var roleName = role.RoleName;
+            
 
             // Tạo JWT token cục bộ cho ứng dụng
             return new ResponseDTO("Login successful", 200, true, new
@@ -180,7 +188,7 @@ namespace SafeguardSystem.BLL.Services
                     IsDeleted = false,
                     Phone = "",
                     Avatar = "https://www.veryicon.com/icons/miscellaneous/generic-icon-3/avatar-real.html",
-                    RoleID = Guid.Parse("be19e4b3-6664-4afd-9ebb-98e0a073edc9"), // Business Role
+                    RoleID = (await _unitOfWork.Roles.GetRoleIdByNameAsync("Business Partner")).RoleId, // Business Role
                 };
                 await _unitOfWork.Users.CreateUserAsync(user);
 
@@ -226,11 +234,20 @@ namespace SafeguardSystem.BLL.Services
 
             // khởi tạo claim
             var claims = new List<Claim>
-    {
-        new Claim(JwtConstant.KeyClaim.Email, user.Email ?? string.Empty),
-        new Claim(JwtConstant.KeyClaim.userId, user.UserId.ToString()),
-        new Claim(JwtConstant.KeyClaim.fullName, user.FullName ?? string.Empty)
-    };
+            {
+                new Claim(JwtConstant.KeyClaim.Email, user.Email ?? string.Empty),
+                new Claim(JwtConstant.KeyClaim.userId, user.UserId.ToString()),
+                new Claim(JwtConstant.KeyClaim.fullName, user.FullName ?? string.Empty)
+            };
+
+            if (user.Role.RoleName != null && user.Role.RoleName == "Business Partner")
+            {
+                    claims.Add(new Claim(JwtConstant.KeyClaim.Role, user.Role?.RoleName ?? "Business Partner"));
+            }
+            else
+            {
+                claims.Add(new Claim(JwtConstant.KeyClaim.Role, "Business Partner")); // Giá trị mặc định nếu không có vai trò
+            }
 
             // tạo refesh token
             var refreshTokenKey = JwtProvider.GenerateRefreshToken(claims);

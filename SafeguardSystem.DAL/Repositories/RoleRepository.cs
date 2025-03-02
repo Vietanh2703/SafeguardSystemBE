@@ -32,5 +32,10 @@ namespace SafeguardSystem.DAL.Repositories
                 .Select(r => r.RoleId)
                 .FirstOrDefaultAsync();
         }
+
+        public async Task<Role> GetRoleIdByNameAsync(string roleName)
+        {
+            return await _context.Roles.FirstOrDefaultAsync(x => x.RoleName == roleName);
+        }
     }
 }

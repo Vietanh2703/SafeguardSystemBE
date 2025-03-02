@@ -12,5 +12,6 @@ namespace SafeguardSystem.DAL.IRepositories
             Task<Role> GetByGuidAsync(Guid id);
 
             Task<Guid> GetSecurityGuardRoleIdAsync();
+            Task<Role> GetRoleIdByNameAsync(string roleName);
     }
 }
