@@ -39,7 +39,7 @@ public class SafeguardDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-        modelBuilder.Seed();
+       
 
         modelBuilder.Entity<Business>(entity =>
         {

@@ -30,7 +30,6 @@ namespace SafeguardSystem.BLL.Services
         // Đăng nhập bằng Email và Password
         public async Task<ResponseDTO> LoginAsync(LoginDTO loginDTO)
         {
-            //Lấy API để cấu hình Firebase
             var firebaseApiKey = _configuration["Firebase:ApiKey"];
             var firebaseUrl = _configuration["Firebase:Url"];
 
@@ -39,9 +38,6 @@ namespace SafeguardSystem.BLL.Services
                 return new ResponseDTO("Cannot connect to Firebase Service", 400, false);
             }
 
-            //Gọi REST API của Firebase để login
-            var firebaseLoginUrl = $"{firebaseUrl}";
-
             var payload = new
             {
                 email = loginDTO.Account,
@@ -49,7 +45,16 @@ namespace SafeguardSystem.BLL.Services
                 returnSecureToken = true
             };
 
-            var response = await _httpClient.PostAsJsonAsync(firebaseUrl, payload);
+            HttpResponseMessage response;
+            try
+            {
+                response = await _httpClient.PostAsJsonAsync(firebaseUrl, payload);
+            }
+            catch (Exception ex)
+            {
+                return new ResponseDTO($"Firebase login request failed: {ex.Message}", 500, false);
+            }
+
             if (!response.IsSuccessStatusCode)
             {
                 return new ResponseDTO("Invalid email or password", 400, false);
@@ -66,59 +71,41 @@ namespace SafeguardSystem.BLL.Services
 
             string firebaseUid = userIdElement.GetString() ?? string.Empty;
             string email = root.GetProperty("email").GetString() ?? string.Empty;
-            string displayName = root.GetProperty("displayName").GetString() ?? string.Empty; // có thể null
+            string displayName = root.GetProperty("displayName").GetString() ?? email;
 
-            // Kiểm tra User trong database, nếu chưa có thì tạo mới
             var user = await _unitOfWork.Users.GetUserByFirebaseUidAsync(firebaseUid);
             if (user == null)
             {
+                var defaultRole = await _unitOfWork.Roles.GetRoleIdByNameAsync(""); // Role mặc định nếu không có
                 user = new User
                 {
                     UserId = firebaseUid,
                     Email = email,
-                    UserName = displayName ?? email,
+                    UserName = displayName,
                     FullName = displayName,
                     IsActive = true,
                     IsEmailConfirmed = true,
                     IsDeleted = false,
-                    RoleID = Guid.NewGuid() // Thiết lập Role mặc định hoặc lấy từ cấu hình
+                    RoleID = defaultRole?.RoleId ?? Guid.NewGuid()
                 };
 
                 await _unitOfWork.Users.CreateUserAsync(user);
             }
 
-            var exitsRefreshToken = await _unitOfWork.RefreshTokens.GetRefreshTokenByUserID(user.UserId);
-            if (exitsRefreshToken != null)
-            {
-                // nếu có thì thu hồi
-                exitsRefreshToken.IsRevoked = true;
-                await _unitOfWork.RefreshTokens.UpdateAsync(exitsRefreshToken); // cập nhật
-            }
-
             var role = await _unitOfWork.Roles.GetByGuIdAsync(user.RoleID);
-            var roleName = role.RoleName;
+            var roleName = role?.RoleName ?? ""; // Mặc định nếu không có role
 
-            //khởi tạo claim
             var claims = new List<Claim>
-            {
-                new Claim(JwtConstant.KeyClaim.Email, user.Email ?? string.Empty),
-                new Claim(JwtConstant.KeyClaim.userId, user.UserId.ToString()),
-                new Claim(JwtConstant.KeyClaim.fullName, user.FullName ?? string.Empty)
-            };
-            if (roleName == "Admin")
-                claims.Add(new Claim(JwtConstant.KeyClaim.Role, user.Role?.RoleName ?? "Admin"));
-            else if (roleName == "Manager")
-                claims.Add(new Claim(JwtConstant.KeyClaim.Role, user.Role?.RoleName ?? "Manager"));
-            else if (roleName == "Security Guard")
-                claims.Add(new Claim(JwtConstant.KeyClaim.Role, user.Role?.RoleName ?? "Security Guard"));
+    {
+        new Claim(JwtConstant.KeyClaim.Email, user.Email ?? string.Empty),
+        new Claim(JwtConstant.KeyClaim.userId, user.UserId.ToString()),
+        new Claim(JwtConstant.KeyClaim.fullName, user.FullName ?? string.Empty),
+        new Claim(JwtConstant.KeyClaim.Role, roleName)
+    };
 
-            //tạo refesh token
             var refreshTokenKey = JwtProvider.GenerateRefreshToken(claims);
-
-            //tạo access token
             var accessTokenKey = JwtProvider.GenerateAccessToken(claims);
 
-            //Cập nhật mới refreshToken
             var refreshToken = new RefreshToken
             {
                 RefreshTokenId = Guid.NewGuid(),
@@ -138,9 +125,6 @@ namespace SafeguardSystem.BLL.Services
                 return new ResponseDTO($"Error saving refresh token: {ex.Message}", 500, false);
             }
 
-            
-
-            // Tạo JWT token cục bộ cho ứng dụng
             return new ResponseDTO("Login successful", 200, true, new
             {
                 AccessToken = accessTokenKey,
@@ -165,97 +149,75 @@ namespace SafeguardSystem.BLL.Services
                 return new ResponseDTO($"Error verifying Google token: {ex.Message}", 400, false);
             }
 
-            // Kiểm tra các thông tin trong token
-            string UserId = decodedToken.Uid;
-            string Email = decodedToken.Claims.ContainsKey("email") ? decodedToken.Claims["email"].ToString() : null;
-            string Name = decodedToken.Claims.ContainsKey("name") ? decodedToken.Claims["name"].ToString() : null;
+            // Lấy thông tin từ token
+            string userId = decodedToken.Uid;
+            string email = decodedToken.Claims.ContainsKey("email") ? decodedToken.Claims["email"].ToString() : null;
+            string name = decodedToken.Claims.ContainsKey("name") ? decodedToken.Claims["name"].ToString() : null;
 
-            if (string.IsNullOrEmpty(UserId) || string.IsNullOrEmpty(Email))
+            if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(email))
                 return new ResponseDTO("Invalid Google token", 400, false);
 
-            // Kiểm tra User trong database, nếu chưa có thì tạo mới
-            var user = await _unitOfWork.Users.GetUserByFirebaseUidAsync(UserId);
+            // Kiểm tra user trong database
+            var user = await _unitOfWork.Users.GetUserByFirebaseUidAsync(userId);
             if (user == null)
             {
+                // Gán vai trò mặc định BusinessPartner nếu user mới
+                var defaultRole = await _unitOfWork.Roles.GetRoleIdByNameAsync("");
+
                 user = new User
                 {
-                    UserId = UserId,
-                    Email = Email,
-                    UserName = Name ?? Email,
-                    FullName = Name,
+                    UserId = userId,
+                    Email = email,
+                    UserName = name ?? email,
+                    FullName = name,
                     IsActive = true,
                     IsEmailConfirmed = true,
                     IsDeleted = false,
                     Phone = "",
                     Avatar = "https://www.veryicon.com/icons/miscellaneous/generic-icon-3/avatar-real.html",
-                    RoleID = (await _unitOfWork.Roles.GetRoleIdByNameAsync("Business Partner")).RoleId, // Business Role
+                    RoleID = defaultRole.RoleId,
                 };
                 await _unitOfWork.Users.CreateUserAsync(user);
 
-                // Tạo mới Business
+                // Tạo Business nếu user mới
                 var business = new Business
                 {
                     BusinessId = Guid.NewGuid(),
                     Name = user.FullName,
                     IsActive = true,
                     UserId = user.UserId,
-                    ContractExpiry = DateTime.UtcNow.AddYears(1), // Example expiry date
+                    ContractExpiry = DateTime.UtcNow.AddYears(1),
                     IsDeleted = false
                 };
                 await _unitOfWork.Businesses.CreateAsync(business);
             }
-            else
+
+            // Kiểm tra và thu hồi RefreshToken cũ nếu có
+            var existingRefreshToken = await _unitOfWork.RefreshTokens.GetRefreshTokenByUserID(user.UserId);
+            if (existingRefreshToken != null)
             {
-                // Kiểm tra xem Business đã tồn tại chưa
-                var existingBusiness = await _unitOfWork.Businesses.GetBusinessByUserIdAsync(user.UserId);
-                if (existingBusiness == null)
-                {
-                    // Tạo mới Business nếu chưa tồn tại
-                    var business = new Business
-                    {
-                        BusinessId = Guid.NewGuid(),
-                        Name = user.FullName,
-                        IsActive = true,
-                        UserId = user.UserId,
-                        ContractExpiry = DateTime.UtcNow.AddYears(1), // Example expiry date
-                        IsDeleted = false
-                    };
-                    await _unitOfWork.Businesses.CreateAsync(business);
-                }
+                existingRefreshToken.IsRevoked = true;
+                await _unitOfWork.RefreshTokens.UpdateAsync(existingRefreshToken);
             }
 
-            var exitsRefreshToken = await _unitOfWork.RefreshTokens.GetRefreshTokenByUserID(user.UserId);
-            if (exitsRefreshToken != null)
-            {
-                // nếu có thì thu hồi
-                exitsRefreshToken.IsRevoked = true;
-                await _unitOfWork.RefreshTokens.UpdateAsync(exitsRefreshToken); // cập nhật
-            }
+            // Lấy role của user
+            var role = await _unitOfWork.Roles.GetByGuIdAsync(user.RoleID);
+            var roleName = role?.RoleName ?? ""; // Mặc định BusinessPartner
 
-            // khởi tạo claim
+            // Khởi tạo danh sách claims
             var claims = new List<Claim>
-            {
-                new Claim(JwtConstant.KeyClaim.Email, user.Email ?? string.Empty),
-                new Claim(JwtConstant.KeyClaim.userId, user.UserId.ToString()),
-                new Claim(JwtConstant.KeyClaim.fullName, user.FullName ?? string.Empty)
-            };
+    {
+        new Claim(JwtConstant.KeyClaim.Email, user.Email ?? string.Empty),
+        new Claim(JwtConstant.KeyClaim.userId, user.UserId.ToString()),
+        new Claim(JwtConstant.KeyClaim.fullName, user.FullName ?? string.Empty),
+        new Claim(JwtConstant.KeyClaim.Role, roleName)
+    };
 
-            if (user.Role.RoleName != null && user.Role.RoleName == "Business Partner")
-            {
-                    claims.Add(new Claim(JwtConstant.KeyClaim.Role, user.Role?.RoleName ?? "Business Partner"));
-            }
-            else
-            {
-                claims.Add(new Claim(JwtConstant.KeyClaim.Role, "Business Partner")); // Giá trị mặc định nếu không có vai trò
-            }
-
-            // tạo refesh token
+            // Tạo refresh token và access token mới
             var refreshTokenKey = JwtProvider.GenerateRefreshToken(claims);
-
-            // tạo access token
             var accessTokenKey = JwtProvider.GenerateAccessToken(claims);
 
-            // Cập nhật mới refreshToken
+            // Lưu refresh token mới
             var refreshToken = new RefreshToken
             {
                 RefreshTokenId = Guid.NewGuid(),
@@ -266,6 +228,7 @@ namespace SafeguardSystem.BLL.Services
             };
 
             _unitOfWork.RefreshTokens.Add(refreshToken);
+
             try
             {
                 await _unitOfWork.SaveChangeAsync();
@@ -275,10 +238,7 @@ namespace SafeguardSystem.BLL.Services
                 return new ResponseDTO($"Error saving refresh token: {ex.Message}", 500, false);
             }
 
-            var role = await _unitOfWork.Roles.GetByGuIdAsync(user.RoleID);
-            var roleName = role.RoleName;
-
-            // Tạo JWT token cục bộ cho ứng dụng
+            // Trả về dữ liệu theo đúng format của LoginAsync
             return new ResponseDTO("Login successful", 200, true, new
             {
                 AccessToken = accessTokenKey,
@@ -288,6 +248,8 @@ namespace SafeguardSystem.BLL.Services
                 Role = roleName
             });
         }
+
+
 
 
         // Đăng xuất
