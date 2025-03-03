@@ -35,7 +35,8 @@ namespace SafeguardSystem.BLL.Services
                 Email = guard.User?.Email ?? "N/A",
                 FullName = guard.User?.FullName ?? "Unknown",
                 PhoneNumber = guard.User?.Phone ?? "N/A",
-                BirthDay = guard.User?.BirthDay
+                BirthDay = guard.User?.BirthDay,
+                TeamName = guard.Team.Name ?? "N/A"
             };
 
             return new ResponseDTO("Guard retrieved successfully", 200, true, guardDTO);
@@ -97,6 +98,7 @@ namespace SafeguardSystem.BLL.Services
             guard.User.FullName = guardDTO.FullName ?? user.FullName;
             guard.User.Phone = guardDTO.PhoneNumber ?? user.Phone;
             guard.User.BirthDay = guardDTO.BirthDay != DateTime.MinValue ? guardDTO.BirthDay : user.BirthDay;
+            guard.Team.Name = guardDTO.TeamName ?? guard.Team.Name;
 
             await _unitOfWork.SaveChangeAsync();
 

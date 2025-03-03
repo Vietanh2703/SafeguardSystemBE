@@ -16,6 +16,7 @@ namespace SafeguardSystem.Common.DTOs
         public string? Avatar { get; set; }
         public string? PhoneNumber { get; set; }
         public DateTime? BirthDay { get; set; }
+        public string? TeamName { get; set; }
 
     }
 }

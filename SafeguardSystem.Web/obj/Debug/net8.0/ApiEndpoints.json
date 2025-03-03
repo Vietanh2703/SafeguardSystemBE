@@ -121,6 +121,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "SafeguardSystem.Web.Controllers.TeamController",
+    "Method": "CreateTeam",
+    "RelativePath": "create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "teamDTO",
+        "Type": "SafeguardSystem.Common.DTOs.TeamDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "SafeguardSystem.Web.Controllers.LocationController",
     "Method": "CreateLocation",
     "RelativePath": "create-location",
@@ -167,6 +183,22 @@
     "Parameters": [
       {
         "Name": "typeId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SafeguardSystem.Web.Controllers.TeamController",
+    "Method": "DeleteTeam",
+    "RelativePath": "delete/{teamId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "teamId",
         "Type": "System.Guid",
         "IsRequired": true
       }
@@ -268,6 +300,43 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "SafeguardSystem.Web.Controllers.TeamController",
+    "Method": "GetTeamById",
+    "RelativePath": "team/{teamId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "teamId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SafeguardSystem.Web.Controllers.TeamController",
+    "Method": "GetAllTeams",
+    "RelativePath": "team/all",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "pageNumber",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "SafeguardSystem.Web.Controllers.ShiftController",
     "Method": "UpdateShiftType",
     "RelativePath": "update-shift-type/{typeId}",
@@ -304,6 +373,27 @@
       {
         "Name": "updateUserDTO",
         "Type": "SafeguardSystem.Common.DTOs.UpdateUserDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SafeguardSystem.Web.Controllers.TeamController",
+    "Method": "UpdateTeam",
+    "RelativePath": "update/{teamId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "teamId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "teamDTO",
+        "Type": "SafeguardSystem.Common.DTOs.TeamDTO",
         "IsRequired": true
       }
     ],

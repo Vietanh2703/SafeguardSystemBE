@@ -91,7 +91,8 @@ namespace SafeguardSystem.BLL.Services
                         Latitude = 0,
                         Longitude = 0,
                         IdentityNumber = "",
-                        StartDate = DateTime.UtcNow
+                        StartDate = DateTime.UtcNow,
+                        TeamId = Guid.Empty // or any valid Guid value
                     };
 
                     _unitOfWork.SecurityGuards.Add(newGuard);

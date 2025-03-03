@@ -50,6 +50,21 @@ namespace SafeguardSystem.DAL.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "Teams",
+                columns: table => new
+                {
+                    TeamId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    Name = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    IsDeleted = table.Column<bool>(type: "tinyint(1)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Teams", x => x.TeamId);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -85,6 +100,33 @@ namespace SafeguardSystem.DAL.Migrations
                         column: x => x.RoleID,
                         principalTable: "Roles",
                         principalColumn: "RoleId",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Contracts",
+                columns: table => new
+                {
+                    ContractId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    ContractCode = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    StartDate = table.Column<DateOnly>(type: "date", nullable: false),
+                    EndDate = table.Column<DateOnly>(type: "date", nullable: false),
+                    ContractValue = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
+                    Status = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    TeamId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    IsDeleted = table.Column<bool>(type: "tinyint(1)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Contracts", x => x.ContractId);
+                    table.ForeignKey(
+                        name: "FK_Contracts_Teams_TeamId",
+                        column: x => x.TeamId,
+                        principalTable: "Teams",
+                        principalColumn: "TeamId",
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
@@ -152,11 +194,18 @@ namespace SafeguardSystem.DAL.Migrations
                     Latitude = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
                     Longitude = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
                     UserId = table.Column<string>(type: "varchar(255)", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4")
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    TeamId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_SecurityGuards", x => x.GuardId);
+                    table.ForeignKey(
+                        name: "FK_SecurityGuards_Teams_TeamId",
+                        column: x => x.TeamId,
+                        principalTable: "Teams",
+                        principalColumn: "TeamId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_SecurityGuards_Users_UserId",
                         column: x => x.UserId,
@@ -193,28 +242,6 @@ namespace SafeguardSystem.DAL.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Teams",
-                columns: table => new
-                {
-                    TeamId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    Name = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    IsDeleted = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    GuardId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Teams", x => x.TeamId);
-                    table.ForeignKey(
-                        name: "FK_Teams_SecurityGuards_GuardId",
-                        column: x => x.GuardId,
-                        principalTable: "SecurityGuards",
-                        principalColumn: "GuardId",
-                        onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
                 name: "Checkpoints",
                 columns: table => new
                 {
@@ -234,33 +261,6 @@ namespace SafeguardSystem.DAL.Migrations
                         column: x => x.LocationId,
                         principalTable: "Locations",
                         principalColumn: "LocationId",
-                        onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "Contracts",
-                columns: table => new
-                {
-                    ContractId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    ContractCode = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    StartDate = table.Column<DateOnly>(type: "date", nullable: false),
-                    EndDate = table.Column<DateOnly>(type: "date", nullable: false),
-                    ContractValue = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
-                    Status = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    TeamId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    IsDeleted = table.Column<bool>(type: "tinyint(1)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Contracts", x => x.ContractId);
-                    table.ForeignKey(
-                        name: "FK_Contracts_Teams_TeamId",
-                        column: x => x.TeamId,
-                        principalTable: "Teams",
-                        principalColumn: "TeamId",
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
@@ -385,6 +385,11 @@ namespace SafeguardSystem.DAL.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Teams",
+                columns: new[] { "TeamId", "IsDeleted", "Name" },
+                values: new object[] { new Guid("7e4ee785-24d5-4210-9e36-65bb2d08dda5"), false, "Team 1" });
+
+            migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "UserId", "ActivationToken", "ActivationTokenExpiry", "Avatar", "BirthDay", "Email", "FullName", "IsActive", "IsDeleted", "IsEmailConfirmed", "Phone", "ResetToken", "ResetTokenExpiry", "RoleID", "UserName" },
                 values: new object[,]
@@ -398,12 +403,17 @@ namespace SafeguardSystem.DAL.Migrations
             migrationBuilder.InsertData(
                 table: "Businesses",
                 columns: new[] { "BusinessId", "ContractExpiry", "Description", "IsActive", "IsDeleted", "Name", "UserId" },
-                values: new object[] { new Guid("7c54454f-337d-4b5b-a2d0-74ad4088686b"), new DateTime(2026, 3, 2, 16, 9, 3, 178, DateTimeKind.Utc).AddTicks(2365), "Nơi sinh hoạt văn hóa, giải trí dành cho sinh viên", true, false, "Nhà văn hóa sinh viên", "IuyPY3ie8OQG60w0gasxQNkXHzS2" });
+                values: new object[] { new Guid("7c54454f-337d-4b5b-a2d0-74ad4088686b"), new DateTime(2026, 3, 3, 2, 9, 37, 686, DateTimeKind.Utc).AddTicks(5276), "Nơi sinh hoạt văn hóa, giải trí dành cho sinh viên", true, false, "Nhà văn hóa sinh viên", "IuyPY3ie8OQG60w0gasxQNkXHzS2" });
+
+            migrationBuilder.InsertData(
+                table: "SecurityGuards",
+                columns: new[] { "GuardId", "IdentityNumber", "Latitude", "Longitude", "StartDate", "Status", "TeamId", "UserId" },
+                values: new object[] { new Guid("d2a9201b-59ad-40b7-bde5-dfda937d7433"), "123456789", 10.882934m, 106.785746m, new DateTime(2025, 3, 3, 2, 9, 37, 686, DateTimeKind.Utc).AddTicks(5188), "PENDING", new Guid("7e4ee785-24d5-4210-9e36-65bb2d08dda5"), "ksyosShXa2QizFvCVkpe6dAG3ax1" });
 
             migrationBuilder.InsertData(
                 table: "Locations",
                 columns: new[] { "LocationId", "BusinessId", "CreatedAt", "IsDeleted", "Latitude", "Longitude", "Name", "PlaceId", "UpdatedAt" },
-                values: new object[] { new Guid("c86114da-36c8-4644-8ab0-dbdcb5c2f830"), new Guid("7c54454f-337d-4b5b-a2d0-74ad4088686b"), new DateTime(2025, 3, 2, 16, 9, 3, 178, DateTimeKind.Utc).AddTicks(2440), false, 10.882934m, 106.785746m, "Nhà văn hóa sinh viên", new Guid("07b246c8-222f-4cd5-a99b-757f754ea525"), null });
+                values: new object[] { new Guid("c86114da-36c8-4644-8ab0-dbdcb5c2f830"), new Guid("7c54454f-337d-4b5b-a2d0-74ad4088686b"), new DateTime(2025, 3, 3, 2, 9, 37, 686, DateTimeKind.Utc).AddTicks(5355), false, 10.882934m, 106.785746m, "Nhà văn hóa sinh viên", new Guid("9bd4b82c-e198-42b3-a54b-e25b9222e95c"), null });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Businesses_UserId",
@@ -429,6 +439,11 @@ namespace SafeguardSystem.DAL.Migrations
                 name: "IX_Refreshtokens_UserId",
                 table: "Refreshtokens",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SecurityGuards_TeamId",
+                table: "SecurityGuards",
+                column: "TeamId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SecurityGuards_UserId",
@@ -476,11 +491,6 @@ namespace SafeguardSystem.DAL.Migrations
                 column: "AssignmentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Teams_GuardId",
-                table: "Teams",
-                column: "GuardId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Users_RoleID",
                 table: "Users",
                 column: "RoleID");
@@ -505,6 +515,9 @@ namespace SafeguardSystem.DAL.Migrations
                 name: "Checkpoints");
 
             migrationBuilder.DropTable(
+                name: "SecurityGuards");
+
+            migrationBuilder.DropTable(
                 name: "SecurityShifts");
 
             migrationBuilder.DropTable(
@@ -518,9 +531,6 @@ namespace SafeguardSystem.DAL.Migrations
 
             migrationBuilder.DropTable(
                 name: "Businesses");
-
-            migrationBuilder.DropTable(
-                name: "SecurityGuards");
 
             migrationBuilder.DropTable(
                 name: "Users");

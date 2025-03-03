@@ -31,8 +31,7 @@ namespace SafeguardSystem
             builder.Services.AddScoped<IShiftTypeService, ShiftTypeService>();
             builder.Services.AddScoped<IGuardService, GuardService>();
             builder.Services.AddScoped<ILocationService, LocationService>();
-
-
+            builder.Services.AddScoped<ITeamService, TeamService>();
 
             // Cấu hình context database
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");

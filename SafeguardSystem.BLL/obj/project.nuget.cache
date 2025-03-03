@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "XSPSW4jd0Rk=",
+  "dgSpecHash": "NOqqaRCT1A8=",
   "success": true,
-  "projectFilePath": "D:\\SafeguardSystemBE\\SafeguardSystem.BLL\\SafeguardSystem.BLL.csproj",
+  "projectFilePath": "D:\\SafeguardSystem\\SafeguardSystemBE\\SafeguardSystem.BLL\\SafeguardSystem.BLL.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\anhnt\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\anhnt\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",

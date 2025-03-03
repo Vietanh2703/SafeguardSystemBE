@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\SafeguardSystemBE\\SafeguardSystem.DAL\\SafeguardSystem.DAL.csproj": {}
+    "D:\\SafeguardSystem\\SafeguardSystemBE\\SafeguardSystem.DAL\\SafeguardSystem.DAL.csproj": {}
   },
   "projects": {
-    "D:\\SafeguardSystemBE\\SafeguardSystem.DAL\\SafeguardSystem.DAL.csproj": {
+    "D:\\SafeguardSystem\\SafeguardSystemBE\\SafeguardSystem.DAL\\SafeguardSystem.DAL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\SafeguardSystemBE\\SafeguardSystem.DAL\\SafeguardSystem.DAL.csproj",
+        "projectUniqueName": "D:\\SafeguardSystem\\SafeguardSystemBE\\SafeguardSystem.DAL\\SafeguardSystem.DAL.csproj",
         "projectName": "SafeguardSystem.DAL",
-        "projectPath": "D:\\SafeguardSystemBE\\SafeguardSystem.DAL\\SafeguardSystem.DAL.csproj",
+        "projectPath": "D:\\SafeguardSystem\\SafeguardSystemBE\\SafeguardSystem.DAL\\SafeguardSystem.DAL.csproj",
         "packagesPath": "C:\\Users\\anhnt\\.nuget\\packages\\",
-        "outputPath": "D:\\SafeguardSystemBE\\SafeguardSystem.DAL\\obj\\",
+        "outputPath": "D:\\SafeguardSystem\\SafeguardSystemBE\\SafeguardSystem.DAL\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -12,7 +12,7 @@ using SafeguardSystem.DAL;
 namespace SafeguardSystem.DAL.Migrations
 {
     [DbContext(typeof(SafeguardDbContext))]
-    [Migration("20250302160907_InitialMigration")]
+    [Migration("20250303020938_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -61,7 +61,7 @@ namespace SafeguardSystem.DAL.Migrations
                         new
                         {
                             BusinessId = new Guid("7c54454f-337d-4b5b-a2d0-74ad4088686b"),
-                            ContractExpiry = new DateTime(2026, 3, 2, 16, 9, 3, 178, DateTimeKind.Utc).AddTicks(2365),
+                            ContractExpiry = new DateTime(2026, 3, 3, 2, 9, 37, 686, DateTimeKind.Utc).AddTicks(5276),
                             Description = "Nơi sinh hoạt văn hóa, giải trí dành cho sinh viên",
                             IsActive = true,
                             IsDeleted = false,
@@ -177,12 +177,12 @@ namespace SafeguardSystem.DAL.Migrations
                         {
                             LocationId = new Guid("c86114da-36c8-4644-8ab0-dbdcb5c2f830"),
                             BusinessId = new Guid("7c54454f-337d-4b5b-a2d0-74ad4088686b"),
-                            CreatedAt = new DateTime(2025, 3, 2, 16, 9, 3, 178, DateTimeKind.Utc).AddTicks(2440),
+                            CreatedAt = new DateTime(2025, 3, 3, 2, 9, 37, 686, DateTimeKind.Utc).AddTicks(5355),
                             IsDeleted = false,
                             Latitude = 10.882934m,
                             Longitude = 106.785746m,
                             Name = "Nhà văn hóa sinh viên",
-                            PlaceId = new Guid("07b246c8-222f-4cd5-a99b-757f754ea525")
+                            PlaceId = new Guid("9bd4b82c-e198-42b3-a54b-e25b9222e95c")
                         });
                 });
 
@@ -271,14 +271,32 @@ namespace SafeguardSystem.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<Guid>("TeamId")
+                        .HasColumnType("char(36)");
+
                     b.Property<string>("UserId")
                         .HasColumnType("varchar(255)");
 
                     b.HasKey("GuardId");
 
+                    b.HasIndex("TeamId");
+
                     b.HasIndex("UserId");
 
                     b.ToTable("SecurityGuards");
+
+                    b.HasData(
+                        new
+                        {
+                            GuardId = new Guid("d2a9201b-59ad-40b7-bde5-dfda937d7433"),
+                            IdentityNumber = "123456789",
+                            Latitude = 10.882934m,
+                            Longitude = 106.785746m,
+                            StartDate = new DateTime(2025, 3, 3, 2, 9, 37, 686, DateTimeKind.Utc).AddTicks(5188),
+                            Status = "PENDING",
+                            TeamId = new Guid("7e4ee785-24d5-4210-9e36-65bb2d08dda5"),
+                            UserId = "ksyosShXa2QizFvCVkpe6dAG3ax1"
+                        });
                 });
 
             modelBuilder.Entity("SafeguardSystem.DAL.Entities.SecurityShift", b =>
@@ -430,9 +448,6 @@ namespace SafeguardSystem.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
-                    b.Property<Guid>("GuardId")
-                        .HasColumnType("char(36)");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("tinyint(1)");
 
@@ -442,9 +457,15 @@ namespace SafeguardSystem.DAL.Migrations
 
                     b.HasKey("TeamId");
 
-                    b.HasIndex("GuardId");
-
                     b.ToTable("Teams");
+
+                    b.HasData(
+                        new
+                        {
+                            TeamId = new Guid("7e4ee785-24d5-4210-9e36-65bb2d08dda5"),
+                            IsDeleted = false,
+                            Name = "Team 1"
+                        });
                 });
 
             modelBuilder.Entity("SafeguardSystem.DAL.Entities.User", b =>
@@ -621,9 +642,17 @@ namespace SafeguardSystem.DAL.Migrations
 
             modelBuilder.Entity("SafeguardSystem.DAL.Entities.SecurityGuard", b =>
                 {
+                    b.HasOne("SafeguardSystem.DAL.Entities.Team", "Team")
+                        .WithMany("Guards")
+                        .HasForeignKey("TeamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("SafeguardSystem.DAL.Entities.User", "User")
                         .WithMany("SecurityGuards")
                         .HasForeignKey("UserId");
+
+                    b.Navigation("Team");
 
                     b.Navigation("User");
                 });
@@ -701,17 +730,6 @@ namespace SafeguardSystem.DAL.Migrations
                     b.Navigation("Assignment");
                 });
 
-            modelBuilder.Entity("SafeguardSystem.DAL.Entities.Team", b =>
-                {
-                    b.HasOne("SafeguardSystem.DAL.Entities.SecurityGuard", "Guard")
-                        .WithMany()
-                        .HasForeignKey("GuardId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Guard");
-                });
-
             modelBuilder.Entity("SafeguardSystem.DAL.Entities.User", b =>
                 {
                     b.HasOne("SafeguardSystem.DAL.Entities.Role", "Role")
@@ -770,6 +788,8 @@ namespace SafeguardSystem.DAL.Migrations
             modelBuilder.Entity("SafeguardSystem.DAL.Entities.Team", b =>
                 {
                     b.Navigation("Contracts");
+
+                    b.Navigation("Guards");
 
                     b.Navigation("SecurityShifts");
                 });

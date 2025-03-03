@@ -98,6 +98,10 @@ public class SafeguardDbContext : DbContext
             entity.HasOne(e => e.User)
                   .WithMany(u => u.SecurityGuards)
                   .HasForeignKey(e => e.UserId);
+            entity.HasOne(e => e.Team)
+                  .WithMany(t => t.Guards)
+                  .HasForeignKey(e => e.TeamId)
+                  .OnDelete(DeleteBehavior.Cascade);
         });
 
         modelBuilder.Entity<SecurityShift>(entity =>
@@ -157,7 +161,6 @@ public class SafeguardDbContext : DbContext
                   .WithMany(r => r.Users)
                   .HasForeignKey(e => e.RoleID);
         });
-
         base.OnModelCreating(modelBuilder);
     }
 }
