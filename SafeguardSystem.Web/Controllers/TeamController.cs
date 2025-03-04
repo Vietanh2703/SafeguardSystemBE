@@ -46,11 +46,35 @@ namespace SafeguardSystem.Web.Controllers
             return StatusCode(response.StatusCode, response);
         }
 
-        [Route("delete/{teamId}")]
-        [HttpPut]
-        public async Task<IActionResult> DeleteTeam(Guid teamId)
+        //[Route("delete/{teamId}")]
+        //[HttpPut]
+        //public async Task<IActionResult> DeleteTeam(Guid teamId)
+        //{
+        //    var response = await _teamService.DeleteTeamAsync(teamId);
+        //    return StatusCode(response.StatusCode, response);
+        //}
+
+        [Route("assign-guard")]
+        [HttpPost]
+        public async Task<IActionResult> AssignGuardToTeam(Guid teamId, Guid guardId)
         {
-            var response = await _teamService.DeleteTeamAsync(teamId);
+            var response = await _teamService.AssignGuardToTeamAsync(teamId, guardId);
+            return StatusCode(response.StatusCode, response);
+        }
+
+        [Route("remove-guard/{teamGuardId}")]
+        [HttpDelete]
+        public async Task<IActionResult> RemoveGuardFromTeam(Guid teamGuardId)
+        {
+            var response = await _teamService.RemoveGuardFromTeamAsync(teamGuardId);
+            return StatusCode(response.StatusCode, response);
+        }
+
+        [Route("team/{teamId}/guards")]
+        [HttpGet]
+        public async Task<IActionResult> GetGuardsInTeam(Guid teamId)
+        {
+            var response = await _teamService.GetGuardsInTeamAsync(teamId);
             return StatusCode(response.StatusCode, response);
         }
 

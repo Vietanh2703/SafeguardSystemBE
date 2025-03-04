@@ -56,9 +56,6 @@ namespace SafeguardSystem.BLL.Services
                     return new ResponseDTO($"Firebase error: {ex.Message}", 500, false);
                 }
 
-                var otp = new Random().Next(100000, 999999).ToString();
-                var otpExpiry = DateTime.UtcNow.AddMinutes(10);
-
                 // Create new user in MySQL
                 var newUser = new User
                 {
@@ -69,10 +66,11 @@ namespace SafeguardSystem.BLL.Services
                     Avatar = "https://www.didongmy.com/vnt_upload/news/05_2024/anh-13-meme-dang-yeu-didongmy.jpg",
                     Phone = createUserDTO.Phone,
                     RoleID = createUserDTO.RoleId,
-                    ActivationToken = otp,
-                    ActivationTokenExpiry = otpExpiry,
+                    ActivationToken = "N/A",
+                    ActivationTokenExpiry = null,
                     IsActive = false,
                     IsEmailConfirmed = false,
+                    IsLocked = false,
                     IsDeleted = false
                 };
 
@@ -83,6 +81,7 @@ namespace SafeguardSystem.BLL.Services
                 var securityGuardRoleId = await _unitOfWork.Roles.GetSecurityGuardRoleIdAsync();
                 if (createUserDTO.RoleId == securityGuardRoleId)
                 {
+                    // Ensure a valid TeamId is provided or handle the case where no valid TeamId is available
                     var newGuard = new SecurityGuard
                     {
                         GuardId = Guid.NewGuid(),
@@ -91,15 +90,14 @@ namespace SafeguardSystem.BLL.Services
                         Latitude = 0,
                         Longitude = 0,
                         IdentityNumber = "",
-                        StartDate = DateTime.UtcNow,
-                        TeamId = Guid.Empty // or any valid Guid value
+                        StartDate = DateTime.UtcNow
                     };
 
                     _unitOfWork.SecurityGuards.Add(newGuard);
                     await _unitOfWork.SaveChangeAsync();
                 }
 
-                await SendOtpEmail(newUser.Email, otp, newUser.FullName);
+                await SendWelcomeEmail(newUser.FullName, newUser.Email, userRecordArgs.Password);
                 return new ResponseDTO("User created successfully.", 200, true);
             }
             catch (Exception ex)
@@ -109,14 +107,60 @@ namespace SafeguardSystem.BLL.Services
             }
         }
 
+        //Gửi email chào mừng để khách hàng có được email và password đăng nhập
+        public async Task SendWelcomeEmail(string FullName, string Email, string Password)
+        {
+            var emailRequest = new EmailRequest();
+            emailRequest.Email = Email;
+            emailRequest.Subject = "[NO-REPLY]Welcome to Safeguard System";
+            emailRequest.EmailBody = _emailService.GenerateWelcomeEmailBody(FullName, Email, Password);
+            await _emailService.SendEmailAsync(emailRequest);
+        }
+
         // Gửi email xác thực OTP
         public async Task SendOtpEmail(string Email, string OtpText, string FullName)
         {
             var emailRequest = new EmailRequest();
             emailRequest.Email = Email;
             emailRequest.Subject = "Your OTP Code for Account Activation";
-            emailRequest.EmailBody = _emailService.GenerateEmailBody(FullName, OtpText);
-            await _emailService.SendActivationEmailAsync(emailRequest);
+            emailRequest.EmailBody = _emailService.GenerateOtpEmailBody(FullName, OtpText);
+            await _emailService.SendEmailAsync(emailRequest);
+        }
+
+        //Làm mới OTP và gửi email
+        public async Task<ResponseDTO> RefreshOtpAsync(string email)
+        {
+            try
+            {
+                // Check if the user exists and is not email confirmed
+                var user = await _unitOfWork.Users.GetUserByEmailAsync(email);
+                if (user == null)
+                {
+                    return new ResponseDTO("User not found.", 404, false);
+                }
+
+                if (user.IsEmailConfirmed)
+                {
+                    return new ResponseDTO("Email is already confirmed.", 400, false);
+                }
+
+                // Generate new OTP
+                var otp = new Random().Next(100000, 999999).ToString();
+                user.ActivationToken = otp;
+                user.ActivationTokenExpiry = DateTime.UtcNow.AddMinutes(10);
+
+                await _unitOfWork.SaveChangeAsync();
+
+                // Send OTP email
+                await SendOtpEmail(user.Email, otp, user.FullName);
+
+                return new ResponseDTO("OTP has been refreshed and sent to your email.", 200, true);
+            }
+            catch (Exception ex)
+            {
+                var errorDetails = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                return new ResponseDTO($"Error refreshing OTP: {errorDetails}", 500, false);
+            }
         }
 
         // Xác thực OTP và kích hoạt tài khoản
@@ -152,7 +196,7 @@ namespace SafeguardSystem.BLL.Services
                 emailRequest.Email = Email;
                 emailRequest.Subject = "Your OTP Code for Account Activation Successfully";
                 emailRequest.EmailBody = _emailService.GenerateActivationSuccessEmailBody(user.FullName);
-                await _emailService.SendActivationEmailAsync(emailRequest);
+                await _emailService.SendEmailAsync(emailRequest);
 
                 return new ResponseDTO("Email verified successfully.", 200, true);
             }
@@ -215,6 +259,74 @@ namespace SafeguardSystem.BLL.Services
             catch (Exception ex)
             {
                 return new ResponseDTO($"Error deleting user: {ex.Message}", 500, false);
+            }
+        }
+
+        // Cập nhật mật khẩu người dùng lần đầu đăng nhập
+        public async Task<ResponseDTO> UpdatePasswordAsync(string email, UpdatePasswordDTO updatePasswordDTO)
+        {
+            try
+            {
+                // Check if the user exists and is not email confirmed
+                var user = await _unitOfWork.Users.GetUserByEmailAsync(email);
+                if (user == null)
+                {
+                    return new ResponseDTO("User not found.", 404, false);
+                }
+
+                if (user.IsEmailConfirmed)
+                {
+                    return new ResponseDTO("Email is already confirmed.", 400, false);
+                }
+
+                // Validate password and confirm password
+                if (string.IsNullOrEmpty(updatePasswordDTO.Password) || string.IsNullOrEmpty(updatePasswordDTO.ConfirmPassword))
+                {
+                    return new ResponseDTO("Password and Confirm Password are required.", 400, false);
+                }
+
+                if (updatePasswordDTO.Password != updatePasswordDTO.ConfirmPassword)
+                {
+                    return new ResponseDTO("Password and Confirm Password do not match.", 400, false);
+                }
+
+                // Check password conditions (e.g., length, complexity)
+                if (updatePasswordDTO.Password.Length < 6)
+                {
+                    return new ResponseDTO("Password must be at least 6 characters long.", 400, false);
+                }
+
+                // Generate OTP
+                var otp = new Random().Next(100000, 999999).ToString();
+                user.ActivationToken = otp;
+                user.ActivationTokenExpiry = DateTime.UtcNow.AddMinutes(10);
+
+                // Update password on Firebase
+                try
+                {
+                    var userRecordArgs = new UserRecordArgs
+                    {
+                        Uid = user.UserId,
+                        Password = updatePasswordDTO.Password
+                    };
+                    await FirebaseAuth.DefaultInstance.UpdateUserAsync(userRecordArgs);
+                }
+                catch (FirebaseAuthException ex)
+                {
+                    return new ResponseDTO($"Firebase error: {ex.Message}", 500, false);
+                }
+
+                await _unitOfWork.SaveChangeAsync();
+
+                // Send OTP email
+                await SendOtpEmail(user.Email, otp, user.FullName);
+
+                return new ResponseDTO("Password updated successfully. Please check your email for the OTP to confirm your email.", 200, true);
+            }
+            catch (Exception ex)
+            {
+                var errorDetails = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                return new ResponseDTO($"Error updating password: {errorDetails}", 500, false);
             }
         }
 
@@ -292,6 +404,45 @@ namespace SafeguardSystem.BLL.Services
             }).ToList();
 
             return new ResponseDTO("Roles list:", 200, true, roleDTOs);
+        }
+
+        //Lấy thông tin người dùng theo UserId
+        public async Task<ResponseDTO> GetUserByUserIdAsync(string userId)
+        {
+            var user = await _unitOfWork.Users.GetUserByFirebaseUidAsync(userId);
+            if (user == null)
+            {
+                return new ResponseDTO("User not found", 404, false);
+            }
+
+            // Retrieve the role information
+            var role = await _unitOfWork.Roles.GetByGuidAsync(user.RoleID);
+            if (role == null)
+            {
+                return new ResponseDTO("Role not found", 404, false);
+            }
+
+            // Create the UserDTO
+            var userDTO = new UserDTO
+            {
+                FullName = user.FullName,
+                Phone = user.Phone,
+                Avatar = user.Avatar,
+                BirthDay = user.BirthDay,
+                UserName = user.UserName,
+            };
+
+            // If the role name is "Security Guard", include the IdentityNumber
+            if (role.RoleName.Equals("Security Guard", StringComparison.OrdinalIgnoreCase))
+            {
+                var securityGuard = await _unitOfWork.SecurityGuards.FirstOrDefaultAsync(g => g.UserId == userId);
+                if (securityGuard != null)
+                {
+                    userDTO.IdentityNumber = securityGuard.IdentityNumber;
+                }
+            }
+
+            return new ResponseDTO("User found", 200, true, userDTO);
         }
     }
 }

@@ -73,9 +73,11 @@ namespace SafeguardSystem.BLL.Services
             string email = root.GetProperty("email").GetString() ?? string.Empty;
             string displayName = root.GetProperty("displayName").GetString() ?? email;
 
+            // Kiểm tra user trong database
             var user = await _unitOfWork.Users.GetUserByFirebaseUidAsync(firebaseUid);
             if (user == null)
             {
+                
                 var defaultRole = await _unitOfWork.Roles.GetRoleIdByNameAsync(""); // Role mặc định nếu không có
                 user = new User
                 {
@@ -90,6 +92,19 @@ namespace SafeguardSystem.BLL.Services
                 };
 
                 await _unitOfWork.Users.CreateUserAsync(user);
+            }
+
+            // Check nếu user không active, bị khóa, chưa xác nhận email hoặc đã bị xóa
+            if (!user.IsActive || user.IsLocked || !user.IsEmailConfirmed || user.IsDeleted)
+            {
+                if (user.IsDeleted || !user.IsActive || user.IsLocked)
+                {
+                    return new ResponseDTO("This account does not exist.", 400, false);
+                }
+                if (!user.IsEmailConfirmed)
+                {
+                    return new ResponseDTO("Your account is not verified, please check your email.", 400, false);
+                }
             }
 
             var role = await _unitOfWork.Roles.GetByGuIdAsync(user.RoleID);
@@ -192,6 +207,12 @@ namespace SafeguardSystem.BLL.Services
                 await _unitOfWork.Businesses.CreateAsync(business);
             }
 
+            // Kiểm tra nếu user bị khóa hoặc bị xóa khỏi hệ thống
+            if (user.IsLocked || user.IsDeleted)
+            {
+                return new ResponseDTO("Your account does not exist.", 400, false);
+            }
+
             // Kiểm tra và thu hồi RefreshToken cũ nếu có
             var existingRefreshToken = await _unitOfWork.RefreshTokens.GetRefreshTokenByUserID(user.UserId);
             if (existingRefreshToken != null)
@@ -249,21 +270,27 @@ namespace SafeguardSystem.BLL.Services
             });
         }
 
-
-
-
         // Đăng xuất
         public async Task<ResponseDTO> LogoutAsync(LogoutDTO logoutDTO)
         {
+            //Tìm refresh token trong database
+            var refreshToken = await _unitOfWork.RefreshTokens.GetRefreshTokenByKey(logoutDTO.Token);
+
+            // Kiểm tra xem refresh token có tồn tại không
+            if (refreshToken == null)
+            {
+                return new ResponseDTO("Refresh token not found", 404, false);
+            }
             try
             {
+                // Thu hồi refresh token
                 await FirebaseAuth.DefaultInstance.RevokeRefreshTokensAsync(logoutDTO.Token);
-                return new ResponseDTO("Logout successful", 200, true);
             }
             catch (Exception ex)
             {
                 return new ResponseDTO($"Error during logout: {ex.Message}", 500, false);
             }
+            return new ResponseDTO("Logout successful", 200, true);
         }
 
 

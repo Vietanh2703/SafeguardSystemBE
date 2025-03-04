@@ -33,6 +33,8 @@ public class User
 
     public bool IsActive { get; set; }
 
+    public bool IsLocked { get; set; }
+
     public bool IsEmailConfirmed { get; set; }
 
     public bool IsDeleted { get; set; }

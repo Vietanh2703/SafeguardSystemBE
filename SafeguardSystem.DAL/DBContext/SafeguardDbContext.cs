@@ -33,7 +33,7 @@ public class SafeguardDbContext : DbContext
     public DbSet<ShiftType> ShiftTypes { get; set; }
 
     public DbSet<Team> Teams { get; set; }
-
+    public DbSet<TeamGuard> TeamGuards { get; set; }
     public DbSet<User> Users { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -91,6 +91,16 @@ public class SafeguardDbContext : DbContext
             entity.Property(e => e.RoleName).IsRequired();
         });
 
+        modelBuilder.Entity<Team>(entity =>
+        {
+            entity.HasKey(e => e.TeamId);
+            entity.Property(e => e.Name).IsRequired();
+            entity.HasMany(e => e.TeamGuards)
+                  .WithOne(tg => tg.Team)
+                  .HasForeignKey(tg => tg.TeamId);
+        });
+
+        // Cấu hình bảng SecurityGuard
         modelBuilder.Entity<SecurityGuard>(entity =>
         {
             entity.HasKey(e => e.GuardId);
@@ -98,10 +108,25 @@ public class SafeguardDbContext : DbContext
             entity.HasOne(e => e.User)
                   .WithMany(u => u.SecurityGuards)
                   .HasForeignKey(e => e.UserId);
+            entity.HasMany(e => e.TeamGuards)
+                  .WithOne(tg => tg.Guard)
+                  .HasForeignKey(tg => tg.GuardId);
+        });
+
+        // Cấu hình bảng TeamGuard (Bảng trung gian)
+        modelBuilder.Entity<TeamGuard>(entity =>
+        {
+            entity.HasKey(e => new { e.GuardId, e.TeamId }); // Khóa chính kép
+
+            entity.HasOne(e => e.Guard)
+                  .WithMany(g => g.TeamGuards)
+                  .HasForeignKey(e => e.GuardId)
+                  .OnDelete(DeleteBehavior.Cascade); // Nếu xóa Guard, tự động xóa quan hệ trong TeamGuard
+
             entity.HasOne(e => e.Team)
-                  .WithMany(t => t.Guards)
+                  .WithMany(t => t.TeamGuards)
                   .HasForeignKey(e => e.TeamId)
-                  .OnDelete(DeleteBehavior.Cascade);
+                  .OnDelete(DeleteBehavior.Cascade); // Nếu xóa Team, tự động xóa quan hệ trong TeamGuard
         });
 
         modelBuilder.Entity<SecurityShift>(entity =>
@@ -147,11 +172,6 @@ public class SafeguardDbContext : DbContext
         {
             entity.HasKey(e => e.TypeId);
             entity.Property(e => e.Name).IsRequired();
-        });
-
-        modelBuilder.Entity<Team>(entity =>
-        {
-            entity.HasKey(e => e.TeamId);
         });
 
         modelBuilder.Entity<User>(entity =>

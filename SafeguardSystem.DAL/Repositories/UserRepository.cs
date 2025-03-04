@@ -24,7 +24,6 @@ namespace SafeguardSystem.DAL.Repositories
             return await _context.Users.FirstOrDefaultAsync(u => u.UserId == userId && !u.IsDeleted);
         }
 
-
         public async Task<User> CreateUserAsync(User user)
         {
             await _context.Users.AddAsync(user);

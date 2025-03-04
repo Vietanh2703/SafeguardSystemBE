@@ -11,10 +11,12 @@ namespace SafeguardSystem.BLL.IServices
     {
         Task<ResponseDTO> CreateUserAsync(CreateUserDTO createUserDTO);
         Task<ResponseDTO> VerifyOtpAsync(string Email, OtpDTO otpDTO);
+        Task<ResponseDTO> RefreshOtpAsync(string email);
+        Task<ResponseDTO> UpdatePasswordAsync(string email, UpdatePasswordDTO updatePasswordDTO);
         Task<ResponseDTO> UpdateUserAsync(string UserId,UpdateUserDTO updateUserDTO);
         Task<ResponseDTO> DeleteUserAsync(string userId);
-        //Task<ResponseDTO> GetUserAsync(string userId);
         Task<ResponseDTO> GetAllUsersAsync(int pageIndex, int pageSize);
         Task<ResponseDTO> GetAllRolesAsync();
+        Task<ResponseDTO> GetUserByUserIdAsync(string userId);
     }
 }

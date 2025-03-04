@@ -6,16 +6,11 @@ using System.Threading.Tasks;
 
 namespace SafeguardSystem.Common.DTOs
 {
-    public class SecurityGuardDTO
+    public class TeamGuardListDTO
     {
         public string? IdentityNumber { get; set; }
         public string? FullName { get; set; }
-        public string? Email { get; set; }
-        public string? Password { get; set; }
-        public string? ConfirmPassword { get; set; }
         public string? Avatar { get; set; }
         public string? PhoneNumber { get; set; }
-        public DateTime? BirthDay { get; set; }
-
     }
 }

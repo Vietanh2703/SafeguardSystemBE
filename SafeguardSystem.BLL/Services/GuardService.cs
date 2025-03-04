@@ -20,6 +20,25 @@ namespace SafeguardSystem.BLL.Services
             _unitOfWork = unitOfWork;
         }
 
+        public async Task<ResponseDTO> GetAllGuard()
+        {
+            var guards = await _unitOfWork.SecurityGuards.GetAllGuardsAsync();
+            if (guards == null || !guards.Any())
+            {
+                return new ResponseDTO("Empty guard in list.", 200, false);
+            }
+            var guardDTOs = guards.Select(g => new SecurityGuardDTO
+            {
+                Avatar = g.User?.Avatar ?? "https://example.com/default-avatar.png", // Avatar mặc định
+                IdentityNumber = g.IdentityNumber,
+                Email = g.User?.Email ?? "N/A",
+                FullName = g.User?.FullName ?? "Unknown",
+                PhoneNumber = g.User?.Phone ?? "N/A",
+                BirthDay = g.User?.BirthDay
+            }).ToList();
+            return new ResponseDTO("Retrieve guard: ", 200, true, guardDTOs);
+        }
+
         public async Task<ResponseDTO> GetGuardByIdAsync(Guid guardId)
         {
             var guard = await _unitOfWork.SecurityGuards.GetByIdAsync(guardId);
@@ -35,8 +54,7 @@ namespace SafeguardSystem.BLL.Services
                 Email = guard.User?.Email ?? "N/A",
                 FullName = guard.User?.FullName ?? "Unknown",
                 PhoneNumber = guard.User?.Phone ?? "N/A",
-                BirthDay = guard.User?.BirthDay,
-                TeamName = guard.Team.Name ?? "N/A"
+                BirthDay = guard.User?.BirthDay
             };
 
             return new ResponseDTO("Guard retrieved successfully", 200, true, guardDTO);
@@ -98,7 +116,6 @@ namespace SafeguardSystem.BLL.Services
             guard.User.FullName = guardDTO.FullName ?? user.FullName;
             guard.User.Phone = guardDTO.PhoneNumber ?? user.Phone;
             guard.User.BirthDay = guardDTO.BirthDay != DateTime.MinValue ? guardDTO.BirthDay : user.BirthDay;
-            guard.Team.Name = guardDTO.TeamName ?? guard.Team.Name;
 
             await _unitOfWork.SaveChangeAsync();
 

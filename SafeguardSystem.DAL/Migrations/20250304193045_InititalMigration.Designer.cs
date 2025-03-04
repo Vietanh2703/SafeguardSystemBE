@@ -12,8 +12,8 @@ using SafeguardSystem.DAL;
 namespace SafeguardSystem.DAL.Migrations
 {
     [DbContext(typeof(SafeguardDbContext))]
-    [Migration("20250303020938_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20250304193045_InititalMigration")]
+    partial class InititalMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -61,7 +61,7 @@ namespace SafeguardSystem.DAL.Migrations
                         new
                         {
                             BusinessId = new Guid("7c54454f-337d-4b5b-a2d0-74ad4088686b"),
-                            ContractExpiry = new DateTime(2026, 3, 3, 2, 9, 37, 686, DateTimeKind.Utc).AddTicks(5276),
+                            ContractExpiry = new DateTime(2026, 3, 4, 19, 30, 37, 549, DateTimeKind.Utc).AddTicks(5333),
                             Description = "Nơi sinh hoạt văn hóa, giải trí dành cho sinh viên",
                             IsActive = true,
                             IsDeleted = false,
@@ -177,12 +177,12 @@ namespace SafeguardSystem.DAL.Migrations
                         {
                             LocationId = new Guid("c86114da-36c8-4644-8ab0-dbdcb5c2f830"),
                             BusinessId = new Guid("7c54454f-337d-4b5b-a2d0-74ad4088686b"),
-                            CreatedAt = new DateTime(2025, 3, 3, 2, 9, 37, 686, DateTimeKind.Utc).AddTicks(5355),
+                            CreatedAt = new DateTime(2025, 3, 4, 19, 30, 37, 549, DateTimeKind.Utc).AddTicks(5390),
                             IsDeleted = false,
                             Latitude = 10.882934m,
                             Longitude = 106.785746m,
                             Name = "Nhà văn hóa sinh viên",
-                            PlaceId = new Guid("9bd4b82c-e198-42b3-a54b-e25b9222e95c")
+                            PlaceId = new Guid("10f47b62-6aa9-4dc5-9245-934a81875501")
                         });
                 });
 
@@ -271,15 +271,10 @@ namespace SafeguardSystem.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<Guid>("TeamId")
-                        .HasColumnType("char(36)");
-
                     b.Property<string>("UserId")
                         .HasColumnType("varchar(255)");
 
                     b.HasKey("GuardId");
-
-                    b.HasIndex("TeamId");
 
                     b.HasIndex("UserId");
 
@@ -292,10 +287,49 @@ namespace SafeguardSystem.DAL.Migrations
                             IdentityNumber = "123456789",
                             Latitude = 10.882934m,
                             Longitude = 106.785746m,
-                            StartDate = new DateTime(2025, 3, 3, 2, 9, 37, 686, DateTimeKind.Utc).AddTicks(5188),
+                            StartDate = new DateTime(2025, 3, 4, 19, 30, 37, 549, DateTimeKind.Utc).AddTicks(5269),
                             Status = "PENDING",
-                            TeamId = new Guid("7e4ee785-24d5-4210-9e36-65bb2d08dda5"),
                             UserId = "ksyosShXa2QizFvCVkpe6dAG3ax1"
+                        },
+                        new
+                        {
+                            GuardId = new Guid("399c04bc-31f2-4296-bf32-4b6d3b0cb1c1"),
+                            IdentityNumber = "123456789",
+                            Latitude = 10.882934m,
+                            Longitude = 106.785746m,
+                            StartDate = new DateTime(2025, 3, 4, 19, 30, 37, 549, DateTimeKind.Utc).AddTicks(5275),
+                            Status = "PENDING",
+                            UserId = "fH8JsAPWjJOHLvLSI4MJVG4aSBr1"
+                        },
+                        new
+                        {
+                            GuardId = new Guid("e24aa81d-c60e-4dfd-9909-991c837e6631"),
+                            IdentityNumber = "123456789",
+                            Latitude = 10.882934m,
+                            Longitude = 106.785746m,
+                            StartDate = new DateTime(2025, 3, 4, 19, 30, 37, 549, DateTimeKind.Utc).AddTicks(5277),
+                            Status = "PENDING",
+                            UserId = "CkjtbJVJQxVm1eLjHW3p10TdV193"
+                        },
+                        new
+                        {
+                            GuardId = new Guid("5144d02b-8aa2-43d1-88e9-774087acb37e"),
+                            IdentityNumber = "123456789",
+                            Latitude = 10.882934m,
+                            Longitude = 106.785746m,
+                            StartDate = new DateTime(2025, 3, 4, 19, 30, 37, 549, DateTimeKind.Utc).AddTicks(5280),
+                            Status = "PENDING",
+                            UserId = "GLgL2MXjY7Pg4gmEJrgFulyEgV23"
+                        },
+                        new
+                        {
+                            GuardId = new Guid("3de02800-eecb-4abe-adb4-cd114896e0bc"),
+                            IdentityNumber = "123456789",
+                            Latitude = 10.882934m,
+                            Longitude = 106.785746m,
+                            StartDate = new DateTime(2025, 3, 4, 19, 30, 37, 549, DateTimeKind.Utc).AddTicks(5282),
+                            Status = "PENDING",
+                            UserId = "fNBgIDvy0JTd3wd9enqVywR8o612"
                         });
                 });
 
@@ -462,10 +496,40 @@ namespace SafeguardSystem.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            TeamId = new Guid("7e4ee785-24d5-4210-9e36-65bb2d08dda5"),
+                            TeamId = new Guid("c34241ec-93db-4fae-9b2d-2c2f25e08c40"),
                             IsDeleted = false,
                             Name = "Team 1"
+                        },
+                        new
+                        {
+                            TeamId = new Guid("99f6ff03-bc67-429a-8b21-25bcdbb6e6fc"),
+                            IsDeleted = false,
+                            Name = "Team 2"
+                        },
+                        new
+                        {
+                            TeamId = new Guid("61ac7456-620f-4ab3-95f5-616c8d42f68b"),
+                            IsDeleted = false,
+                            Name = "Team 3"
                         });
+                });
+
+            modelBuilder.Entity("SafeguardSystem.DAL.Entities.TeamGuard", b =>
+                {
+                    b.Property<Guid>("GuardId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("TeamId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("TeamGuardId")
+                        .HasColumnType("char(36)");
+
+                    b.HasKey("GuardId", "TeamId");
+
+                    b.HasIndex("TeamId");
+
+                    b.ToTable("TeamGuards");
                 });
 
             modelBuilder.Entity("SafeguardSystem.DAL.Entities.User", b =>
@@ -504,6 +568,9 @@ namespace SafeguardSystem.DAL.Migrations
                     b.Property<bool>("IsEmailConfirmed")
                         .HasColumnType("tinyint(1)");
 
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<string>("Phone")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -539,6 +606,7 @@ namespace SafeguardSystem.DAL.Migrations
                             IsActive = true,
                             IsDeleted = false,
                             IsEmailConfirmed = true,
+                            IsLocked = false,
                             Phone = "0123456789",
                             RoleID = new Guid("7a04e1d4-c176-467d-ac7d-6e1433ce6f3e"),
                             UserName = "Admin"
@@ -553,6 +621,7 @@ namespace SafeguardSystem.DAL.Migrations
                             IsActive = true,
                             IsDeleted = false,
                             IsEmailConfirmed = true,
+                            IsLocked = false,
                             Phone = "0123456789",
                             RoleID = new Guid("6be95231-36aa-4a26-8c61-b65e040ec32a"),
                             UserName = "Manager"
@@ -567,6 +636,7 @@ namespace SafeguardSystem.DAL.Migrations
                             IsActive = true,
                             IsDeleted = false,
                             IsEmailConfirmed = true,
+                            IsLocked = false,
                             Phone = "0123456789",
                             RoleID = new Guid("be19e4b3-6664-4afd-9ebb-98e0a073edc9"),
                             UserName = "Business Partner"
@@ -581,9 +651,70 @@ namespace SafeguardSystem.DAL.Migrations
                             IsActive = true,
                             IsDeleted = false,
                             IsEmailConfirmed = true,
+                            IsLocked = false,
                             Phone = "0123456789",
                             RoleID = new Guid("d1616b66-90cc-479f-b45e-1e86378937f7"),
                             UserName = "Security Guard"
+                        },
+                        new
+                        {
+                            UserId = "fH8JsAPWjJOHLvLSI4MJVG4aSBr1",
+                            Avatar = "https://www.freepik.com/free-vector/simple-vibing-cat-square-meme_58459053.htm#fromView=keyword&page=1&position=0&uuid=f4bd18ef-8de6-4b6e-8e68-06073abf526b&query=Animal+Memes",
+                            BirthDay = new DateTime(2001, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "guard2@test.com",
+                            FullName = "Nguyen Huy",
+                            IsActive = true,
+                            IsDeleted = false,
+                            IsEmailConfirmed = true,
+                            IsLocked = false,
+                            Phone = "0123456789",
+                            RoleID = new Guid("d1616b66-90cc-479f-b45e-1e86378937f7"),
+                            UserName = "Security Guard 2"
+                        },
+                        new
+                        {
+                            UserId = "CkjtbJVJQxVm1eLjHW3p10TdV193",
+                            Avatar = "https://www.freepik.com/free-vector/simple-vibing-cat-square-meme_58459053.htm#fromView=keyword&page=1&position=0&uuid=f4bd18ef-8de6-4b6e-8e68-06073abf526b&query=Animal+Memes",
+                            BirthDay = new DateTime(2001, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "guard3@test.com",
+                            FullName = "Nguyen Hieu",
+                            IsActive = true,
+                            IsDeleted = false,
+                            IsEmailConfirmed = true,
+                            IsLocked = false,
+                            Phone = "0123456789",
+                            RoleID = new Guid("d1616b66-90cc-479f-b45e-1e86378937f7"),
+                            UserName = "Security Guard 3"
+                        },
+                        new
+                        {
+                            UserId = "GLgL2MXjY7Pg4gmEJrgFulyEgV23",
+                            Avatar = "https://www.freepik.com/free-vector/simple-vibing-cat-square-meme_58459053.htm#fromView=keyword&page=1&position=0&uuid=f4bd18ef-8de6-4b6e-8e68-06073abf526b&query=Animal+Memes",
+                            BirthDay = new DateTime(2001, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "guard4@test.com",
+                            FullName = "Nguyen Phong",
+                            IsActive = true,
+                            IsDeleted = false,
+                            IsEmailConfirmed = true,
+                            IsLocked = true,
+                            Phone = "0123456789",
+                            RoleID = new Guid("d1616b66-90cc-479f-b45e-1e86378937f7"),
+                            UserName = "Security Guard 4"
+                        },
+                        new
+                        {
+                            UserId = "fNBgIDvy0JTd3wd9enqVywR8o612",
+                            Avatar = "https://www.freepik.com/free-vector/simple-vibing-cat-square-meme_58459053.htm#fromView=keyword&page=1&position=0&uuid=f4bd18ef-8de6-4b6e-8e68-06073abf526b&query=Animal+Memes",
+                            BirthDay = new DateTime(2001, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "guard5@test.com",
+                            FullName = "Nguyen Dang",
+                            IsActive = true,
+                            IsDeleted = false,
+                            IsEmailConfirmed = true,
+                            IsLocked = false,
+                            Phone = "0123456789",
+                            RoleID = new Guid("d1616b66-90cc-479f-b45e-1e86378937f7"),
+                            UserName = "Security Guard 5"
                         });
                 });
 
@@ -642,17 +773,9 @@ namespace SafeguardSystem.DAL.Migrations
 
             modelBuilder.Entity("SafeguardSystem.DAL.Entities.SecurityGuard", b =>
                 {
-                    b.HasOne("SafeguardSystem.DAL.Entities.Team", "Team")
-                        .WithMany("Guards")
-                        .HasForeignKey("TeamId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("SafeguardSystem.DAL.Entities.User", "User")
                         .WithMany("SecurityGuards")
                         .HasForeignKey("UserId");
-
-                    b.Navigation("Team");
 
                     b.Navigation("User");
                 });
@@ -730,6 +853,25 @@ namespace SafeguardSystem.DAL.Migrations
                     b.Navigation("Assignment");
                 });
 
+            modelBuilder.Entity("SafeguardSystem.DAL.Entities.TeamGuard", b =>
+                {
+                    b.HasOne("SafeguardSystem.DAL.Entities.SecurityGuard", "Guard")
+                        .WithMany("TeamGuards")
+                        .HasForeignKey("GuardId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SafeguardSystem.DAL.Entities.Team", "Team")
+                        .WithMany("TeamGuards")
+                        .HasForeignKey("TeamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Guard");
+
+                    b.Navigation("Team");
+                });
+
             modelBuilder.Entity("SafeguardSystem.DAL.Entities.User", b =>
                 {
                     b.HasOne("SafeguardSystem.DAL.Entities.Role", "Role")
@@ -768,6 +910,8 @@ namespace SafeguardSystem.DAL.Migrations
             modelBuilder.Entity("SafeguardSystem.DAL.Entities.SecurityGuard", b =>
                 {
                     b.Navigation("ShiftAssignments");
+
+                    b.Navigation("TeamGuards");
                 });
 
             modelBuilder.Entity("SafeguardSystem.DAL.Entities.SecurityShift", b =>
@@ -789,9 +933,9 @@ namespace SafeguardSystem.DAL.Migrations
                 {
                     b.Navigation("Contracts");
 
-                    b.Navigation("Guards");
-
                     b.Navigation("SecurityShifts");
+
+                    b.Navigation("TeamGuards");
                 });
 
             modelBuilder.Entity("SafeguardSystem.DAL.Entities.User", b =>

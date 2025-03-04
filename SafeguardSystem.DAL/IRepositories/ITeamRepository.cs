@@ -12,9 +12,9 @@ namespace SafeguardSystem.DAL.IRepositories
     {
         Task<PaginatedList<Team>> GetAllTeamsAsync(int pageNumber, int pageSize);
         Task<Team> GetTeamByNameAsync(string teamName);
-        Task<PaginatedList<SecurityGuard>> GetAllGuardsInTeamAsync(Guid teamId, int pageNumber, int pageSize);
-        Task<Team> GetTeamByGuardIdAsync(Guid guardId);
-        Task<bool> TeamHasGuardsAsync(Guid teamId);
+        //Task<PaginatedList<SecurityGuard>> GetAllGuardsInTeamAsync(Guid teamId, int pageNumber, int pageSize);
+        //Task<Team> GetTeamByGuardIdAsync(Guid guardId);
+        //Task<bool> TeamHasGuardsAsync(Guid teamId);
         Task<bool> TeamExistsAsync(Guid teamId);
         Task<Team> CreateTeamAsync(Team team);
     }

@@ -13,3 +13,4 @@
 /SafeguardSystem.Web/appsettings.json
 /SafeguardSystem.Web/bin/Debug/net8.0
 /SafeguardSystem.Web/appsettings.json
+/SafeguardSystem.DAL/Migrations/20250304193045_InititalMigration.cs

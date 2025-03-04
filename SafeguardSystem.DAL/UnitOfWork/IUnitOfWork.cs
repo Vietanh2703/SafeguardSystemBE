@@ -16,6 +16,7 @@ namespace SafeguardSystem.DAL.UnitOfWork
         IShifttypeRepository Shifttypes { get; }
         IShifttyperoutineRepository Shifttyperoutines { get; } */ //làm sau
         ITeamRepository Teams { get; }
+        ITeamGuardRepository TeamGuards { get; }
         IRoleRepository Roles { get; }
         IRefreshTokenRepository RefreshTokens { get; }
         IShiftTypeRepository ShiftTypes { get; }

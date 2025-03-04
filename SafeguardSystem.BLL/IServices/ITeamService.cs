@@ -11,10 +11,13 @@ namespace SafeguardSystem.BLL.IServices
     {
         Task<ResponseDTO> GetAllTeamsAsync(int pageNumber, int pageSize);
         Task<ResponseDTO> GetTeamByNameAsync(string teamName);
-        Task<ResponseDTO> GetAllGuardsInTeamAsync(Guid teamId, int pageNumber, int pageSize);
+        //Task<ResponseDTO> GetAllGuardsInTeamAsync(Guid teamId, int pageNumber, int pageSize);
         Task<ResponseDTO> GetTeamByIdAsync(Guid teamId);
         Task<ResponseDTO> CreateTeamAsync(TeamDTO teamDTO);
         Task<ResponseDTO> UpdateTeamAsync(Guid teamId, TeamDTO teamDTO);
-        Task<ResponseDTO> DeleteTeamAsync(Guid teamId);
+        //Task<ResponseDTO> DeleteTeamAsync(Guid teamId);
+        Task<ResponseDTO> AssignGuardToTeamAsync(Guid teamId, Guid guardId);
+        Task<ResponseDTO> RemoveGuardFromTeamAsync(Guid teamGuardId);
+        Task<ResponseDTO> GetGuardsInTeamAsync(Guid teamId);
     }
 }

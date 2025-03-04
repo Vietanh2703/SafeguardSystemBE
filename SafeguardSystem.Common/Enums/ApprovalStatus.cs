@@ -10,8 +10,8 @@ namespace SafeguardSystem.Common.Enums
     public enum ApprovalStatus
     {
         [Description("Rejected")]
-        Rejected = 0,
+        Rejected = 1,
         [Description("Accepted")]
-        Accepted = 1,
+        Accepted = 0,
     }
 }

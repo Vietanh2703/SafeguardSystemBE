@@ -25,27 +25,27 @@ namespace SafeguardSystem.DAL.Repositories
                 .FirstOrDefaultAsync(team => team.Name == teamName);
         }
 
-        public async Task<PaginatedList<SecurityGuard>> GetAllGuardsInTeamAsync(Guid teamId, int pageNumber, int pageSize)
-        {
-            var query = _context.SecurityGuards
-                .Where(guard => guard.TeamId == teamId)
-                .AsQueryable();
-            return await PaginatedList<SecurityGuard>.CreateAsync(query, pageNumber, pageSize);
-        }
+        //public async Task<PaginatedList<SecurityGuard>> GetAllGuardsInTeamAsync(Guid teamId, int pageNumber, int pageSize)
+        //{
+        //    var query = _context.SecurityGuards
+        //        .Where(guard => guard.TeamId == teamId)
+        //        .AsQueryable();
+        //    return await PaginatedList<SecurityGuard>.CreateAsync(query, pageNumber, pageSize);
+        //}
 
-        public async Task<Team> GetTeamByGuardIdAsync(Guid guardId)
-        {
-            var guard = await _context.SecurityGuards
-                .Include(guard => guard.Team)
-                .FirstOrDefaultAsync(guard => guard.GuardId == guardId);
-            return guard?.Team;
-        }
+        //public async Task<Team> GetTeamByGuardIdAsync(Guid guardId)
+        //{
+        //    var guard = await _context.SecurityGuards
+        //        .Include(guard => guard.Team)
+        //        .FirstOrDefaultAsync(guard => guard.GuardId == guardId);
+        //    return guard?.Team;
+        //}
 
-        public async Task<bool> TeamHasGuardsAsync(Guid teamId)
-        {
-            return await _context.SecurityGuards
-                .AnyAsync(guard => guard.TeamId == teamId);
-        }
+        //public async Task<bool> TeamHasGuardsAsync(Guid teamId)
+        //{
+        //    return await _context.SecurityGuards
+        //        .AnyAsync(guard => guard.TeamId == teamId);
+        //}
 
         public async Task<bool> TeamExistsAsync(Guid teamId)
         {

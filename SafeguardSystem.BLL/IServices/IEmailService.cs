@@ -9,8 +9,9 @@ namespace SafeguardSystem.BLL.IServices
 {
     public interface IEmailService
     {
-        Task SendActivationEmailAsync(EmailRequest emailRequest);
-        string GenerateEmailBody(string FullName, string OtpText);
+        Task SendEmailAsync(EmailRequest emailRequest);
+        string GenerateWelcomeEmailBody(string FullName, string Email, string Password);
+        string GenerateOtpEmailBody(string FullName, string OtpText);
         string GenerateActivationSuccessEmailBody(string FullName);
     }
 }

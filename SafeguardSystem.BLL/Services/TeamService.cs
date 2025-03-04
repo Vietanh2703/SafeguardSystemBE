@@ -1,4 +1,5 @@
-﻿using SafeguardSystem.BLL.IServices;
+﻿using Microsoft.EntityFrameworkCore;
+using SafeguardSystem.BLL.IServices;
 using SafeguardSystem.Common.DTOs;
 using SafeguardSystem.DAL.Entities;
 using SafeguardSystem.DAL.Extensions;
@@ -49,23 +50,95 @@ namespace SafeguardSystem.BLL.Services
             return new ResponseDTO("Team retrieved successfully", 200, true, teamDTO);
         }
 
-        public async Task<ResponseDTO> GetAllGuardsInTeamAsync(Guid teamId, int pageNumber, int pageSize)
+        //Thêm bảo vệ vào team
+        public async Task<ResponseDTO> AssignGuardToTeamAsync(Guid teamId, Guid guardId)
         {
-            var paginatedGuards = await _unitOfWork.Teams.GetAllGuardsInTeamAsync(teamId, pageNumber, pageSize);
-            if (paginatedGuards == null || !paginatedGuards.Any())
+            var team = await _unitOfWork.Teams.GetByGuIdAsync(teamId);
+            if (team == null)
             {
-                return new ResponseDTO("Empty guard in list.", 200, false);
+                return new ResponseDTO("Team not found", 404, false);
             }
-            var guardDTOs = paginatedGuards.Where(g => g.Status != "DELETED")
-                                           .Select(g => new SecurityGuardDTO
-                                           {
-                                               FullName = g.User.FullName,
-                                               PhoneNumber = g.User.Phone,
-                                               IdentityNumber = g.IdentityNumber,
-                                               Avatar = g.User.Avatar,
-                                           }).ToList();
-            return new ResponseDTO("Retrieve guard: ", 200, true, new PaginatedList<SecurityGuardDTO>(guardDTOs, paginatedGuards.Count, pageSize, pageNumber));
+
+            var guard = await _unitOfWork.SecurityGuards.GetByIdAsync(guardId);
+            if (guard == null)
+            {
+                return new ResponseDTO("Guard not found", 404, false);
+            }
+
+            var teamGuard = new TeamGuard
+            {
+                TeamGuardId = Guid.NewGuid(),
+                GuardId = guardId,
+                TeamId = teamId
+            };
+
+            await _unitOfWork.TeamGuards.AddAsync(teamGuard);
+            await _unitOfWork.SaveChangeAsync();
+
+            return new ResponseDTO("Guard assigned to team successfully", 200, true);
         }
+
+        //Xóa bảo vệ khỏi team
+        public async Task<ResponseDTO> RemoveGuardFromTeamAsync(Guid teamGuardId)
+        {
+            var teamGuard = await _unitOfWork.TeamGuards.FirstOrDefaultAsync(tg => tg.TeamGuardId == teamGuardId);
+            if (teamGuard == null)
+            {
+                return new ResponseDTO("Guard not found in team", 404, false);
+            }
+
+            await _unitOfWork.TeamGuards.RemoveAsync(teamGuard);
+            await _unitOfWork.SaveChangeAsync();
+
+            return new ResponseDTO("Guard removed from team successfully", 200, true);
+        }
+
+        public async Task<ResponseDTO> GetGuardsInTeamAsync(Guid teamId)
+        {
+            var team = await _unitOfWork.Teams.GetByGuIdAsync(teamId);
+            if (team == null)
+            {
+                return new ResponseDTO("Team not found", 404, false);
+            }
+
+            var teamGuards = await _unitOfWork.TeamGuards
+                .FindAll(tg => tg.TeamId == teamId)
+                .Include(tg => tg.Guard)
+                .ThenInclude(g => g.User)
+                .ToListAsync();
+
+            var guardDTOs = teamGuards.Select(tg => new TeamGuardListDTO
+            {
+                FullName = tg.Guard.User.FullName,
+                PhoneNumber = tg.Guard.User.Phone,
+                IdentityNumber = tg.Guard.IdentityNumber,
+                Avatar = tg.Guard.User.Avatar,
+            }).ToList();
+
+            return new ResponseDTO("Guards retrieved successfully", 200, true, guardDTOs);
+        }
+
+        //Kiểm tra và thay đổi leader
+
+
+
+        //public async Task<ResponseDTO> GetAllGuardsInTeamAsync(Guid teamId, int pageNumber, int pageSize)
+        //{
+        //    var paginatedGuards = await _unitOfWork.Teams.GetAllGuardsInTeamAsync(teamId, pageNumber, pageSize);
+        //    if (paginatedGuards == null || !paginatedGuards.Any())
+        //    {
+        //        return new ResponseDTO("Empty guard in list.", 200, false);
+        //    }
+        //    var guardDTOs = paginatedGuards.Where(g => g.Status != "DELETED")
+        //                                   .Select(g => new SecurityGuardDTO
+        //                                   {
+        //                                       FullName = g.User.FullName,
+        //                                       PhoneNumber = g.User.Phone,
+        //                                       IdentityNumber = g.IdentityNumber,
+        //                                       Avatar = g.User.Avatar,
+        //                                   }).ToList();
+        //    return new ResponseDTO("Retrieve guard: ", 200, true, new PaginatedList<SecurityGuardDTO>(guardDTOs, paginatedGuards.Count, pageSize, pageNumber));
+        //}
 
         public async Task<ResponseDTO> GetTeamByIdAsync(Guid teamId)
         {
@@ -119,34 +192,34 @@ namespace SafeguardSystem.BLL.Services
             return new ResponseDTO("Update team successfully", 200, true, teamDTO);
         }
 
-        public async Task<ResponseDTO> DeleteTeamAsync(Guid teamId)
-        {
-            // Check if the team exists
-            var teamExists = await _unitOfWork.Teams.TeamExistsAsync(teamId);
-            if (!teamExists)
-            {
-                return new ResponseDTO("Team not found", 404, false);
-            }
+        //public async Task<ResponseDTO> DeleteTeamAsync(Guid teamId)
+        //{
+        //    // Check if the team exists
+        //    var teamExists = await _unitOfWork.Teams.TeamExistsAsync(teamId);
+        //    if (!teamExists)
+        //    {
+        //        return new ResponseDTO("Team not found", 404, false);
+        //    }
 
-            // Check if the team has any guards
-            var teamHasGuards = await _unitOfWork.Teams.TeamHasGuardsAsync(teamId);
-            if (teamHasGuards)
-            {
-                return new ResponseDTO("Cannot delete team with existing guards", 400, false);
-            }
+        //    // Check if the team has any guards
+        //    var teamHasGuards = await _unitOfWork.Teams.TeamHasGuardsAsync(teamId);
+        //    if (teamHasGuards)
+        //    {
+        //        return new ResponseDTO("Cannot delete team with existing guards", 400, false);
+        //    }
 
-            // Retrieve the team
-            var team = await _unitOfWork.Teams.GetByGuIdAsync(teamId);
-            if (team == null)
-            {
-                return new ResponseDTO("Team not found", 404, false);
-            }
+        //    // Retrieve the team
+        //    var team = await _unitOfWork.Teams.GetByGuIdAsync(teamId);
+        //    if (team == null)
+        //    {
+        //        return new ResponseDTO("Team not found", 404, false);
+        //    }
 
-            // Set IsDeleted to true
-            team.IsDeleted = true;
-            await _unitOfWork.SaveChangeAsync();
+        //    // Set IsDeleted to true
+        //    team.IsDeleted = true;
+        //    await _unitOfWork.SaveChangeAsync();
 
-            return new ResponseDTO("Team deleted successfully", 200, true);
-        }
+        //    return new ResponseDTO("Team deleted successfully", 200, true);
+        //}
     }
 }

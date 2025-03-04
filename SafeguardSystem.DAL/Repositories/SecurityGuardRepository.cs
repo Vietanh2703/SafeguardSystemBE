@@ -13,6 +13,13 @@ namespace SafeguardSystem.DAL.Repositories
             _context = context;
         }
 
+        public async Task<List<SecurityGuard>> GetAllGuardsAsync()
+        {
+           return await _context.SecurityGuards
+                .Include(g => g.User)
+                .ToListAsync();
+        }
+
         public async Task<SecurityGuard?> GetByIdAsync(Guid guardId)
         {
             return await _context.SecurityGuards

@@ -14,5 +14,5 @@ public class Team
     public bool IsDeleted { get; set; }
     public virtual ICollection<Contract> Contracts { get; set; } = new List<Contract>();
     public virtual ICollection<SecurityShift> SecurityShifts { get; set; } = new List<SecurityShift>();
-    public virtual ICollection<SecurityGuard> Guards { get; set; } = new List<SecurityGuard>();
+    public virtual ICollection<TeamGuard>? TeamGuards { get; set; }
 }

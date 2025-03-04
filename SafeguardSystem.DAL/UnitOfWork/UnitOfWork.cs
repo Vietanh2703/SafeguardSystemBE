@@ -21,6 +21,7 @@ namespace SafeguardSystem.DAL.UnitOfWork
             Shiftincidents = new ShiftincidentRepository(_context);
             Shifttyperoutines = new ShifttyperoutineRepository(_context);*/ //làm sau
             Teams = new TeamRepository(_context);
+            TeamGuards = new TeamGuardRepository(_context);
             ShiftTypes = new ShiftTypeRepository(_context);
             Roles = new RoleRepository(_context);
             RefreshTokens = new RefreshTokenRepository(_context);
@@ -38,6 +39,7 @@ namespace SafeguardSystem.DAL.UnitOfWork
         public IShiftincidentRepository Shiftincidents { get; private set; }
         public IShifttyperoutineRepository Shifttyperoutines { get; private set; } */ //làm sau
         public ITeamRepository Teams { get; private set; }
+        public ITeamGuardRepository TeamGuards { get; private set; }
         public IRoleRepository Roles { get; private set; }
         public IRefreshTokenRepository RefreshTokens { get; private set; }
         public IShiftTypeRepository ShiftTypes { get; private set; }

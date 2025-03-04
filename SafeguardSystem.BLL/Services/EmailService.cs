@@ -21,7 +21,7 @@ namespace SafeguardSystem.BLL.Services
             _emailSettings = configuration.GetSection("EmailSettings").Get<EmailSettings>();
         }
 
-        public async Task SendActivationEmailAsync(EmailRequest emailRequest)
+        public async Task SendEmailAsync(EmailRequest emailRequest)
         {
             var email = new MimeMessage();
             email.Sender = new MailboxAddress("Safeguard System", _emailSettings.Sender);
@@ -37,7 +37,41 @@ namespace SafeguardSystem.BLL.Services
             await smtp.SendAsync(email);
             smtp.Disconnect(true);
         }
-        public string GenerateEmailBody(string FullName, string OtpText)
+
+        public string GenerateWelcomeEmailBody(string FullName, string Email, string Password)
+        {
+            var LoginUrl = "http://localhost:5173/login";
+            string body = string.Empty;
+            body = "<div style='font-family: Arial, sans-serif;'>";
+            body += "<div style='background-color: #f8f8f8; padding: 20px;'>";
+            body += "<div style='background-color: #fff; padding: 20px; border-radius: 10px;'>";
+            body += "<div style='text-align: left;'>";
+            body += "<img src='" + logoUrl + "' alt='Safeguard System' style='width: 100px; height: 100px; display: block; margin-bottom: 20px;'>";
+            body += "<h1 style='color: #333; font-size: 24px; margin-bottom: 20px;'>Welcome to Safeguard System &#127881;</h1>";
+            body += "<p style='color: #333; font-size: 12px; margin-bottom: 10px;'>Hi " + FullName + ",</p>";
+            body += "<p style='color: #333; font-size: 12px; margin-bottom: 10px;'>Welcome to Safeguard Assignment & Management System! We’re excited to have you on board. Below are your login credentials to access our system:</p>";
+            body += "<p style='color: #333; font-size: 12px; margin-bottom: 10px;'><strong>&#9679; Email:</strong> " + Email + "</p>";
+            body += "<p style='color: #333; font-size: 12px; margin-bottom: 10px;'><strong>🔹 Temporary Password:</strong> " + Password + "</p>";
+            body += "<p style='color: #333; font-size: 12px; margin-bottom: 10px;'>For security reasons, please log in as soon as possible and change your password.</p>";
+            body += "<p style='color: #333; font-size: 12px; margin-bottom: 10px;'>Next Steps:</p>";
+            body += "<p style='color: #333; font-size: 12px; margin-bottom: 10px;'>1. Click the button below to log in.</p>";
+            body += "<p style='color: #333; font-size: 12px; margin-bottom: 10px;'>2. Upon login, you’ll be prompted to update your password.</p>";
+            body += "<p style='color: #333; font-size: 12px; margin-bottom: 10px;'>3. Explore your dashboard and start using the system!</p>";
+            body += "<div style='text-align: center; margin: 20px 0;'>";
+            body += "<a href='" + LoginUrl + "' style='background-color: #007bff; color: #fff; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block;'>Log in to Your Account</a>";
+            body += "</div>";
+            body += "<p style='color: #333; font-size: 12px; margin-bottom: 10px;'>If you have any questions or need assistance, feel free to reach out to our support team at [Support Email].</p>";
+            body += "<p style='color: #333; font-size: 12px; margin-bottom: 10px;'>Welcome aboard! &#128640;</p>";
+            body += "</div>";
+            body += "<div style='text-align: center; margin-top: 40px;'>";
+            body += "<p style='color: #999; font-size: 14px;'>© 2025 Safeguard Assignment & Management System. All rights reserved.</p>";
+            body += "</div>";
+            body += "</div>";
+            body += "</div>";
+            body += "</div>";
+            return body;
+        }
+        public string GenerateOtpEmailBody(string FullName, string OtpText)
         {
             string body = string.Empty;
             body = "<div style='font-family: Arial, sans-serif;'>";

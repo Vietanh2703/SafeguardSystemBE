@@ -122,6 +122,27 @@
   },
   {
     "ContainingType": "SafeguardSystem.Web.Controllers.TeamController",
+    "Method": "AssignGuardToTeam",
+    "RelativePath": "assign-guard",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "teamId",
+        "Type": "System.Guid",
+        "IsRequired": false
+      },
+      {
+        "Name": "guardId",
+        "Type": "System.Guid",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SafeguardSystem.Web.Controllers.TeamController",
     "Method": "CreateTeam",
     "RelativePath": "create",
     "HttpMethod": "POST",
@@ -190,22 +211,6 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "SafeguardSystem.Web.Controllers.TeamController",
-    "Method": "DeleteTeam",
-    "RelativePath": "delete/{teamId}",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "teamId",
-        "Type": "System.Guid",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
     "ContainingType": "SafeguardSystem.Web.Controllers.GuardController",
     "Method": "GetGuardProfileById",
     "RelativePath": "guard/{guardId}",
@@ -265,6 +270,38 @@
   },
   {
     "ContainingType": "SafeguardSystem.Web.Controllers.UserController",
+    "Method": "RefreshOtp",
+    "RelativePath": "refresh-otp",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SafeguardSystem.Web.Controllers.TeamController",
+    "Method": "RemoveGuardFromTeam",
+    "RelativePath": "remove-guard/{teamGuardId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "teamGuardId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SafeguardSystem.Web.Controllers.UserController",
     "Method": "GetRoles",
     "RelativePath": "roles",
     "HttpMethod": "GET",
@@ -317,6 +354,22 @@
   },
   {
     "ContainingType": "SafeguardSystem.Web.Controllers.TeamController",
+    "Method": "GetGuardsInTeam",
+    "RelativePath": "team/{teamId}/guards",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "teamId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SafeguardSystem.Web.Controllers.TeamController",
     "Method": "GetAllTeams",
     "RelativePath": "team/all",
     "HttpMethod": "GET",
@@ -332,6 +385,27 @@
         "Name": "pageSize",
         "Type": "System.Int32",
         "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SafeguardSystem.Web.Controllers.UserController",
+    "Method": "UpdatePassword",
+    "RelativePath": "update-password",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Email",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "updatePasswordDTO",
+        "Type": "SafeguardSystem.Common.DTOs.UpdatePasswordDTO",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []
@@ -394,6 +468,22 @@
       {
         "Name": "teamDTO",
         "Type": "SafeguardSystem.Common.DTOs.TeamDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SafeguardSystem.Web.Controllers.UserController",
+    "Method": "GetUserByUserId",
+    "RelativePath": "user-details/{userId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.String",
         "IsRequired": true
       }
     ],
