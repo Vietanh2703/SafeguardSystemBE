@@ -454,30 +454,30 @@ namespace SafeguardSystem.DAL.Migrations
                     { "GLgL2MXjY7Pg4gmEJrgFulyEgV23", null, null, "https://www.freepik.com/free-vector/simple-vibing-cat-square-meme_58459053.htm#fromView=keyword&page=1&position=0&uuid=f4bd18ef-8de6-4b6e-8e68-06073abf526b&query=Animal+Memes", new DateTime(2001, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "guard4@test.com", "Nguyen Phong", true, false, true, true, "0123456789", null, null, new Guid("d1616b66-90cc-479f-b45e-1e86378937f7"), "Security Guard 4" },
                     { "IuyPY3ie8OQG60w0gasxQNkXHzS2", null, null, "https://www.freepik.com/free-vector/simple-vibing-cat-square-meme_58459053.htm#fromView=keyword&page=1&position=0&uuid=f4bd18ef-8de6-4b6e-8e68-06073abf526b&query=Animal+Memes", new DateTime(2001, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "phong@test.com", "Nguyen Phuc Hau", true, false, true, false, "0123456789", null, null, new Guid("be19e4b3-6664-4afd-9ebb-98e0a073edc9"), "Business Partner" },
                     { "ksyosShXa2QizFvCVkpe6dAG3ax1", null, null, "https://www.freepik.com/free-vector/simple-vibing-cat-square-meme_58459053.htm#fromView=keyword&page=1&position=0&uuid=f4bd18ef-8de6-4b6e-8e68-06073abf526b&query=Animal+Memes", new DateTime(2001, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "guard@test.com", "Nguyen Khai Minh", true, false, true, false, "0123456789", null, null, new Guid("d1616b66-90cc-479f-b45e-1e86378937f7"), "Security Guard" },
-                    { "UCdsPNEZpKeUlbPE8q478r60f5o1", null, null, "https://www.freepik.com/free-vector/simple-vibing-cat-square-meme_58459053.htm#fromView=keyword&page=1&position=0&uuid=f4bd18ef-8de6-4b6e-8e68-06073abf526b&query=Animal+Memes", new DateTime(2004, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "manager@test.com", "Nhat Nam", true, false, true, false, "0123456789", null, null, new Guid("6be95231-36aa-4a26-8c61-b65e040ec32a"), "Manager" }
+                    { "SLuhlRSnI1VOm00lYZ0oHxnfpCx2", null, null, "https://www.freepik.com/free-vector/simple-vibing-cat-square-meme_58459053.htm#fromView=keyword&page=1&position=0&uuid=f4bd18ef-8de6-4b6e-8e68-06073abf526b&query=Animal+Memes", new DateTime(2004, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "manager@test.com", "Nhat Nam", true, false, true, false, "0123456789", null, null, new Guid("6be95231-36aa-4a26-8c61-b65e040ec32a"), "Manager" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Businesses",
                 columns: new[] { "BusinessId", "ContractExpiry", "Description", "IsActive", "IsDeleted", "Name", "UserId" },
-                values: new object[] { new Guid("7c54454f-337d-4b5b-a2d0-74ad4088686b"), new DateTime(2026, 3, 5, 9, 21, 46, 742, DateTimeKind.Utc).AddTicks(3148), "Nơi sinh hoạt văn hóa, giải trí dành cho sinh viên", true, false, "Nhà văn hóa sinh viên", "IuyPY3ie8OQG60w0gasxQNkXHzS2" });
+                values: new object[] { new Guid("7c54454f-337d-4b5b-a2d0-74ad4088686b"), new DateTime(2026, 3, 5, 12, 27, 24, 479, DateTimeKind.Utc).AddTicks(5424), "Nơi sinh hoạt văn hóa, giải trí dành cho sinh viên", true, false, "Nhà văn hóa sinh viên", "IuyPY3ie8OQG60w0gasxQNkXHzS2" });
 
             migrationBuilder.InsertData(
                 table: "SecurityGuards",
                 columns: new[] { "GuardId", "IdentityNumber", "Latitude", "Longitude", "StartDate", "Status", "UserId" },
                 values: new object[,]
                 {
-                    { new Guid("399c04bc-31f2-4296-bf32-4b6d3b0cb1c1"), "123456789", 10.882934m, 106.785746m, new DateTime(2025, 3, 5, 9, 21, 46, 742, DateTimeKind.Utc).AddTicks(3094), "PENDING", "fH8JsAPWjJOHLvLSI4MJVG4aSBr1" },
-                    { new Guid("3de02800-eecb-4abe-adb4-cd114896e0bc"), "123456789", 10.882934m, 106.785746m, new DateTime(2025, 3, 5, 9, 21, 46, 742, DateTimeKind.Utc).AddTicks(3100), "PENDING", "fNBgIDvy0JTd3wd9enqVywR8o612" },
-                    { new Guid("5144d02b-8aa2-43d1-88e9-774087acb37e"), "123456789", 10.882934m, 106.785746m, new DateTime(2025, 3, 5, 9, 21, 46, 742, DateTimeKind.Utc).AddTicks(3098), "PENDING", "GLgL2MXjY7Pg4gmEJrgFulyEgV23" },
-                    { new Guid("d2a9201b-59ad-40b7-bde5-dfda937d7433"), "123456789", 10.882934m, 106.785746m, new DateTime(2025, 3, 5, 9, 21, 46, 742, DateTimeKind.Utc).AddTicks(3088), "PENDING", "ksyosShXa2QizFvCVkpe6dAG3ax1" },
-                    { new Guid("e24aa81d-c60e-4dfd-9909-991c837e6631"), "123456789", 10.882934m, 106.785746m, new DateTime(2025, 3, 5, 9, 21, 46, 742, DateTimeKind.Utc).AddTicks(3096), "PENDING", "CkjtbJVJQxVm1eLjHW3p10TdV193" }
+                    { new Guid("399c04bc-31f2-4296-bf32-4b6d3b0cb1c1"), "123456789", 10.882934m, 106.785746m, new DateTime(2025, 3, 5, 12, 27, 24, 479, DateTimeKind.Utc).AddTicks(5372), "PENDING", "fH8JsAPWjJOHLvLSI4MJVG4aSBr1" },
+                    { new Guid("3de02800-eecb-4abe-adb4-cd114896e0bc"), "123456789", 10.882934m, 106.785746m, new DateTime(2025, 3, 5, 12, 27, 24, 479, DateTimeKind.Utc).AddTicks(5378), "PENDING", "fNBgIDvy0JTd3wd9enqVywR8o612" },
+                    { new Guid("5144d02b-8aa2-43d1-88e9-774087acb37e"), "123456789", 10.882934m, 106.785746m, new DateTime(2025, 3, 5, 12, 27, 24, 479, DateTimeKind.Utc).AddTicks(5376), "PENDING", "GLgL2MXjY7Pg4gmEJrgFulyEgV23" },
+                    { new Guid("d2a9201b-59ad-40b7-bde5-dfda937d7433"), "123456789", 10.882934m, 106.785746m, new DateTime(2025, 3, 5, 12, 27, 24, 479, DateTimeKind.Utc).AddTicks(5365), "PENDING", "ksyosShXa2QizFvCVkpe6dAG3ax1" },
+                    { new Guid("e24aa81d-c60e-4dfd-9909-991c837e6631"), "123456789", 10.882934m, 106.785746m, new DateTime(2025, 3, 5, 12, 27, 24, 479, DateTimeKind.Utc).AddTicks(5374), "PENDING", "CkjtbJVJQxVm1eLjHW3p10TdV193" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Locations",
                 columns: new[] { "LocationId", "BusinessId", "CreatedAt", "IsDeleted", "Latitude", "Longitude", "Name", "PlaceId", "UpdatedAt" },
-                values: new object[] { new Guid("c86114da-36c8-4644-8ab0-dbdcb5c2f830"), new Guid("7c54454f-337d-4b5b-a2d0-74ad4088686b"), new DateTime(2025, 3, 5, 9, 21, 46, 742, DateTimeKind.Utc).AddTicks(3196), false, 10.882934m, 106.785746m, "Nhà văn hóa sinh viên", new Guid("f77996c4-71b5-4b61-a937-e409b6b2cd14"), null });
+                values: new object[] { new Guid("c86114da-36c8-4644-8ab0-dbdcb5c2f830"), new Guid("7c54454f-337d-4b5b-a2d0-74ad4088686b"), new DateTime(2025, 3, 5, 12, 27, 24, 479, DateTimeKind.Utc).AddTicks(5484), false, 10.882934m, 106.785746m, "Nhà văn hóa sinh viên", new Guid("5aadbc48-784e-48cb-8d40-3e374ca657e5"), null });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Businesses_UserId",

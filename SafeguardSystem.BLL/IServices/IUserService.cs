@@ -20,5 +20,7 @@ namespace SafeguardSystem.BLL.IServices
         Task<ResponseDTO> GetUsersByRoleAsync(string roleName);
         Task<ResponseDTO> GetAllRolesAsync();
         Task<ResponseDTO> GetUserByUserIdAsync(string userId);
+        Task<ResponseDTO> BanUserAsync(string userId);
+        Task<ResponseDTO> UnbanUserAsync(string userId);
     }
 }

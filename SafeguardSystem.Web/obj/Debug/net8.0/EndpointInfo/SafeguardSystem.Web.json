@@ -10,7 +10,7 @@
     "version": "v1"
   },
   "paths": {
-    "/api/Admin/admin/view-all-business-partners": {
+    "/api/Admin/view-all-business-partners": {
       "get": {
         "tags": [
           "Admin"
@@ -39,7 +39,7 @@
         }
       }
     },
-    "/api/Admin/admin/create-user": {
+    "/api/Admin/create-user": {
       "post": {
         "tags": [
           "Admin"
@@ -70,7 +70,7 @@
         }
       }
     },
-    "/api/Admin/admin/view-all-users": {
+    "/api/Admin/view-all-users": {
       "get": {
         "tags": [
           "Admin"
@@ -100,7 +100,7 @@
         }
       }
     },
-    "/api/Admin/admin/get-all-users": {
+    "/api/Admin/get-all-users": {
       "get": {
         "tags": [
           "Admin"
@@ -112,7 +112,7 @@
         }
       }
     },
-    "/api/Admin/admin/get-users-by-role/{roleName}": {
+    "/api/Admin/get-users-by-role/{roleName}": {
       "get": {
         "tags": [
           "Admin"
@@ -134,7 +134,7 @@
         }
       }
     },
-    "/api/Admin/admin/delete-user/{userId}": {
+    "/api/Admin/ban-user/{userId}": {
       "put": {
         "tags": [
           "Admin"
@@ -156,7 +156,51 @@
         }
       }
     },
-    "/api/Admin/admin/get-all-requests": {
+    "/api/Admin/unban-user/{userId}": {
+      "put": {
+        "tags": [
+          "Admin"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Admin/delete-user/{userId}": {
+      "put": {
+        "tags": [
+          "Admin"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Admin/get-all-requests": {
       "get": {
         "tags": [
           "Admin"
@@ -186,7 +230,7 @@
         }
       }
     },
-    "/api/Admin/admin/approve-login-request": {
+    "/api/Admin/approve-login-request": {
       "put": {
         "tags": [
           "Admin"

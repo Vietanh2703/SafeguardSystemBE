@@ -95,9 +95,9 @@ namespace SafeguardSystem.BLL.Services
             }
 
             // Check nếu user không active, bị khóa, chưa xác nhận email hoặc đã bị xóa
-            if (!user.IsActive || user.IsLocked || !user.IsEmailConfirmed || user.IsDeleted)
+            if (!user.IsEmailConfirmed || user.IsDeleted)
             {
-                if (user.IsDeleted || !user.IsActive || user.IsLocked)
+                if (user.IsDeleted)
                 {
                     return new ResponseDTO("This account does not exist.", 400, false);
                 }
@@ -105,6 +105,11 @@ namespace SafeguardSystem.BLL.Services
                 {
                     return new ResponseDTO("Your account is not verified, please check your email.", 400, false);
                 }
+            }
+
+            if(user.IsLocked)
+            {
+                return new ResponseDTO("Your account has been banned. Please contact your Admin", 400, false);
             }
 
             var role = await _unitOfWork.Roles.GetByGuIdAsync(user.RoleID);
@@ -212,9 +217,14 @@ namespace SafeguardSystem.BLL.Services
             }
 
             // Kiểm tra nếu user bị khóa hoặc bị xóa khỏi hệ thống
-            if (user.IsLocked || user.IsDeleted)
+            if (user.IsDeleted)
             {
                 return new ResponseDTO("Your account does not exist.", 400, false);
+            }
+
+            if (user.IsLocked)
+            {
+                return new ResponseDTO("Your account has been banned. Please contact your Admin", 400, false);
             }
 
             // Kiểm tra và thu hồi RefreshToken cũ nếu có

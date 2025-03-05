@@ -323,6 +323,7 @@ namespace SafeguardSystem.BLL.Services
 
                 // Cập nhật trạng thái soft delete trong MySQL
                 user.IsDeleted = true;
+                user.IsActive = false;
                 await _unitOfWork.SaveChangeAsync();
 
                 return new ResponseDTO("User has been deleted successfully", 200, true);
@@ -515,6 +516,69 @@ namespace SafeguardSystem.BLL.Services
 
             return new ResponseDTO("User found", 200, true, userDTO);
         }
-        
+
+        //Chặn người dùng
+        public async Task<ResponseDTO> BanUserAsync(string userId)
+        {
+            try
+            {
+                // Find the user in MySQL by UserId
+                var user = await _unitOfWork.Users.GetUserByFirebaseUidAsync(userId);
+                if (user == null)
+                {
+                    return new ResponseDTO("User not found", 404, false);
+                }
+
+                // Check if the user is already banned
+                if (user.IsLocked)
+                {
+                    return new ResponseDTO("User is already banned", 400, false);
+                }
+
+                // Update the user's status to banned
+                user.IsLocked = true;
+                user.IsActive = false;
+                await _unitOfWork.SaveChangeAsync();
+
+                return new ResponseDTO("User has been banned successfully", 200, true);
+            }
+            catch (Exception ex)
+            {
+                var errorDetails = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                return new ResponseDTO($"Error banning user: {errorDetails}", 500, false);
+            }
+        }
+
+        //Mở chặn người dùng
+        public async Task<ResponseDTO> UnbanUserAsync(string userId)
+        {
+            try
+            {
+                // Find the user in MySQL by UserId
+                var user = await _unitOfWork.Users.GetUserByFirebaseUidAsync(userId);
+                if (user == null)
+                {
+                    return new ResponseDTO("User not found", 404, false);
+                }
+
+                // Check if the user is not banned
+                if (!user.IsLocked)
+                {
+                    return new ResponseDTO("User is not banned, cannot perform unban operation", 400, false);
+                }
+
+                // Update the user's status to active
+                user.IsLocked = false;
+                user.IsActive = true;
+                await _unitOfWork.SaveChangeAsync();
+
+                return new ResponseDTO("User has been unbanned successfully", 200, true);
+            }
+            catch (Exception ex)
+            {
+                var errorDetails = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                return new ResponseDTO($"Error unbanning user: {errorDetails}", 500, false);
+            }
+        }
     }
 }

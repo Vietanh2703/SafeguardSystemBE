@@ -2,7 +2,7 @@
   {
     "ContainingType": "SafeguardSystem.Controllers.AdminController",
     "Method": "ApproveLoginRequest",
-    "RelativePath": "api/Admin/admin/approve-login-request",
+    "RelativePath": "api/Admin/approve-login-request",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -27,8 +27,24 @@
   },
   {
     "ContainingType": "SafeguardSystem.Controllers.AdminController",
+    "Method": "BanUser",
+    "RelativePath": "api/Admin/ban-user/{userId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SafeguardSystem.Controllers.AdminController",
     "Method": "CreateUser",
-    "RelativePath": "api/Admin/admin/create-user",
+    "RelativePath": "api/Admin/create-user",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -44,7 +60,7 @@
   {
     "ContainingType": "SafeguardSystem.Controllers.AdminController",
     "Method": "DeleteUser",
-    "RelativePath": "api/Admin/admin/delete-user/{userId}",
+    "RelativePath": "api/Admin/delete-user/{userId}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -60,7 +76,7 @@
   {
     "ContainingType": "SafeguardSystem.Controllers.AdminController",
     "Method": "GetAllRequests",
-    "RelativePath": "api/Admin/admin/get-all-requests",
+    "RelativePath": "api/Admin/get-all-requests",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -81,7 +97,7 @@
   {
     "ContainingType": "SafeguardSystem.Controllers.AdminController",
     "Method": "GetAllUsers",
-    "RelativePath": "api/Admin/admin/get-all-users",
+    "RelativePath": "api/Admin/get-all-users",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -91,7 +107,7 @@
   {
     "ContainingType": "SafeguardSystem.Controllers.AdminController",
     "Method": "GetUsersByRole",
-    "RelativePath": "api/Admin/admin/get-users-by-role/{roleName}",
+    "RelativePath": "api/Admin/get-users-by-role/{roleName}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -106,8 +122,24 @@
   },
   {
     "ContainingType": "SafeguardSystem.Controllers.AdminController",
+    "Method": "UnbanUser",
+    "RelativePath": "api/Admin/unban-user/{userId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SafeguardSystem.Controllers.AdminController",
     "Method": "GetAllBusinesses",
-    "RelativePath": "api/Admin/admin/view-all-business-partners",
+    "RelativePath": "api/Admin/view-all-business-partners",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -127,7 +159,7 @@
   {
     "ContainingType": "SafeguardSystem.Controllers.AdminController",
     "Method": "GetAllUsers",
-    "RelativePath": "api/Admin/admin/view-all-users",
+    "RelativePath": "api/Admin/view-all-users",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,

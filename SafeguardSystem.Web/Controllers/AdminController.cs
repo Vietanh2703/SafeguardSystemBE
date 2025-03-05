@@ -61,6 +61,22 @@ namespace SafeguardSystem.Controllers
             return StatusCode(results.StatusCode, results);
         }
 
+        [Route("ban-user/{userId}")]
+        [HttpPut]
+        public async Task<IActionResult> BanUser(string userId)
+        {
+            var results = await _userService.BanUserAsync(userId);
+            return StatusCode(results.StatusCode, results);
+        }
+
+        [Route("unban-user/{userId}")]
+        [HttpPut]
+        public async Task<IActionResult> UnbanUser(string userId)
+        {
+            var results = await _userService.UnbanUserAsync(userId);
+            return StatusCode(results.StatusCode, results);
+        }
+
         [Route("delete-user/{userId}")]
         [HttpPut]
         public async Task<IActionResult> DeleteUser(string userId)
