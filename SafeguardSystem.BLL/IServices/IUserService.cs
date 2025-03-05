@@ -16,6 +16,8 @@ namespace SafeguardSystem.BLL.IServices
         Task<ResponseDTO> UpdateUserAsync(string UserId,UpdateUserDTO updateUserDTO);
         Task<ResponseDTO> DeleteUserAsync(string userId);
         Task<ResponseDTO> GetAllUsersAsync(int pageIndex, int pageSize);
+        Task<ResponseDTO> GetAllUsersAsync();
+        Task<ResponseDTO> GetUsersByRoleAsync(string roleName);
         Task<ResponseDTO> GetAllRolesAsync();
         Task<ResponseDTO> GetUserByUserIdAsync(string userId);
     }

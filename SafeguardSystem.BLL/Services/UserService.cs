@@ -228,6 +228,77 @@ namespace SafeguardSystem.BLL.Services
             return new ResponseDTO("User list:", 200, true, new PaginatedList<ViewUserListDTO>(userDTOs, paginatedUsers.Count, pageIndex, pageSize));
         }
 
+        //Lấy thông tin người dùng không phân trang
+        public async Task<ResponseDTO> GetAllUsersAsync()
+        {
+            try
+            {
+                var allUsers = await _unitOfWork.Users.GetAllUsersAsync();
+                if (allUsers == null || !allUsers.Any())
+                {
+                    return new ResponseDTO("No users found in the system.", 200, false);
+                }
+
+                var userDTOs = allUsers
+                    .Where(u => !u.IsDeleted)
+                    .Select(u => new ViewUserListDTO
+                    {
+                        Email = u.Email,
+                        FullName = u.FullName,
+                        Phone = u.Phone,
+                        Avatar = u.Avatar
+                    }).ToList();
+
+                return new ResponseDTO("Users retrieved successfully.", 200, true, userDTOs);
+            }
+            catch (Exception ex)
+            {
+                var errorDetails = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                return new ResponseDTO($"Error retrieving users: {errorDetails}", 500, false);
+            }
+        }
+
+        // Lấy thông tin người dùng theo vai trò
+        public async Task<ResponseDTO> GetUsersByRoleAsync(string roleName)
+        {
+            try
+            {
+                // Trả ra tên role
+                var role = await _unitOfWork.Roles.GetRoleIdByNameAsync(roleName);
+                if (role == null)
+                {
+                    return new ResponseDTO("Role not found", 404, false);
+                }
+
+                // trả ra tất cả role trừ "Admin"
+                var users = await _unitOfWork.Users.GetAll()
+                    .Where(u => u.RoleID == role.RoleId && !u.Role.RoleName.ToLower().Equals("admin"))
+                    .ToListAsync();
+
+                if (users == null || !users.Any())
+                {
+                    return new ResponseDTO("No users found for the specified role", 200, false);
+                }
+
+                var userDTOs = users
+                    .Where(u => !u.IsDeleted)
+                    .Select(u => new ViewUserListDTO
+                    {
+                        Email = u.Email,
+                        FullName = u.FullName,
+                        Phone = u.Phone,
+                        Avatar = u.Avatar
+                    }).ToList();
+
+                return new ResponseDTO("Users retrieved successfully.", 200, true, userDTOs);
+            }
+            catch (Exception ex)
+            {
+                var errorDetails = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                return new ResponseDTO($"Error retrieving users: {errorDetails}", 500, false);
+            }
+        }
+
         // Xóa người dùng khỏi cả MySQL và Firebase
         public async Task<ResponseDTO> DeleteUserAsync(string userId)
         {
@@ -444,5 +515,6 @@ namespace SafeguardSystem.BLL.Services
 
             return new ResponseDTO("User found", 200, true, userDTO);
         }
+        
     }
 }

@@ -21,7 +21,7 @@ namespace SafeguardSystem.Controllers
             _loginRequestService = loginRequestService;
         }
 
-        [Route("admin/view-all-business-partners")]
+        [Route("view-all-business-partners")]
         [HttpGet]
         public ResponseDTO GetAllBusinesses()
         {
@@ -29,7 +29,7 @@ namespace SafeguardSystem.Controllers
             return results;
         }
 
-        [Route("admin/create-user")]
+        [Route("create-user")]
         [HttpPost]
         public async Task<IActionResult> CreateUser([FromBody] CreateUserDTO createUserDTO)
         {
@@ -37,7 +37,7 @@ namespace SafeguardSystem.Controllers
             return StatusCode(results.StatusCode, results);
         }
 
-        [Route("admin/view-all-users")]
+        [Route("view-all-users")]
         [HttpGet]
         public async Task<IActionResult> GetAllUsers(int pageIndex, int pageSize)
         {
@@ -45,7 +45,23 @@ namespace SafeguardSystem.Controllers
             return StatusCode(results.StatusCode, results);
         }
 
-        [Route("admin/delete-user/{userId}")]
+        [Route("get-all-users")]
+        [HttpGet]
+        public async Task<IActionResult> GetAllUsers()
+        {
+            var results = await _userService.GetAllUsersAsync();
+            return StatusCode(results.StatusCode, results);
+        }
+
+        [Route("get-users-by-role/{roleName}")]
+        [HttpGet]
+        public async Task<IActionResult> GetUsersByRole(string roleName)
+        {
+            var results = await _userService.GetUsersByRoleAsync(roleName);
+            return StatusCode(results.StatusCode, results);
+        }
+
+        [Route("delete-user/{userId}")]
         [HttpPut]
         public async Task<IActionResult> DeleteUser(string userId)
         {
@@ -53,7 +69,7 @@ namespace SafeguardSystem.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
-        [Route("admin/get-all-requests")]
+        [Route("get-all-requests")]
         [HttpGet]
         public async Task<IActionResult> GetAllRequests(int pageNumber, int pageSize)
         {
@@ -61,7 +77,7 @@ namespace SafeguardSystem.Controllers
             return StatusCode(results.StatusCode, results);
         }
 
-        [Route("admin/approve-login-request")]
+        [Route("approve-login-request")]
         [HttpPut]
         [SwaggerOperation(Summary = "Approve or reject Google login user")]
         public async Task<IActionResult> ApproveLoginRequest([FromQuery] Guid requestId, [FromQuery] ApprovalStatus status, [FromQuery] string? reason)

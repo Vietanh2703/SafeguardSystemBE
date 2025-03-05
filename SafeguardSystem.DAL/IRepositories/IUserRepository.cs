@@ -9,5 +9,6 @@ namespace SafeguardSystem.DAL.IRepositories
         Task<User> GetUserByEmailAsync(string email);
         Task<User> CreateUserAsync(User user);
         Task<PaginatedList<User>> GetAllUsersWithPagingAsync(int pageIndex, int pageSize);
+        Task<List<User>> GetAllUsersAsync();
     }
 }

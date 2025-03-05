@@ -80,6 +80,32 @@
   },
   {
     "ContainingType": "SafeguardSystem.Controllers.AdminController",
+    "Method": "GetAllUsers",
+    "RelativePath": "api/Admin/admin/get-all-users",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SafeguardSystem.Controllers.AdminController",
+    "Method": "GetUsersByRole",
+    "RelativePath": "api/Admin/admin/get-users-by-role/{roleName}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "roleName",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SafeguardSystem.Controllers.AdminController",
     "Method": "GetAllBusinesses",
     "RelativePath": "api/Admin/admin/view-all-business-partners",
     "HttpMethod": "GET",
