@@ -46,13 +46,13 @@ namespace SafeguardSystem.Web.Controllers
             return StatusCode(response.StatusCode, response);
         }
 
-        //[Route("delete/{teamId}")]
-        //[HttpPut]
-        //public async Task<IActionResult> DeleteTeam(Guid teamId)
-        //{
-        //    var response = await _teamService.DeleteTeamAsync(teamId);
-        //    return StatusCode(response.StatusCode, response);
-        //}
+        [Route("delete/{teamId}")]
+        [HttpPut]
+        public async Task<IActionResult> DeleteTeam(Guid teamId)
+        {
+            var response = await _teamService.DeleteTeamAsync(teamId);
+            return StatusCode(response.StatusCode, response);
+        }
 
         [Route("assign-guard")]
         [HttpPost]

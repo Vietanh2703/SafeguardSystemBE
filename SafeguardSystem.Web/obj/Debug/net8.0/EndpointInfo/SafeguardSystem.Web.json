@@ -10,7 +10,7 @@
     "version": "v1"
   },
   "paths": {
-    "/api/Admin/view-all-business-partners": {
+    "/api/Admin/admin/view-all-business-partners": {
       "get": {
         "tags": [
           "Admin"
@@ -39,7 +39,7 @@
         }
       }
     },
-    "/api/Admin/create-user": {
+    "/api/Admin/admin/create-user": {
       "post": {
         "tags": [
           "Admin"
@@ -70,7 +70,7 @@
         }
       }
     },
-    "/api/Admin/view-all-users": {
+    "/api/Admin/admin/view-all-users": {
       "get": {
         "tags": [
           "Admin"
@@ -100,7 +100,7 @@
         }
       }
     },
-    "/api/Admin/delete-user/{userId}": {
+    "/api/Admin/admin/delete-user/{userId}": {
       "put": {
         "tags": [
           "Admin"
@@ -110,6 +110,72 @@
             "name": "userId",
             "in": "path",
             "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Admin/admin/get-all-requests": {
+      "get": {
+        "tags": [
+          "Admin"
+        ],
+        "parameters": [
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Admin/admin/approve-login-request": {
+      "put": {
+        "tags": [
+          "Admin"
+        ],
+        "parameters": [
+          {
+            "name": "requestId",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "schema": {
+              "$ref": "#/components/schemas/ApprovalStatus"
+            }
+          },
+          {
+            "name": "reason",
+            "in": "query",
             "schema": {
               "type": "string"
             }
@@ -612,6 +678,29 @@
         }
       }
     },
+    "/delete/{teamId}": {
+      "put": {
+        "tags": [
+          "Team"
+        ],
+        "parameters": [
+          {
+            "name": "teamId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/assign-guard": {
       "post": {
         "tags": [
@@ -858,6 +947,13 @@
   },
   "components": {
     "schemas": {
+      "ApprovalStatus": {
+        "enum": [
+          "Rejected",
+          "Accepted"
+        ],
+        "type": "string"
+      },
       "CreateUserDTO": {
         "type": "object",
         "properties": {

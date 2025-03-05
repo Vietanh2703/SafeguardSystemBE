@@ -11,6 +11,7 @@ using FirebaseAdmin.Auth;
 using System.Security.Claims;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
+using System.Text.Json.Serialization;
 
 
 
@@ -23,15 +24,19 @@ namespace SafeguardSystem
             var builder = WebApplication.CreateBuilder(args);
 
             // Dependency Injection cho các dịch vụ
+            builder.Services.AddHttpClient();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IEmailService, EmailService>();
+            builder.Services.AddScoped<EmailService>();
             builder.Services.AddScoped<IBusinessService, BusinessService>();
             builder.Services.AddScoped<IShiftTypeService, ShiftTypeService>();
             builder.Services.AddScoped<IGuardService, GuardService>();
             builder.Services.AddScoped<ILocationService, LocationService>();
             builder.Services.AddScoped<ITeamService, TeamService>();
+            builder.Services.AddScoped<ILoginRequestService, LoginRequestService>();
+            builder.Services.AddScoped<LoginRequestService>();
 
             // Cấu hình context database
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -62,7 +67,7 @@ namespace SafeguardSystem
                     {
                         Name = "Safeguard System",
                         Url = new Uri("https://github.com/Vietanh2703/SafeguardSystemBE.git")
-                    }
+                    },
                 });
                 var xmlFile = Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml");
                 c.IncludeXmlComments(xmlFile);
@@ -143,7 +148,11 @@ namespace SafeguardSystem
             });
 
             // Add controllers
-            builder.Services.AddControllers();
+            builder.Services.AddControllers()
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()); // Convert all enums to strings
+                });
 
             //Add IHttpContextAccessor
             builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();

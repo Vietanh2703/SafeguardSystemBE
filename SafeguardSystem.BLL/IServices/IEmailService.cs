@@ -11,6 +11,7 @@ namespace SafeguardSystem.BLL.IServices
     {
         Task SendEmailAsync(EmailRequest emailRequest);
         string GenerateWelcomeEmailBody(string FullName, string Email, string Password);
+        string GenerateWelcomeGoogleLoginUser(string Email);
         string GenerateOtpEmailBody(string FullName, string OtpText);
         string GenerateActivationSuccessEmailBody(string FullName);
     }

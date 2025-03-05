@@ -56,7 +56,6 @@ D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.Web\bin\Debug\net8.0\Micros
 D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.Web\bin\Debug\net8.0\Microsoft.DotNet.Scaffolding.Shared.dll
 D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.Web\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.dll
 D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.Web\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Abstractions.dll
-D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.Web\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Design.dll
 D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.Web\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.dll
 D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.Web\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll
 D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.Web\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
@@ -828,3 +827,4 @@ D:\SafeguardSystemBE\SafeguardSystem.Web\obj\Debug\net8.0\SafeguardSystem.Web.xm
 D:\SafeguardSystemBE\SafeguardSystem.Web\obj\Debug\net8.0\SafeguardSystem.Web.pdb
 D:\SafeguardSystemBE\SafeguardSystem.Web\obj\Debug\net8.0\SafeguardSystem.Web.genruntimeconfig.cache
 D:\SafeguardSystemBE\SafeguardSystem.Web\obj\Debug\net8.0\ref\SafeguardSystem.Web.dll
+D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.Web\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Design.dll

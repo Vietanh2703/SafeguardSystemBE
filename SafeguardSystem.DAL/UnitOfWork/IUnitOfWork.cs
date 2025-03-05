@@ -9,6 +9,7 @@ namespace SafeguardSystem.DAL.UnitOfWork
         ICheckpointRepository Checkpoints { get; }
         ILocationRepository Locations { get; }
         ISecurityGuardRepository SecurityGuards { get; }
+        ILoginRequestRepository LoginRequests { get; }
         /*IContractRepository Contracts { get; }
         ISecurityshiftRepository Securityshifts { get; }
         IShiftassignmentRepository Shiftassignments { get; }

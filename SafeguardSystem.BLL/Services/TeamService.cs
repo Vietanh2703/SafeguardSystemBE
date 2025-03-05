@@ -4,11 +4,6 @@ using SafeguardSystem.Common.DTOs;
 using SafeguardSystem.DAL.Entities;
 using SafeguardSystem.DAL.Extensions;
 using SafeguardSystem.DAL.UnitOfWork;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SafeguardSystem.BLL.Services
 {
@@ -93,6 +88,7 @@ namespace SafeguardSystem.BLL.Services
             return new ResponseDTO("Guard removed from team successfully", 200, true);
         }
 
+        //Lấy danh sách bảo vệ trong team
         public async Task<ResponseDTO> GetGuardsInTeamAsync(Guid teamId)
         {
             var team = await _unitOfWork.Teams.GetByGuIdAsync(teamId);
@@ -192,34 +188,34 @@ namespace SafeguardSystem.BLL.Services
             return new ResponseDTO("Update team successfully", 200, true, teamDTO);
         }
 
-        //public async Task<ResponseDTO> DeleteTeamAsync(Guid teamId)
-        //{
-        //    // Check if the team exists
-        //    var teamExists = await _unitOfWork.Teams.TeamExistsAsync(teamId);
-        //    if (!teamExists)
-        //    {
-        //        return new ResponseDTO("Team not found", 404, false);
-        //    }
+        public async Task<ResponseDTO> DeleteTeamAsync(Guid teamId)
+        {
+            // Kiểm tra team tồn tại
+            var teamExists = await _unitOfWork.Teams.TeamExistsAsync(teamId);
+            if (!teamExists)
+            {
+                return new ResponseDTO("Team not found", 404, false);
+            }
 
-        //    // Check if the team has any guards
-        //    var teamHasGuards = await _unitOfWork.Teams.TeamHasGuardsAsync(teamId);
-        //    if (teamHasGuards)
-        //    {
-        //        return new ResponseDTO("Cannot delete team with existing guards", 400, false);
-        //    }
+            // Kiểm tra team có bảo vệ không
+            var teamHasGuards = await _unitOfWork.TeamGuards.Any(tg => tg.TeamId == teamId);
+            if (teamHasGuards)
+            {
+                return new ResponseDTO("Cannot delete team with existing guards", 400, false);
+            }
 
-        //    // Retrieve the team
-        //    var team = await _unitOfWork.Teams.GetByGuIdAsync(teamId);
-        //    if (team == null)
-        //    {
-        //        return new ResponseDTO("Team not found", 404, false);
-        //    }
+            //Trả về team
+            var team = await _unitOfWork.Teams.GetByGuIdAsync(teamId);
+            if (team == null)
+            {
+                return new ResponseDTO("Team not found", 404, false);
+            }
 
-        //    // Set IsDeleted to true
-        //    team.IsDeleted = true;
-        //    await _unitOfWork.SaveChangeAsync();
+            // Xóa team (soft delete)
+            team.IsDeleted = true;
+            await _unitOfWork.SaveChangeAsync();
 
-        //    return new ResponseDTO("Team deleted successfully", 200, true);
-        //}
+            return new ResponseDTO("Team deleted successfully", 200, true);
+        }
     }
 }

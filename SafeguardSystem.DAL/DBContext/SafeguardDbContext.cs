@@ -17,7 +17,7 @@ public class SafeguardDbContext : DbContext
     public DbSet<Contract> Contracts { get; set; }
 
     public DbSet<Location> Locations { get; set; }
-
+    public DbSet<LoginRequest> loginRequests { get; set; }
     public DbSet<RefreshToken> Refreshtokens { get; set; }
 
     public DbSet<Role> Roles { get; set; }
@@ -180,6 +180,15 @@ public class SafeguardDbContext : DbContext
             entity.HasOne(e => e.Role)
                   .WithMany(r => r.Users)
                   .HasForeignKey(e => e.RoleID);
+        });
+
+        modelBuilder.Entity<LoginRequest>(entity =>
+        {
+            entity.HasKey(e => e.RequestId);
+            entity.Property(e => e.Status).IsRequired();
+            entity.HasOne(e => e.User)
+                  .WithMany()
+                  .HasForeignKey(e => e.UserId);
         });
         base.OnModelCreating(modelBuilder);
     }

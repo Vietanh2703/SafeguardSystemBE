@@ -13,8 +13,10 @@ namespace SafeguardSystem.DAL.Entities
         [Required(ErrorMessage = "Id is required")]
         public Guid RequestId { get; set; }
         public User User { get; set; }
-        public Guid UserId { get; set; }
+        public string? UserId { get; set; }
+        public string? Email { get; set; }
         public DateTime DateSent { get; set; }
+        public DateTime? DateApproved { get; set; }
         public string Status { get; set; }
         public string? Reason { get; set; }
     }

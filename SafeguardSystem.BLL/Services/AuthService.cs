@@ -176,8 +176,8 @@ namespace SafeguardSystem.BLL.Services
             var user = await _unitOfWork.Users.GetUserByFirebaseUidAsync(userId);
             if (user == null)
             {
-                // Gán vai trò mặc định BusinessPartner nếu user mới
-                var defaultRole = await _unitOfWork.Roles.GetRoleIdByNameAsync("Business Partner");
+                // Gán vai trò mặc định Processing nếu user mới
+                var processingRole = await _unitOfWork.Roles.GetRoleIdByNameAsync("Processing");
 
                 user = new User
                 {
@@ -185,26 +185,30 @@ namespace SafeguardSystem.BLL.Services
                     Email = email,
                     UserName = name ?? email,
                     FullName = name,
-                    IsActive = true,
-                    IsEmailConfirmed = true,
+                    IsActive = false,
+                    IsEmailConfirmed = false,
                     IsDeleted = false,
+                    IsLocked = false,
                     Phone = "",
                     Avatar = "https://www.veryicon.com/icons/miscellaneous/generic-icon-3/avatar-real.html",
-                    RoleID = defaultRole.RoleId,
+                    RoleID = processingRole.RoleId,
                 };
                 await _unitOfWork.Users.CreateUserAsync(user);
 
-                // Tạo Business nếu user mới
-                var business = new Business
+                // Tạo LoginRequest cho Admin
+                var loginRequest = new LoginRequest
                 {
-                    BusinessId = Guid.NewGuid(),
-                    Name = user.FullName,
-                    IsActive = true,
+                    RequestId = Guid.NewGuid(),
                     UserId = user.UserId,
-                    ContractExpiry = DateTime.UtcNow.AddYears(1),
-                    IsDeleted = false
+                    Email = user.Email,
+                    DateSent = DateTime.UtcNow,
+                    Status = "PENDING",
+                    Reason = "Google login request"
                 };
-                await _unitOfWork.Businesses.CreateAsync(business);
+                _unitOfWork.LoginRequests.Add(loginRequest);
+                await _unitOfWork.SaveChangeAsync();
+
+                return new ResponseDTO("Your account is pending approval. Please wait for admin approval.", 200, true);
             }
 
             // Kiểm tra nếu user bị khóa hoặc bị xóa khỏi hệ thống

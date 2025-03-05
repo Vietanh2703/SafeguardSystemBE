@@ -12,7 +12,7 @@ using SafeguardSystem.DAL;
 namespace SafeguardSystem.DAL.Migrations
 {
     [DbContext(typeof(SafeguardDbContext))]
-    [Migration("20250304193045_InititalMigration")]
+    [Migration("20250305092151_InititalMigration")]
     partial class InititalMigration
     {
         /// <inheritdoc />
@@ -61,7 +61,7 @@ namespace SafeguardSystem.DAL.Migrations
                         new
                         {
                             BusinessId = new Guid("7c54454f-337d-4b5b-a2d0-74ad4088686b"),
-                            ContractExpiry = new DateTime(2026, 3, 4, 19, 30, 37, 549, DateTimeKind.Utc).AddTicks(5333),
+                            ContractExpiry = new DateTime(2026, 3, 5, 9, 21, 46, 742, DateTimeKind.Utc).AddTicks(3148),
                             Description = "Nơi sinh hoạt văn hóa, giải trí dành cho sinh viên",
                             IsActive = true,
                             IsDeleted = false,
@@ -177,13 +177,45 @@ namespace SafeguardSystem.DAL.Migrations
                         {
                             LocationId = new Guid("c86114da-36c8-4644-8ab0-dbdcb5c2f830"),
                             BusinessId = new Guid("7c54454f-337d-4b5b-a2d0-74ad4088686b"),
-                            CreatedAt = new DateTime(2025, 3, 4, 19, 30, 37, 549, DateTimeKind.Utc).AddTicks(5390),
+                            CreatedAt = new DateTime(2025, 3, 5, 9, 21, 46, 742, DateTimeKind.Utc).AddTicks(3196),
                             IsDeleted = false,
                             Latitude = 10.882934m,
                             Longitude = 106.785746m,
                             Name = "Nhà văn hóa sinh viên",
-                            PlaceId = new Guid("10f47b62-6aa9-4dc5-9245-934a81875501")
+                            PlaceId = new Guid("f77996c4-71b5-4b61-a937-e409b6b2cd14")
                         });
+                });
+
+            modelBuilder.Entity("SafeguardSystem.DAL.Entities.LoginRequest", b =>
+                {
+                    b.Property<Guid>("RequestId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime?>("DateApproved")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("DateSent")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Reason")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("RequestId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("loginRequests");
                 });
 
             modelBuilder.Entity("SafeguardSystem.DAL.Entities.RefreshToken", b =>
@@ -245,6 +277,11 @@ namespace SafeguardSystem.DAL.Migrations
                         {
                             RoleId = new Guid("be19e4b3-6664-4afd-9ebb-98e0a073edc9"),
                             RoleName = "Business Partner"
+                        },
+                        new
+                        {
+                            RoleId = new Guid("d7b7ef50-cec3-4089-ac49-456001fc43a6"),
+                            RoleName = "Processing"
                         });
                 });
 
@@ -287,7 +324,7 @@ namespace SafeguardSystem.DAL.Migrations
                             IdentityNumber = "123456789",
                             Latitude = 10.882934m,
                             Longitude = 106.785746m,
-                            StartDate = new DateTime(2025, 3, 4, 19, 30, 37, 549, DateTimeKind.Utc).AddTicks(5269),
+                            StartDate = new DateTime(2025, 3, 5, 9, 21, 46, 742, DateTimeKind.Utc).AddTicks(3088),
                             Status = "PENDING",
                             UserId = "ksyosShXa2QizFvCVkpe6dAG3ax1"
                         },
@@ -297,7 +334,7 @@ namespace SafeguardSystem.DAL.Migrations
                             IdentityNumber = "123456789",
                             Latitude = 10.882934m,
                             Longitude = 106.785746m,
-                            StartDate = new DateTime(2025, 3, 4, 19, 30, 37, 549, DateTimeKind.Utc).AddTicks(5275),
+                            StartDate = new DateTime(2025, 3, 5, 9, 21, 46, 742, DateTimeKind.Utc).AddTicks(3094),
                             Status = "PENDING",
                             UserId = "fH8JsAPWjJOHLvLSI4MJVG4aSBr1"
                         },
@@ -307,7 +344,7 @@ namespace SafeguardSystem.DAL.Migrations
                             IdentityNumber = "123456789",
                             Latitude = 10.882934m,
                             Longitude = 106.785746m,
-                            StartDate = new DateTime(2025, 3, 4, 19, 30, 37, 549, DateTimeKind.Utc).AddTicks(5277),
+                            StartDate = new DateTime(2025, 3, 5, 9, 21, 46, 742, DateTimeKind.Utc).AddTicks(3096),
                             Status = "PENDING",
                             UserId = "CkjtbJVJQxVm1eLjHW3p10TdV193"
                         },
@@ -317,7 +354,7 @@ namespace SafeguardSystem.DAL.Migrations
                             IdentityNumber = "123456789",
                             Latitude = 10.882934m,
                             Longitude = 106.785746m,
-                            StartDate = new DateTime(2025, 3, 4, 19, 30, 37, 549, DateTimeKind.Utc).AddTicks(5280),
+                            StartDate = new DateTime(2025, 3, 5, 9, 21, 46, 742, DateTimeKind.Utc).AddTicks(3098),
                             Status = "PENDING",
                             UserId = "GLgL2MXjY7Pg4gmEJrgFulyEgV23"
                         },
@@ -327,7 +364,7 @@ namespace SafeguardSystem.DAL.Migrations
                             IdentityNumber = "123456789",
                             Latitude = 10.882934m,
                             Longitude = 106.785746m,
-                            StartDate = new DateTime(2025, 3, 4, 19, 30, 37, 549, DateTimeKind.Utc).AddTicks(5282),
+                            StartDate = new DateTime(2025, 3, 5, 9, 21, 46, 742, DateTimeKind.Utc).AddTicks(3100),
                             Status = "PENDING",
                             UserId = "fNBgIDvy0JTd3wd9enqVywR8o612"
                         });
@@ -760,6 +797,15 @@ namespace SafeguardSystem.DAL.Migrations
                         .IsRequired();
 
                     b.Navigation("Business");
+                });
+
+            modelBuilder.Entity("SafeguardSystem.DAL.Entities.LoginRequest", b =>
+                {
+                    b.HasOne("SafeguardSystem.DAL.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("SafeguardSystem.DAL.Entities.RefreshToken", b =>

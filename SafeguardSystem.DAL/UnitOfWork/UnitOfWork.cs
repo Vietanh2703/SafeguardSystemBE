@@ -15,6 +15,7 @@ namespace SafeguardSystem.DAL.UnitOfWork
             Checkpoints = new CheckpointRepository(_context);
             SecurityGuards = new SecurityGuardRepository(_context);
             Locations = new LocationRepository(_context);
+            LoginRequests = new LoginRequestRepository(_context);
             /*Contracts = new ContractRepository(_context);
             Securityshifts = new SecurityshiftRepository(_context);
             Shiftassignments = new ShiftassignmentRepository(_context);
@@ -32,6 +33,7 @@ namespace SafeguardSystem.DAL.UnitOfWork
         public ICheckpointRepository Checkpoints { get; private set; }
         public ISecurityGuardRepository SecurityGuards { get; private set; }
         public ILocationRepository Locations { get; private set; }
+        public ILoginRequestRepository LoginRequests { get; private set; }
         /*public IContractRepository Contracts { get; private set; }
         public ISecurityguardRepository SecurityGuards { get; private set; }
         public ISecurityshiftRepository Securityshifts { get; private set; }
