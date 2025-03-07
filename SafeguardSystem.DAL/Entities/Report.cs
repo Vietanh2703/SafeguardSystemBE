@@ -14,6 +14,7 @@ namespace SafeguardSystem.DAL.Entities
         [Required(ErrorMessage = "Id is required")]
         public Guid ReportId { get; set; }
         public string Sender { get; set; }
+        public string RoleName { get; set; }
         public string Respondent { get; set; }
         public string ReportComment { get; set; }
         public string ImageUrl { get; set; }

@@ -22,6 +22,7 @@ namespace SafeguardSystem.DAL.Repositories
         public async Task<User> GetUserByFirebaseUidAsync(string userId)
         {
             return await _context.Users
+                .Include(u => u.Role)
                 .FirstOrDefaultAsync(u => u.UserId == userId && !u.IsDeleted);
         }
 

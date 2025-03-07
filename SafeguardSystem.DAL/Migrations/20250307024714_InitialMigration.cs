@@ -189,6 +189,8 @@ namespace SafeguardSystem.DAL.Migrations
                     ReportId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     Sender = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    RoleName = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     Respondent = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     ReportComment = table.Column<string>(type: "longtext", nullable: false)
@@ -434,24 +436,24 @@ namespace SafeguardSystem.DAL.Migrations
             migrationBuilder.InsertData(
                 table: "Businesses",
                 columns: new[] { "BusinessId", "ContractExpiry", "Description", "IsActive", "IsDeleted", "Name", "UserId" },
-                values: new object[] { new Guid("7c54454f-337d-4b5b-a2d0-74ad4088686b"), new DateTime(2026, 3, 7, 2, 6, 34, 697, DateTimeKind.Utc).AddTicks(9815), "Nơi sinh hoạt văn hóa, giải trí dành cho sinh viên", true, false, "Nhà văn hóa sinh viên", "IuyPY3ie8OQG60w0gasxQNkXHzS2" });
+                values: new object[] { new Guid("7c54454f-337d-4b5b-a2d0-74ad4088686b"), new DateTime(2026, 3, 7, 2, 47, 10, 641, DateTimeKind.Utc).AddTicks(8857), "Nơi sinh hoạt văn hóa, giải trí dành cho sinh viên", true, false, "Nhà văn hóa sinh viên", "IuyPY3ie8OQG60w0gasxQNkXHzS2" });
 
             migrationBuilder.InsertData(
                 table: "SecurityGuards",
                 columns: new[] { "GuardId", "IdentityNumber", "Latitude", "Longitude", "StartDate", "Status", "UserId" },
                 values: new object[,]
                 {
-                    { new Guid("399c04bc-31f2-4296-bf32-4b6d3b0cb1c1"), "123456789", 10.882934m, 106.785746m, new DateTime(2025, 3, 7, 2, 6, 34, 697, DateTimeKind.Utc).AddTicks(9553), "PENDING", "fH8JsAPWjJOHLvLSI4MJVG4aSBr1" },
-                    { new Guid("3de02800-eecb-4abe-adb4-cd114896e0bc"), "123456789", 10.882934m, 106.785746m, new DateTime(2025, 3, 7, 2, 6, 34, 697, DateTimeKind.Utc).AddTicks(9567), "PENDING", "fNBgIDvy0JTd3wd9enqVywR8o612" },
-                    { new Guid("5144d02b-8aa2-43d1-88e9-774087acb37e"), "123456789", 10.882934m, 106.785746m, new DateTime(2025, 3, 7, 2, 6, 34, 697, DateTimeKind.Utc).AddTicks(9563), "PENDING", "GLgL2MXjY7Pg4gmEJrgFulyEgV23" },
-                    { new Guid("d2a9201b-59ad-40b7-bde5-dfda937d7433"), "123456789", 10.882934m, 106.785746m, new DateTime(2025, 3, 7, 2, 6, 34, 697, DateTimeKind.Utc).AddTicks(9543), "PENDING", "ksyosShXa2QizFvCVkpe6dAG3ax1" },
-                    { new Guid("e24aa81d-c60e-4dfd-9909-991c837e6631"), "123456789", 10.882934m, 106.785746m, new DateTime(2025, 3, 7, 2, 6, 34, 697, DateTimeKind.Utc).AddTicks(9558), "PENDING", "CkjtbJVJQxVm1eLjHW3p10TdV193" }
+                    { new Guid("399c04bc-31f2-4296-bf32-4b6d3b0cb1c1"), "123456789", 10.882934m, 106.785746m, new DateTime(2025, 3, 7, 2, 47, 10, 641, DateTimeKind.Utc).AddTicks(8804), "PENDING", "fH8JsAPWjJOHLvLSI4MJVG4aSBr1" },
+                    { new Guid("3de02800-eecb-4abe-adb4-cd114896e0bc"), "123456789", 10.882934m, 106.785746m, new DateTime(2025, 3, 7, 2, 47, 10, 641, DateTimeKind.Utc).AddTicks(8810), "PENDING", "fNBgIDvy0JTd3wd9enqVywR8o612" },
+                    { new Guid("5144d02b-8aa2-43d1-88e9-774087acb37e"), "123456789", 10.882934m, 106.785746m, new DateTime(2025, 3, 7, 2, 47, 10, 641, DateTimeKind.Utc).AddTicks(8808), "PENDING", "GLgL2MXjY7Pg4gmEJrgFulyEgV23" },
+                    { new Guid("d2a9201b-59ad-40b7-bde5-dfda937d7433"), "123456789", 10.882934m, 106.785746m, new DateTime(2025, 3, 7, 2, 47, 10, 641, DateTimeKind.Utc).AddTicks(8797), "PENDING", "ksyosShXa2QizFvCVkpe6dAG3ax1" },
+                    { new Guid("e24aa81d-c60e-4dfd-9909-991c837e6631"), "123456789", 10.882934m, 106.785746m, new DateTime(2025, 3, 7, 2, 47, 10, 641, DateTimeKind.Utc).AddTicks(8806), "PENDING", "CkjtbJVJQxVm1eLjHW3p10TdV193" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Locations",
                 columns: new[] { "LocationId", "Address", "BusinessId", "CreatedAt", "Image", "IsDeleted", "Latitude", "Longitude", "Name", "PlaceId", "UpdatedAt" },
-                values: new object[] { new Guid("c86114da-36c8-4644-8ab0-dbdcb5c2f830"), "Khu phố 6, Phường Linh Trung, Thủ Đức, Thành phố Hồ Chí Minh", new Guid("7c54454f-337d-4b5b-a2d0-74ad4088686b"), new DateTime(2025, 3, 7, 2, 6, 34, 697, DateTimeKind.Utc).AddTicks(9893), "https://www.freepik.com/free-vector/simple-vibing-cat-square-meme_58459053.htm#fromView=keyword&page=1&position=0&uuid=f4bd18ef-8de6-4b6e-8e68-06073abf526b&query=Animal+Memes", false, 10.882934m, 106.785746m, "Nhà văn hóa sinh viên", new Guid("d1cca1d4-396f-431e-9461-e4ddda748879"), null });
+                values: new object[] { new Guid("c86114da-36c8-4644-8ab0-dbdcb5c2f830"), "Khu phố 6, Phường Linh Trung, Thủ Đức, Thành phố Hồ Chí Minh", new Guid("7c54454f-337d-4b5b-a2d0-74ad4088686b"), new DateTime(2025, 3, 7, 2, 47, 10, 641, DateTimeKind.Utc).AddTicks(8905), "https://www.freepik.com/free-vector/simple-vibing-cat-square-meme_58459053.htm#fromView=keyword&page=1&position=0&uuid=f4bd18ef-8de6-4b6e-8e68-06073abf526b&query=Animal+Memes", false, 10.882934m, 106.785746m, "Nhà văn hóa sinh viên", new Guid("1e4082e7-6e29-4dd4-9976-62bdf598ac43"), null });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Businesses_UserId",

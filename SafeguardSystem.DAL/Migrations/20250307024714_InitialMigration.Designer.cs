@@ -12,7 +12,7 @@ using SafeguardSystem.DAL;
 namespace SafeguardSystem.DAL.Migrations
 {
     [DbContext(typeof(SafeguardDbContext))]
-    [Migration("20250307020635_InitialMigration")]
+    [Migration("20250307024714_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -61,7 +61,7 @@ namespace SafeguardSystem.DAL.Migrations
                         new
                         {
                             BusinessId = new Guid("7c54454f-337d-4b5b-a2d0-74ad4088686b"),
-                            ContractExpiry = new DateTime(2026, 3, 7, 2, 6, 34, 697, DateTimeKind.Utc).AddTicks(9815),
+                            ContractExpiry = new DateTime(2026, 3, 7, 2, 47, 10, 641, DateTimeKind.Utc).AddTicks(8857),
                             Description = "Nơi sinh hoạt văn hóa, giải trí dành cho sinh viên",
                             IsActive = true,
                             IsDeleted = false,
@@ -186,13 +186,13 @@ namespace SafeguardSystem.DAL.Migrations
                             LocationId = new Guid("c86114da-36c8-4644-8ab0-dbdcb5c2f830"),
                             Address = "Khu phố 6, Phường Linh Trung, Thủ Đức, Thành phố Hồ Chí Minh",
                             BusinessId = new Guid("7c54454f-337d-4b5b-a2d0-74ad4088686b"),
-                            CreatedAt = new DateTime(2025, 3, 7, 2, 6, 34, 697, DateTimeKind.Utc).AddTicks(9893),
+                            CreatedAt = new DateTime(2025, 3, 7, 2, 47, 10, 641, DateTimeKind.Utc).AddTicks(8905),
                             Image = "https://www.freepik.com/free-vector/simple-vibing-cat-square-meme_58459053.htm#fromView=keyword&page=1&position=0&uuid=f4bd18ef-8de6-4b6e-8e68-06073abf526b&query=Animal+Memes",
                             IsDeleted = false,
                             Latitude = 10.882934m,
                             Longitude = 106.785746m,
                             Name = "Nhà văn hóa sinh viên",
-                            PlaceId = new Guid("d1cca1d4-396f-431e-9461-e4ddda748879")
+                            PlaceId = new Guid("1e4082e7-6e29-4dd4-9976-62bdf598ac43")
                         });
                 });
 
@@ -281,6 +281,10 @@ namespace SafeguardSystem.DAL.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("Respondent")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("RoleName")
                         .IsRequired()
                         .HasColumnType("longtext");
 
@@ -383,7 +387,7 @@ namespace SafeguardSystem.DAL.Migrations
                             IdentityNumber = "123456789",
                             Latitude = 10.882934m,
                             Longitude = 106.785746m,
-                            StartDate = new DateTime(2025, 3, 7, 2, 6, 34, 697, DateTimeKind.Utc).AddTicks(9543),
+                            StartDate = new DateTime(2025, 3, 7, 2, 47, 10, 641, DateTimeKind.Utc).AddTicks(8797),
                             Status = "PENDING",
                             UserId = "ksyosShXa2QizFvCVkpe6dAG3ax1"
                         },
@@ -393,7 +397,7 @@ namespace SafeguardSystem.DAL.Migrations
                             IdentityNumber = "123456789",
                             Latitude = 10.882934m,
                             Longitude = 106.785746m,
-                            StartDate = new DateTime(2025, 3, 7, 2, 6, 34, 697, DateTimeKind.Utc).AddTicks(9553),
+                            StartDate = new DateTime(2025, 3, 7, 2, 47, 10, 641, DateTimeKind.Utc).AddTicks(8804),
                             Status = "PENDING",
                             UserId = "fH8JsAPWjJOHLvLSI4MJVG4aSBr1"
                         },
@@ -403,7 +407,7 @@ namespace SafeguardSystem.DAL.Migrations
                             IdentityNumber = "123456789",
                             Latitude = 10.882934m,
                             Longitude = 106.785746m,
-                            StartDate = new DateTime(2025, 3, 7, 2, 6, 34, 697, DateTimeKind.Utc).AddTicks(9558),
+                            StartDate = new DateTime(2025, 3, 7, 2, 47, 10, 641, DateTimeKind.Utc).AddTicks(8806),
                             Status = "PENDING",
                             UserId = "CkjtbJVJQxVm1eLjHW3p10TdV193"
                         },
@@ -413,7 +417,7 @@ namespace SafeguardSystem.DAL.Migrations
                             IdentityNumber = "123456789",
                             Latitude = 10.882934m,
                             Longitude = 106.785746m,
-                            StartDate = new DateTime(2025, 3, 7, 2, 6, 34, 697, DateTimeKind.Utc).AddTicks(9563),
+                            StartDate = new DateTime(2025, 3, 7, 2, 47, 10, 641, DateTimeKind.Utc).AddTicks(8808),
                             Status = "PENDING",
                             UserId = "GLgL2MXjY7Pg4gmEJrgFulyEgV23"
                         },
@@ -423,7 +427,7 @@ namespace SafeguardSystem.DAL.Migrations
                             IdentityNumber = "123456789",
                             Latitude = 10.882934m,
                             Longitude = 106.785746m,
-                            StartDate = new DateTime(2025, 3, 7, 2, 6, 34, 697, DateTimeKind.Utc).AddTicks(9567),
+                            StartDate = new DateTime(2025, 3, 7, 2, 47, 10, 641, DateTimeKind.Utc).AddTicks(8810),
                             Status = "PENDING",
                             UserId = "fNBgIDvy0JTd3wd9enqVywR8o612"
                         });

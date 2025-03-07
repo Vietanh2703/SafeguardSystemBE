@@ -94,6 +94,7 @@ namespace SafeguardSystem.BLL.Services
                 {
                     ReportId = Guid.NewGuid(),
                     Sender = user.FullName,
+                    RoleName = user.Role.RoleName,
                     Respondent = "N/A",
                     ReportComment = reportDTO.ReportComment,
                     Reason = "null",
@@ -106,14 +107,13 @@ namespace SafeguardSystem.BLL.Services
                 };
 
                 await _unitOfWork.Reports.AddAsync(report);
+                await _unitOfWork.SaveChangeAsync();
 
                 return new ResponseDTO("Report created successfully", 200, true, new
                 {
                     report.Sender,
-                    report.Respondent,
+                    report.RoleName,
                     report.ReportComment,
-                    report.Reason,
-                    report.IsClosed,
                     report.ImageUrl,
                     report.Status,
                     report.CreatedAt,
