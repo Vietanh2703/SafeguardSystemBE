@@ -12,6 +12,8 @@ using System.Security.Claims;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 using System.Text.Json.Serialization;
+using Amazon.S3;
+using SafeguardSystem.Common.AWSSettings;
 
 
 
@@ -36,7 +38,14 @@ namespace SafeguardSystem
             builder.Services.AddScoped<ILocationService, LocationService>();
             builder.Services.AddScoped<ITeamService, TeamService>();
             builder.Services.AddScoped<ILoginRequestService, LoginRequestService>();
+            builder.Services.AddScoped<IReportService, ReportService>();
             builder.Services.AddScoped<LoginRequestService>();
+
+            //Cấu hình dịch vụ AWS S3
+            builder.Services.Configure<AwsS3Setting>(builder.Configuration.GetSection("AWS"));
+            builder.Services.AddScoped<IAWSS3Service, AWSS3Service>();
+            builder.Services.AddDefaultAWSOptions(builder.Configuration.GetAWSOptions());
+            builder.Services.AddAWSService<IAmazonS3>();
 
             // Cấu hình context database
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -147,6 +156,7 @@ namespace SafeguardSystem
                     });
             });
 
+
             // Add controllers
             builder.Services.AddControllers()
                 .AddJsonOptions(options =>
@@ -156,6 +166,8 @@ namespace SafeguardSystem
 
             //Add IHttpContextAccessor
             builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            
 
             var app = builder.Build();
 

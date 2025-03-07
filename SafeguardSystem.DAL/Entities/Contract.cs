@@ -21,10 +21,10 @@ public class Contract
 
     public string Status { get; set; }
 
-    [ForeignKey("Team")]
-    public Guid TeamId { get; set; }
+    [ForeignKey("Business")]
+    public Guid BusinessId { get; set; }
 
     public bool IsDeleted { get; set; }
 
-    public virtual Team Team { get; set; }
+    public virtual Business Business { get; set; }
 }

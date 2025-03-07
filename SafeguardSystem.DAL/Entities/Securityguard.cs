@@ -19,7 +19,6 @@ public class SecurityGuard
     [ForeignKey("User")]
     public string? UserId { get; set; }
 
-    public virtual ICollection<ShiftAssignment> ShiftAssignments { get; set; } = new List<ShiftAssignment>();
     public virtual ICollection<TeamGuard>? TeamGuards { get; set; }
     public virtual User User { get; set; }
 }

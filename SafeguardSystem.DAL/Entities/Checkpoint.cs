@@ -24,5 +24,4 @@ public partial class Checkpoint
 
     public virtual Location Location { get; set; }
 
-    public virtual ICollection<ShiftAssignment> ShiftAssignments { get; set; } = new List<ShiftAssignment>();
 }

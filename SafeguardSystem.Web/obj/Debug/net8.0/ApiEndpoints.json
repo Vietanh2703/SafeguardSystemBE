@@ -422,6 +422,42 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "SafeguardSystem.Web.Controllers.ReportController",
+    "Method": "CreateReport",
+    "RelativePath": "report/create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "ReportComment",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "ImageFile",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SafeguardSystem.Web.Controllers.ReportController",
+    "Method": "GetAllReports",
+    "RelativePath": "reports/all",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "SafeguardSystem.Web.Controllers.UserController",
     "Method": "GetRoles",
     "RelativePath": "roles",

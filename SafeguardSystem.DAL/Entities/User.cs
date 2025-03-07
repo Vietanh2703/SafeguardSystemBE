@@ -46,4 +46,5 @@ public class User
     public virtual ICollection<SecurityGuard> SecurityGuards { get; set; } = new List<SecurityGuard>();
     public virtual Role Role { get; set; }
     public virtual ICollection<RefreshToken> RefreshTokens { get; set; }
+    public virtual ICollection<Report> Reports { get; set; } = new List<Report>();
 }

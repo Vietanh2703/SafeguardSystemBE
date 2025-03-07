@@ -17,15 +17,13 @@ namespace SafeguardSystem.DAL.UnitOfWork
             Locations = new LocationRepository(_context);
             LoginRequests = new LoginRequestRepository(_context);
             /*Contracts = new ContractRepository(_context);
-            Securityshifts = new SecurityshiftRepository(_context);
-            Shiftassignments = new ShiftassignmentRepository(_context);
-            Shiftincidents = new ShiftincidentRepository(_context);
-            Shifttyperoutines = new ShifttyperoutineRepository(_context);*/ //làm sau
+            Securityshifts = new SecurityshiftRepository(_context);*/ //làm sau
             Teams = new TeamRepository(_context);
             TeamGuards = new TeamGuardRepository(_context);
             ShiftTypes = new ShiftTypeRepository(_context);
             Roles = new RoleRepository(_context);
             RefreshTokens = new RefreshTokenRepository(_context);
+            Reports = new ReportRepository(_context);
             Users = new UserRepository(_context);
         }
 
@@ -35,17 +33,14 @@ namespace SafeguardSystem.DAL.UnitOfWork
         public ILocationRepository Locations { get; private set; }
         public ILoginRequestRepository LoginRequests { get; private set; }
         /*public IContractRepository Contracts { get; private set; }
-        public ISecurityguardRepository SecurityGuards { get; private set; }
-        public ISecurityshiftRepository Securityshifts { get; private set; }
-        public IShiftassignmentRepository Shiftassignments { get; private set; }
-        public IShiftincidentRepository Shiftincidents { get; private set; }
-        public IShifttyperoutineRepository Shifttyperoutines { get; private set; } */ //làm sau
+        public ISecurityshiftRepository Securityshifts { get; private set; } */ //làm sau
         public ITeamRepository Teams { get; private set; }
         public ITeamGuardRepository TeamGuards { get; private set; }
         public IRoleRepository Roles { get; private set; }
         public IRefreshTokenRepository RefreshTokens { get; private set; }
         public IShiftTypeRepository ShiftTypes { get; private set; }
         public IUserRepository Users { get; private set; }
+        public IReportRepository Reports { get; private set; }
 
         public void Dispose()
         {

@@ -12,9 +12,9 @@ public class Location
     public Guid LocationId { get; set; }
 
     public string Name { get; set; }
-
+    public string Address { get; set; }
+    public string Image { get; set; }
     public decimal Latitude { get; set; }
-
     public decimal Longitude { get; set; }
 
     [ForeignKey("Business")]
@@ -33,6 +33,4 @@ public class Location
     public virtual ICollection<Checkpoint> Checkpoints { get; set; } = new List<Checkpoint>();
 
     public virtual ICollection<SecurityShift> SecurityShifts { get; set; } = new List<SecurityShift>();
-
-    public virtual ICollection<ShiftAssignment> ShiftAssignments { get; set; } = new List<ShiftAssignment>();
 }

@@ -1,10 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "gxq9+JTYKI8=",
+  "dgSpecHash": "yG8prcaCMak=",
   "success": true,
   "projectFilePath": "D:\\SafeguardSystem\\SafeguardSystemBE\\SafeguardSystem.DAL\\SafeguardSystem.DAL.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\anhnt\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
+    "C:\\Users\\anhnt\\.nuget\\packages\\awssdk.core\\3.7.402.13\\awssdk.core.3.7.402.13.nupkg.sha512",
+    "C:\\Users\\anhnt\\.nuget\\packages\\awssdk.extensions.netcore.setup\\3.7.400\\awssdk.extensions.netcore.setup.3.7.400.nupkg.sha512",
+    "C:\\Users\\anhnt\\.nuget\\packages\\awssdk.s3\\3.7.415.12\\awssdk.s3.3.7.415.12.nupkg.sha512",
     "C:\\Users\\anhnt\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\anhnt\\.nuget\\packages\\bouncycastle.cryptography\\2.5.0\\bouncycastle.cryptography.2.5.0.nupkg.sha512",
     "C:\\Users\\anhnt\\.nuget\\packages\\firebaseadmin\\3.1.0\\firebaseadmin.3.1.0.nupkg.sha512",

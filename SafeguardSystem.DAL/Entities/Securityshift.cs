@@ -22,8 +22,6 @@ public class SecurityShift
 
     public virtual Location Location { get; set; }
 
-    public virtual ICollection<ShiftAssignment> ShiftAssignments { get; set; } = new List<ShiftAssignment>();
-
     public virtual Team Team { get; set; } = null!;
 
     public virtual ShiftType Type { get; set; } = null!;

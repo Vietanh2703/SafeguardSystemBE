@@ -12,15 +12,14 @@ namespace SafeguardSystem.DAL.UnitOfWork
         ILoginRequestRepository LoginRequests { get; }
         /*IContractRepository Contracts { get; }
         ISecurityshiftRepository Securityshifts { get; }
-        IShiftassignmentRepository Shiftassignments { get; }
         IShiftincidentRepository Shiftincidents { get; }
-        IShifttypeRepository Shifttypes { get; }
         IShifttyperoutineRepository Shifttyperoutines { get; } */ //làm sau
         ITeamRepository Teams { get; }
         ITeamGuardRepository TeamGuards { get; }
         IRoleRepository Roles { get; }
         IRefreshTokenRepository RefreshTokens { get; }
         IShiftTypeRepository ShiftTypes { get; }
+        IReportRepository Reports { get; }
         IUserRepository Users { get; }
 
         void Dispose();
