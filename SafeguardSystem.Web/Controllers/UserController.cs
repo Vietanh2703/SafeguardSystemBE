@@ -21,7 +21,7 @@ namespace SafeguardSystem.Web.Controllers
             return StatusCode(roles.StatusCode, roles);
         }
 
-        [Route("refresh-otp")]
+        [Route("refresh-otp/{email}")]
         [HttpPost]
         public async Task<IActionResult> RefreshOtp(string email)
         {
@@ -29,15 +29,15 @@ namespace SafeguardSystem.Web.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
-        [Route("verify-email")]
+        [Route("verify-email/{Email}")]
         [HttpPost]
-        public async Task<IActionResult> VerifyOtp([FromBody] OtpDTO otpDTO)
+        public async Task<IActionResult> VerifyOtp(string Email,[FromBody] OtpDTO otpDTO)
         {
-            var results = await _userService.VerifyOtpAsync(otpDTO.Email,otpDTO);
+            var results = await _userService.VerifyOtpAsync(Email,otpDTO);
             return StatusCode(results.StatusCode, results);
         }
 
-        [Route("update-password")]
+        [Route("update-password/{Email}")]
         [HttpPut]
         public async Task<IActionResult> UpdatePassword(string Email,[FromBody] UpdatePasswordDTO updatePasswordDTO)
         {

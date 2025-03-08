@@ -95,17 +95,21 @@ namespace SafeguardSystem.BLL.Services
             }
 
             // Check nếu user không active, bị khóa, chưa xác nhận email hoặc đã bị xóa
-            if (!user.IsEmailConfirmed || user.IsDeleted)
-            {
+
                 if (user.IsDeleted)
                 {
                     return new ResponseDTO("This account does not exist.", 400, false);
                 }
-                if (!user.IsEmailConfirmed)
+                if (!user.IsActive && user.ActivationTokenExpiry == null)
                 {
                     return new ResponseDTO("Your account is not verified, please check your email.", 400, false);
                 }
-            }
+
+                if (user.ActivationTokenExpiry != null)
+                {
+                    return new ResponseDTO("This account does not verify OTP.", 400, false);
+                }
+
 
             if(user.IsLocked)
             {
@@ -283,31 +287,7 @@ namespace SafeguardSystem.BLL.Services
                 Role = roleName
             });
         }
-
-        // Đăng xuất
-        public async Task<ResponseDTO> LogoutAsync(LogoutDTO logoutDTO)
-        {
-            //Tìm refresh token trong database
-            var refreshToken = await _unitOfWork.RefreshTokens.GetRefreshTokenByKey(logoutDTO.Token);
-
-            // Kiểm tra xem refresh token có tồn tại không
-            if (refreshToken == null)
-            {
-                return new ResponseDTO("Refresh token not found", 404, false);
-            }
-            try
-            {
-                // Thu hồi refresh token
-                await FirebaseAuth.DefaultInstance.RevokeRefreshTokensAsync(logoutDTO.Token);
-            }
-            catch (Exception ex)
-            {
-                return new ResponseDTO($"Error during logout: {ex.Message}", 500, false);
-            }
-            return new ResponseDTO("Logout successful", 200, true);
-        }
-
-
+        
         // Refresh token
         public async Task<ResponseDTO> RefreshBothTokens(string oldAccessToken, string refreshTokenKey)
         {

@@ -13,9 +13,8 @@ namespace SafeguardSystem.BLL.Services
     public class EmailService : IEmailService
     {
         private readonly EmailSettings _emailSettings;
-        public const string logoUrl = "https://www.freepik.com/free-photos-vectors/safeguard-icon";
 
-        public EmailService(IConfiguration configuration, ILogger<EmailService> logger, IUnitOfWork unitOfWork)
+        public EmailService(IConfiguration configuration)
         {
             // Inject EmailSettings từ appsettings.json
             _emailSettings = configuration.GetSection("EmailSettings").Get<EmailSettings>();
@@ -46,7 +45,7 @@ namespace SafeguardSystem.BLL.Services
             body += "<div style='background-color: #f8f8f8; padding: 20px;'>";
             body += "<div style='background-color: #fff; padding: 20px; border-radius: 10px;'>";
             body += "<div style='text-align: left;'>";
-            body += "<img src='" + logoUrl + "' alt='Safeguard System' style='width: 100px; height: 100px; display: block; margin-bottom: 20px;'>";
+            body += "<div style='font-family: \"Big Shoulders Inline\", cursive; font-size: 36px; font-weight: bold; margin-bottom: 20px;'>MyGuard</div>";
             body += "<h1 style='color: #333; font-size: 24px; margin-bottom: 20px;'>Welcome to Safeguard System &#127881;</h1>";
             body += "<p style='color: #333; font-size: 12px; margin-bottom: 10px;'>Hi " + FullName + ",</p>";
             body += "<p style='color: #333; font-size: 12px; margin-bottom: 10px;'>Welcome to Safeguard Assignment & Management System! We’re excited to have you on board. Below are your login credentials to access our system:</p>";
@@ -80,7 +79,7 @@ namespace SafeguardSystem.BLL.Services
             body += "<div style='background-color: #f8f8f8; padding: 20px;'>";
             body += "<div style='background-color: #fff; padding: 20px; border-radius: 10px;'>";
             body += "<div style='text-align: left;'>";
-            body += "<img src='" + logoUrl + "' alt='Safeguard System' style='width: 100px; height: 100px; display: block; margin-bottom: 20px;'>";
+            body += "<div style='font-family: \"Big Shoulders Inline\", cursive; font-size: 36px; font-weight: bold; margin-bottom: 20px;'>MyGuard</div>";
             body += "<h1 style='color: #333; font-size: 24px; margin-bottom: 20px;'>Welcome to Safeguard System &#127881;</h1>";
             body += "<p style='color: #333; font-size: 12px; margin-bottom: 10px;'>Hi " + Email + ",</p>";
             body += "<p style='color: #333; font-size: 12px; margin-bottom: 10px;'>Welcome to Safeguard Assignment & Management System! We’re excited to have you on board. Below are your login credentials to access our system:</p>";
@@ -110,7 +109,7 @@ namespace SafeguardSystem.BLL.Services
             body += "<div style='background-color: #f8f8f8; padding: 20px;'>";
             body += "<div style='background-color: #fff; padding: 20px; border-radius: 10px;'>";
             body += "<div style='text-align: left;'>";
-            body += "<img src='" + logoUrl + "' alt='Safeguard System' style='width: 100px; height: 100px; display: block; margin-bottom: 20px;'>";
+            body += "<div style='font-family: \"Big Shoulders Inline\", cursive; font-size: 36px; font-weight: bold; margin-bottom: 20px;'>MyGuard</div>";
             body += "<h1 style='color: #333; font-size: 24px; margin-bottom: 20px;'>Safeguard System Automatic Sender</h1>";
             body += "<p style='color: #333; font-size: 12px; margin-bottom: 10px;'>Dear " + Email + ",</p>";
             body += "<p style='color: #333; font-size: 12px; margin-bottom: 10px;'>Thank you for your interest in registering with our system. Unfortunately, we were unable to process your email " + Email + " for registration at this time.</p>";
@@ -137,10 +136,11 @@ namespace SafeguardSystem.BLL.Services
             body += "<div style='background-color: #f8f8f8; padding: 20px;'>";
             body += "<div style='background-color: #fff; padding: 20px; border-radius: 10px;'>";
             body += "<div style='text-align: left;'>";
-            body += "<img src='" + logoUrl + "' alt='Safeguard System' style='width: 100px; height: 100px; display: block; margin-bottom: 20px;'>";
+            body += "<div style='font-family: \"Big Shoulders Inline\", cursive; font-size: 36px; font-weight: bold; margin-bottom: 20px;'>MyGuard</div>";
             body += "<h1 style='color: #333; font-size: 24px; margin-bottom: 20px;'>Safeguard System Automatic Sender</h1>";
             body += "<p style='color: #333; font-size: 12px; margin-bottom: 10px;'>Hi " + FullName + ",</p>";
             body += "<p style='color: #333; font-size: 12px; margin-bottom: 10px;'>Your OTP is: <strong>" + OtpText + "</strong></p>";
+            body += "<p style='color: #333; font-size: 12px; margin-bottom: 10px;'>This OTP will be expired in <strong>10 minutes</strong>.</p>";
             body += "<p style='color: #333; font-size: 12px; margin-bottom: 10px;'>Please use this OTP to activate your account and don't send it to anyone.</p>";
             body += "</div>";
             body += "<div style='text-align: center; margin-top: 40px;'>"; // Increased margin-top to 40px
@@ -157,16 +157,18 @@ namespace SafeguardSystem.BLL.Services
 
         public string GenerateActivationSuccessEmailBody(string FullName)
         {
+            var LoginUrl = "http://localhost:5173/login";
             string body = string.Empty;
             body = "<div style='font-family: Arial, sans-serif;'>";
             body += "<div style='background-color: #f8f8f8; padding: 20px;'>";
             body += "<div style='background-color: #fff; padding: 20px; border-radius: 10px;'>";
             body += "<div style='text-align: left;'>";
-            body += "<img src='" + logoUrl + "' alt='Safeguard System' style='width: 100px; height: 100px; display: block; margin-bottom: 20px;'>";
+            body += "<div style='font-family: \"Big Shoulders Inline\", cursive; font-size: 36px; font-weight: bold; margin-bottom: 20px;'>MyGuard</div>";
             body += "<h1 style='color: #333; font-size: 24px; margin-bottom: 20px;'>Safeguard System Automatic Sender</h1>";
             body += "<p style='color: #333; font-size: 12px; margin-bottom: 10px;'>Hi " + FullName + ",</p>";
             body += "<p style='color: #333; font-size: 12px; margin-bottom: 10px;'>Your account has been activated successfully.</p>";
             body += "<p style='color: #333; font-size: 12px; margin-bottom: 10px;'>You can now login to the system.</p>";
+            body += "<a href='" + LoginUrl + "' style='background-color: #007bff; color: #fff; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block;'>Log in to Your Account</a>";
             body += "</div>";
             body += "<div style='text-align: center; margin-top: 40px;'>"; // Increased margin-top to 40px
             body += "<p style='color: #999; font-size: 14px;'>© 2025 Safeguard Assignment & Management System. All rights reserved.</p>";
@@ -176,6 +178,55 @@ namespace SafeguardSystem.BLL.Services
             body += "</div>";
 
 
+            return body;
+        }
+        
+        public string GenerateBanUserEmailBody(string FullName)
+        {
+            string body = string.Empty;
+            body = "<div style='font-family: Arial, sans-serif;'>";
+            body += "<div style='background-color: #f8f8f8; padding: 20px;'>";
+            body += "<div style='background-color: #fff; padding: 20px; border-radius: 10px;'>";
+            body += "<div style='text-align: left;'>";
+            body += "<div style='font-family: \"Big Shoulders Inline\", cursive; font-size: 36px; font-weight: bold; margin-bottom: 20px;'>MyGuard</div>";
+            body += "<h1 style='color: #333; font-size: 24px; margin-bottom: 20px;'>Account Suspension Notice</h1>";
+            body += "<p style='color: #333; font-size: 12px; margin-bottom: 10px;'>Hi " + FullName + ",</p>";
+            body += "<p style='color: #333; font-size: 12px; margin-bottom: 10px;'>We regret to inform you that your account has been suspended due to violations of our terms of service.</p>";
+            body += "<p style='color: #333; font-size: 12px; margin-bottom: 10px;'>If you believe this is a mistake or have any questions, please contact our support team at vietanhcodega1234@gmail.com.</p>";
+            body += "<p style='color: #333; font-size: 12px; margin-bottom: 10px;'>Thank you for your understanding.</p>";
+            body += "<p style='color: #333; font-size: 12px; margin-bottom: 10px;'>Best regards,<br>Safeguard Assignment & Management System Team</p>";
+            body += "</div>";
+            body += "<div style='text-align: center; margin-top: 40px;'>";
+            body += "<p style='color: #999; font-size: 14px;'>© 2025 Safeguard Assignment & Management System. All rights reserved.</p>";
+            body += "</div>";
+            body += "</div>";
+            body += "</div>";
+            body += "</div>";
+            return body;
+        }
+        
+        
+        public string GenerateUnbanUserEmailBody(string FullName)
+        {
+            string body = string.Empty;
+            body = "<div style='font-family: Arial, sans-serif;'>";
+            body += "<div style='background-color: #f8f8f8; padding: 20px;'>";
+            body += "<div style='background-color: #fff; padding: 20px; border-radius: 10px;'>";
+            body += "<div style='text-align: left;'>";
+            body += "<div style='font-family: \"Big Shoulders Inline\", cursive; font-size: 36px; font-weight: bold; margin-bottom: 20px;'>MyGuard</div>";
+            body += "<h1 style='color: #333; font-size: 24px; margin-bottom: 20px;'>Account Reinstatement Notice</h1>";
+            body += "<p style='color: #333; font-size: 12px; margin-bottom: 10px;'>Hi " + FullName + ",</p>";
+            body += "<p style='color: #333; font-size: 12px; margin-bottom: 10px;'>We are pleased to inform you that your account has been reinstated. You can now access all the features of our service.</p>";
+            body += "<p style='color: #333; font-size: 12px; margin-bottom: 10px;'>If you have any questions or need further assistance, please contact our support team at vietanhcodega1234@gmail.com.</p>";
+            body += "<p style='color: #333; font-size: 12px; margin-bottom: 10px;'>Thank you for your understanding.</p>";
+            body += "<p style='color: #333; font-size: 12px; margin-bottom: 10px;'>Best regards,<br>Safeguard Assignment & Management System Team</p>";
+            body += "</div>";
+            body += "<div style='text-align: center; margin-top: 40px;'>";
+            body += "<p style='color: #999; font-size: 14px;'>© 2025 Safeguard Assignment & Management System. All rights reserved.</p>";
+            body += "</div>";
+            body += "</div>";
+            body += "</div>";
+            body += "</div>";
             return body;
         }
     }   

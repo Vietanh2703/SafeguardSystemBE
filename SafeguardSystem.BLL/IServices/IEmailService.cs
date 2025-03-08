@@ -14,5 +14,7 @@ namespace SafeguardSystem.BLL.IServices
         string GenerateWelcomeGoogleLoginUser(string Email);
         string GenerateOtpEmailBody(string FullName, string OtpText);
         string GenerateActivationSuccessEmailBody(string FullName);
+        string GenerateBanUserEmailBody(string FullName);
+        string GenerateUnbanUserEmailBody(string FullName);
     }
 }

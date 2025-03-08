@@ -66,6 +66,9 @@ namespace SafeguardSystem.BLL.Services
                     Avatar = "https://www.didongmy.com/vnt_upload/news/05_2024/anh-13-meme-dang-yeu-didongmy.jpg",
                     Phone = createUserDTO.Phone,
                     RoleID = createUserDTO.RoleId,
+                    Address = "N/A",
+                    Gender = "N/A",
+                    WorkingContract = "N/A",
                     ActivationToken = "N/A",
                     ActivationTokenExpiry = null,
                     IsActive = false,
@@ -168,7 +171,7 @@ namespace SafeguardSystem.BLL.Services
         {
             try
             {
-                var user = await _unitOfWork.Users.GetUserByEmailAsync(OtpDTO.Email);
+                var user = await _unitOfWork.Users.GetUserByEmailAsync(Email);
                 if (user == null)
                 {
                     return new ResponseDTO("User not found.", 404, false);
@@ -187,8 +190,8 @@ namespace SafeguardSystem.BLL.Services
                 // Cập nhật tài khoản khi OTP hợp lệ
                 user.IsActive = true;
                 user.IsEmailConfirmed = true;
-                user.ActivationToken = null;  // Xóa OTP
-                user.ActivationTokenExpiry = null;  // Xóa thời gian hết hạn OTP
+                user.ActivationToken = null; // Xóa OTP
+                user.ActivationTokenExpiry = null; // Xóa thời gian hết hạn OTP
                 await _unitOfWork.SaveChangeAsync();
 
                 // Gửi email thông báo xác thực thành công
@@ -225,7 +228,8 @@ namespace SafeguardSystem.BLL.Services
                     Avatar = u.Avatar
                 }).ToList();
 
-            return new ResponseDTO("User list:", 200, true, new PaginatedList<ViewUserListDTO>(userDTOs, paginatedUsers.Count, pageIndex, pageSize));
+            return new ResponseDTO("User list:", 200, true,
+                new PaginatedList<ViewUserListDTO>(userDTOs, paginatedUsers.Count, pageIndex, pageSize));
         }
 
         //Lấy thông tin người dùng không phân trang
@@ -352,7 +356,8 @@ namespace SafeguardSystem.BLL.Services
                 }
 
                 // Validate password and confirm password
-                if (string.IsNullOrEmpty(updatePasswordDTO.Password) || string.IsNullOrEmpty(updatePasswordDTO.ConfirmPassword))
+                if (string.IsNullOrEmpty(updatePasswordDTO.Password) ||
+                    string.IsNullOrEmpty(updatePasswordDTO.ConfirmPassword))
                 {
                     return new ResponseDTO("Password and Confirm Password are required.", 400, false);
                 }
@@ -393,7 +398,9 @@ namespace SafeguardSystem.BLL.Services
                 // Send OTP email
                 await SendOtpEmail(user.Email, otp, user.FullName);
 
-                return new ResponseDTO("Password updated successfully. Please check your email for the OTP to confirm your email.", 200, true);
+                return new ResponseDTO(
+                    "Password updated successfully. Please check your email for the OTP to confirm your email.", 200,
+                    true);
             }
             catch (Exception ex)
             {
@@ -497,11 +504,14 @@ namespace SafeguardSystem.BLL.Services
             // Create the UserDTO
             var userDTO = new UserDTO
             {
-                FullName = user.FullName,
-                Phone = user.Phone,
-                Avatar = user.Avatar,
-                BirthDay = user.BirthDay,
                 UserName = user.UserName,
+                FullName = user.FullName,
+                Avatar = user.Avatar,
+                Address = user.Address,
+                Gender = user.Gender,
+                WorkingContract = user.WorkingContract,
+                Phone = user.Phone,
+                BirthDay = user.BirthDay
             };
 
             // If the role name is "Security Guard", include the IdentityNumber
@@ -539,6 +549,7 @@ namespace SafeguardSystem.BLL.Services
                 user.IsLocked = true;
                 user.IsActive = false;
                 await _unitOfWork.SaveChangeAsync();
+                await SendBanEmail(user.Email, user.FullName);
 
                 return new ResponseDTO("User has been banned successfully", 200, true);
             }
@@ -571,6 +582,7 @@ namespace SafeguardSystem.BLL.Services
                 user.IsLocked = false;
                 user.IsActive = true;
                 await _unitOfWork.SaveChangeAsync();
+                await SendUnbanEmail(user.Email, user.FullName);
 
                 return new ResponseDTO("User has been unbanned successfully", 200, true);
             }
@@ -579,6 +591,24 @@ namespace SafeguardSystem.BLL.Services
                 var errorDetails = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
                 return new ResponseDTO($"Error unbanning user: {errorDetails}", 500, false);
             }
+        }
+
+        public async Task SendBanEmail(string Email, string FullName)
+        {
+            var emailRequest = new EmailRequest();
+            emailRequest.Email = Email;
+            emailRequest.Subject = "Your Account has been Banned";
+            emailRequest.EmailBody = _emailService.GenerateBanUserEmailBody(FullName);
+            await _emailService.SendEmailAsync(emailRequest);
+        }
+
+        public async Task SendUnbanEmail(string Email, string FullName)
+        {
+            var emailRequest = new EmailRequest();
+            emailRequest.Email = Email;
+            emailRequest.Subject = "Your Account has been Unbanned";
+            emailRequest.EmailBody = _emailService.GenerateUnbanUserEmailBody(FullName);
+            await _emailService.SendEmailAsync(emailRequest);
         }
     }
 }

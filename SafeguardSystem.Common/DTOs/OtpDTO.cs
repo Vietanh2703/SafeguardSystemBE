@@ -10,9 +10,6 @@ namespace SafeguardSystem.Common.DTOs
     public class OtpDTO
     {
         [Required]
-        public string? Email { get; set; }
-
-        [Required]
         public string? Otp { get; set; }
     }
 }
