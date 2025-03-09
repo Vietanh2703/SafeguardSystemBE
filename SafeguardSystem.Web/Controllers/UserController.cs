@@ -53,7 +53,7 @@ namespace SafeguardSystem.Web.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
-        [Route("user-details/{userId}")]
+        [Route("get-user-details/{userId}")]
         [HttpGet]
         public async Task<IActionResult> GetUserByUserId(string userId)
         {

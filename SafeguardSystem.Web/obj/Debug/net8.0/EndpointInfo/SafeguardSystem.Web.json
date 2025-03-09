@@ -926,7 +926,7 @@
         }
       }
     },
-    "/refresh-otp": {
+    "/refresh-otp/{email}": {
       "post": {
         "tags": [
           "User"
@@ -934,7 +934,8 @@
         "parameters": [
           {
             "name": "email",
-            "in": "query",
+            "in": "path",
+            "required": true,
             "schema": {
               "type": "string"
             }
@@ -947,10 +948,20 @@
         }
       }
     },
-    "/verify-email": {
+    "/verify-email/{Email}": {
       "post": {
         "tags": [
           "User"
+        ],
+        "parameters": [
+          {
+            "name": "Email",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
         ],
         "requestBody": {
           "content": {
@@ -978,7 +989,7 @@
         }
       }
     },
-    "/update-password": {
+    "/update-password/{Email}": {
       "put": {
         "tags": [
           "User"
@@ -986,7 +997,8 @@
         "parameters": [
           {
             "name": "Email",
-            "in": "query",
+            "in": "path",
+            "required": true,
             "schema": {
               "type": "string"
             }
@@ -1059,7 +1071,7 @@
         }
       }
     },
-    "/user-details/{userId}": {
+    "/get-user-details/{userId}": {
       "get": {
         "tags": [
           "User"
@@ -1164,15 +1176,10 @@
       },
       "OtpDTO": {
         "required": [
-          "email",
           "otp"
         ],
         "type": "object",
         "properties": {
-          "email": {
-            "minLength": 1,
-            "type": "string"
-          },
           "otp": {
             "minLength": 1,
             "type": "string"
@@ -1302,6 +1309,18 @@
             "nullable": true
           },
           "avatar": {
+            "type": "string",
+            "nullable": true
+          },
+          "address": {
+            "type": "string",
+            "nullable": true
+          },
+          "gender": {
+            "type": "string",
+            "nullable": true
+          },
+          "workingContract": {
             "type": "string",
             "nullable": true
           },

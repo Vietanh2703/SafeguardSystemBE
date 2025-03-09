@@ -22,7 +22,7 @@ namespace SafeguardSystem.BLL.Providers
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
                     Subject = new ClaimsIdentity(claims),
-                    Expires = DateTime.UtcNow.AddHours(JWTSettingModel.ExpireDayAcessToken),
+                    Expires = DateTime.UtcNow.AddHours(JWTSettingModel.ExpireDayAccessToken),
                     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
                     Issuer = JWTSettingModel.Issuer, // Thêm Issuer
                     Audience = JWTSettingModel.Audience // Thêm Audience

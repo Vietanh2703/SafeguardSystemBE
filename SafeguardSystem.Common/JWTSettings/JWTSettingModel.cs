@@ -34,7 +34,7 @@ namespace SafeguardSystem.Common.JWTSettings
         /// <summary>
         /// The expire days of the jwt to generate access token.
         /// </summary>
-        public static int ExpireDayAcessToken => int.Parse(_configuration["JWTSettings:ExpireDayAcessToken"]);
+        public static int ExpireDayAccessToken => int.Parse(_configuration["JWTSettings:ExpireDayAccessToken"]);
 
         /// <summary>
         /// The expire days of the jwt to generate refresh token.
