@@ -15,6 +15,6 @@ namespace SafeguardSystem.DAL.IRepositories
         Task AddLocation(Location location);
         Task<Location> GetByCoordinatesAsync(decimal latitude, decimal longitude);
         Task<List<Location>> GetLocationByBusinessId(Guid businessId);
-
+        Task<Location> GetLocationByIdAsync(Guid locationId);
     }
 }

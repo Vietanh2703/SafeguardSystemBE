@@ -36,6 +36,7 @@ namespace SafeguardSystem
             builder.Services.AddScoped<IShiftTypeService, ShiftTypeService>();
             builder.Services.AddScoped<IGuardService, GuardService>();
             builder.Services.AddScoped<ILocationService, LocationService>();
+            builder.Services.AddScoped<ISecurityshiftService, SecurityshiftService>();
             builder.Services.AddScoped<ITeamService, TeamService>();
             builder.Services.AddScoped<ILoginRequestService, LoginRequestService>();
             builder.Services.AddScoped<IReportService, ReportService>();
@@ -144,14 +145,14 @@ namespace SafeguardSystem
             });
 
             // Cấu hình CORS cho frontend
-        //    var allowedOrigins = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>();
+            var allowedOrigins = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>();
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("AllowFrontend",
                     policy =>
                     {
                         //Thay đổi địa chỉ cấu hình frontend để backend kết nối được tới frontend
-                        policy.WithOrigins("http://localhost:5173")
+                        policy.WithOrigins(allowedOrigins)
                               .AllowAnyMethod()
                               .AllowAnyHeader()
                               .AllowCredentials();

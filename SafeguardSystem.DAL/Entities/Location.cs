@@ -20,8 +20,6 @@ public class Location
     [ForeignKey("Business")]
     public Guid BusinessId { get; set; }
 
-    public Guid? PlaceId { get; set; }  //Get from Google Maps API
-
     public DateTime? CreatedAt { get; set; }
 
     public DateTime? UpdatedAt { get; set; }

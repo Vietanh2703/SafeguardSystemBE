@@ -18,6 +18,7 @@ namespace SafeguardSystem.DAL.UnitOfWork
         ITeamGuardRepository TeamGuards { get; }
         IRoleRepository Roles { get; }
         IRefreshTokenRepository RefreshTokens { get; }
+        ISecurityShiftRepository SecurityShifts { get; }
         IShiftTypeRepository ShiftTypes { get; }
         IReportRepository Reports { get; }
         IUserRepository Users { get; }

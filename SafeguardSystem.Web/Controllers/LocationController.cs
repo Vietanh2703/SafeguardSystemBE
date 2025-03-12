@@ -36,5 +36,19 @@ namespace SafeguardSystem.Web.Controllers
             var result = await _locationService.CreateLocationAsync(businessId,locationDTO);
             return StatusCode(result.StatusCode, result);
         }
+
+        [Route("generate-location-qr-code/{locationId}")]
+        [HttpGet]
+        public async Task<IActionResult> GenerateLocationQrCode(Guid locationId)
+        {
+            var result = await _locationService.GenerateLocationQrCodeAsync(locationId);
+            if (!result.IsSuccess)
+            {
+                return StatusCode(result.StatusCode, result);
+            }
+
+            var qrCodeBytes = (byte[])result.Result;
+            return File(qrCodeBytes, "image/png");
+        }
     }
 }

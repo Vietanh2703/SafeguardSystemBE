@@ -247,6 +247,32 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "SafeguardSystem.Web.Controllers.ManagerController",
+    "Method": "AssignShift",
+    "RelativePath": "assign-shift",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "locationId",
+        "Type": "System.Guid",
+        "IsRequired": false
+      },
+      {
+        "Name": "teamId",
+        "Type": "System.Guid",
+        "IsRequired": false
+      },
+      {
+        "Name": "typeId",
+        "Type": "System.Guid",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "SafeguardSystem.Web.Controllers.TeamController",
     "Method": "CreateTeam",
     "RelativePath": "create",
@@ -325,6 +351,22 @@
     "Parameters": [
       {
         "Name": "teamId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SafeguardSystem.Web.Controllers.LocationController",
+    "Method": "GenerateLocationQrCode",
+    "RelativePath": "generate-location-qr-code/{locationId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "locationId",
         "Type": "System.Guid",
         "IsRequired": true
       }

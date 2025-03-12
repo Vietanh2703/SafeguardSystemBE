@@ -13,8 +13,6 @@ public class SecurityGuard
     public string IdentityNumber { get; set; }
     public string Status { get; set; }
     public DateTime? StartDate { get; set; }
-    public decimal Latitude { get; set; }
-    public decimal Longitude { get; set; }
 
     [ForeignKey("User")]
     public string? UserId { get; set; }

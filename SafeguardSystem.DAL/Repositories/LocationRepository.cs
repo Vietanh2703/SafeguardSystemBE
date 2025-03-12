@@ -53,5 +53,11 @@ namespace SafeguardSystem.DAL.Repositories
                 .Where(loc => loc.BusinessId == businessId)
                 .ToListAsync();
         }
+
+        public async Task<Location> GetLocationByIdAsync(Guid locationId)
+        {
+            return await _context.Locations
+                .FirstOrDefaultAsync(loc => loc.LocationId == locationId);
+        }
     }
 }

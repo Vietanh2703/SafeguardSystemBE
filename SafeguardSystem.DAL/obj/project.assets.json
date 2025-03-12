@@ -2776,6 +2776,18 @@
           }
         }
       },
+      "QRCoder/1.4.1": {
+        "type": "package",
+        "dependencies": {
+          "System.Drawing.Common": "4.7.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/QRCoder.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/QRCoder.dll": {}
+        }
+      },
       "runtime.native.System/4.0.0": {
         "type": "package",
         "dependencies": {
@@ -9151,6 +9163,21 @@
         "pomelo.entityframeworkcore.mysql.nuspec"
       ]
     },
+    "QRCoder/1.4.1": {
+      "sha512": "W8KwCwsOJe9SI7Cm7XeIMawd08F/US6xNw34lg2Qnx6m7GYYakxbyBQaNoW1Q75oJOmX/32sJUZr6Cix2B6GUQ==",
+      "type": "package",
+      "path": "qrcoder/1.4.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net35/QRCoder.dll",
+        "lib/net40/QRCoder.dll",
+        "lib/netstandard1.1/QRCoder.dll",
+        "lib/netstandard2.0/QRCoder.dll",
+        "qrcoder.1.4.1.nupkg.sha512",
+        "qrcoder.nuspec"
+      ]
+    },
     "runtime.native.System/4.0.0": {
       "sha512": "QfS/nQI7k/BLgmLrw7qm7YBoULEvgWnPI+cYsbfCVFTW8Aj+i8JhccxcFMu1RWms0YZzF+UHguNBK4Qn89e2Sg==",
       "type": "package",
@@ -13202,6 +13229,7 @@
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 8.0.7",
       "MimeKit >= 4.10.0",
       "Pomelo.EntityFrameworkCore.MySql >= 8.0.2",
+      "QRCoder >= 1.4.1",
       "Swashbuckle.AspNetCore >= 7.3.1",
       "Swashbuckle.AspNetCore.Annotations >= 7.3.1",
       "Swashbuckle.AspNetCore.Swagger >= 7.3.1",
@@ -13212,19 +13240,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\nhatn\\.nuget\\packages\\": {}
+    "C:\\Users\\anhnt\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\nhatn\\Desktop\\ky 7\\SWD\\SafeguardSystemBE\\SafeguardSystem.DAL\\SafeguardSystem.DAL.csproj",
+      "projectUniqueName": "D:\\SafeguardSystemBE\\SafeguardSystem.DAL\\SafeguardSystem.DAL.csproj",
       "projectName": "SafeguardSystem.DAL",
-      "projectPath": "C:\\Users\\nhatn\\Desktop\\ky 7\\SWD\\SafeguardSystemBE\\SafeguardSystem.DAL\\SafeguardSystem.DAL.csproj",
-      "packagesPath": "C:\\Users\\nhatn\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\nhatn\\Desktop\\ky 7\\SWD\\SafeguardSystemBE\\SafeguardSystem.DAL\\obj\\",
+      "projectPath": "D:\\SafeguardSystemBE\\SafeguardSystem.DAL\\SafeguardSystem.DAL.csproj",
+      "packagesPath": "C:\\Users\\anhnt\\.nuget\\packages\\",
+      "outputPath": "D:\\SafeguardSystemBE\\SafeguardSystem.DAL\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\nhatn\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\anhnt\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -13232,7 +13265,6 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -13250,7 +13282,8 @@
         "enableAudit": "true",
         "auditLevel": "low",
         "auditMode": "direct"
-      }
+      },
+      "SdkAnalysisLevel": "9.0.200"
     },
     "frameworks": {
       "net8.0": {
@@ -13348,6 +13381,10 @@
             "target": "Package",
             "version": "[8.0.2, )"
           },
+          "QRCoder": {
+            "target": "Package",
+            "version": "[1.4.1, )"
+          },
           "Swashbuckle.AspNetCore": {
             "target": "Package",
             "version": "[7.3.1, )"
@@ -13393,7 +13430,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

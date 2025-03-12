@@ -1,4 +1,5 @@
-﻿using SafeguardSystem.BLL.IServices;
+﻿using QRCoder;
+using SafeguardSystem.BLL.IServices;
 using SafeguardSystem.Common.DTOs;
 using SafeguardSystem.DAL.Entities;
 using SafeguardSystem.DAL.Extensions;
@@ -73,7 +74,6 @@ namespace SafeguardSystem.BLL.Services
                 Name = locationDTO.Name,
                 Address = locationDTO.Address,
                 Image = locationDTO.image,
-                PlaceId = Guid.NewGuid(),
                 BusinessId = businessId,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
@@ -83,6 +83,37 @@ namespace SafeguardSystem.BLL.Services
             await _unitOfWork.Locations.AddLocation(newLocation);
             await _unitOfWork.SaveChangeAsync();
             return new ResponseDTO("Location created successfully", 201, true, newLocation);
+        }
+
+        public async Task<ResponseDTO> GenerateLocationQrCodeAsync(Guid locationId)
+        {
+            var location = await _unitOfWork.Locations.GetLocationByIdAsync(locationId);
+            if (location == null)
+            {
+                return new ResponseDTO("Location not found", 404, false);
+            }
+
+            var coordinates = $"{location.Latitude},{location.Longitude}";
+            return new ResponseDTO("QR code generated successfully", 200, true, GenerateQrCode(coordinates));
+        }
+
+        private byte[] GenerateQrCode(string data)
+        {
+            using (var qrGenerator = new QRCodeGenerator())
+            {
+                var qrCodeData = qrGenerator.CreateQrCode(data, QRCodeGenerator.ECCLevel.Q);
+                using (var qrCode = new QRCode(qrCodeData))
+                {
+                    using (var qrCodeImage = qrCode.GetGraphic(20))
+                    {
+                        using (var ms = new MemoryStream())
+                        {
+                            qrCodeImage.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                            return ms.ToArray();
+                        }
+                    }
+                }
+            }
         }
     }
 }

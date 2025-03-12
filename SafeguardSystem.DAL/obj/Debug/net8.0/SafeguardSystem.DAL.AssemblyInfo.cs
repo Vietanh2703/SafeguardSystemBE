@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SafeguardSystem.DAL")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d2b01b66e4d31e737a7896936d242cbbe642692c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a05bc0ae9d2ddf2644ca6d6c591ccc988a1c9a2d")]
 [assembly: System.Reflection.AssemblyProductAttribute("SafeguardSystem.DAL")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SafeguardSystem.DAL")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

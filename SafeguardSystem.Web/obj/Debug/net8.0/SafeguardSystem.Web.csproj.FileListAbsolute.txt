@@ -1953,3 +1953,7 @@ C:\Users\nhatn\OneDrive\Desktop\Ky 7\SWD392\dl\dl\SafeguardSystemBE\SafeguardSys
 C:\Users\nhatn\Desktop\ky 7\SWD\SafeguardSystemBE\SafeguardSystem.Web\bin\Debug\net8.0\AWSSDK.Core.dll
 C:\Users\nhatn\Desktop\ky 7\SWD\SafeguardSystemBE\SafeguardSystem.Web\bin\Debug\net8.0\AWSSDK.Extensions.NETCore.Setup.dll
 C:\Users\nhatn\Desktop\ky 7\SWD\SafeguardSystemBE\SafeguardSystem.Web\bin\Debug\net8.0\AWSSDK.S3.dll
+D:\SafeguardSystemBE\SafeguardSystem.Web\bin\Debug\net8.0\AWSSDK.Core.dll
+D:\SafeguardSystemBE\SafeguardSystem.Web\bin\Debug\net8.0\AWSSDK.Extensions.NETCore.Setup.dll
+D:\SafeguardSystemBE\SafeguardSystem.Web\bin\Debug\net8.0\AWSSDK.S3.dll
+D:\SafeguardSystemBE\SafeguardSystem.Web\bin\Debug\net8.0\QRCoder.dll

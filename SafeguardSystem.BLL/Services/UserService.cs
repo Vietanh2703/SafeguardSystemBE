@@ -90,8 +90,6 @@ namespace SafeguardSystem.BLL.Services
                         GuardId = Guid.NewGuid(),
                         UserId = newUser.UserId,
                         Status = "PENDING", // hoặc dùng Enum
-                        Latitude = 0,
-                        Longitude = 0,
                         IdentityNumber = "",
                         StartDate = DateTime.UtcNow
                     };

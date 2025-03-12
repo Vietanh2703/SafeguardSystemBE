@@ -19,6 +19,7 @@ public class SecurityShift
 
     [ForeignKey("SecurityType")]
     public Guid TypeId { get; set; }
+    public DateOnly ShiftDate { get; set; }
 
     public virtual Location Location { get; set; }
 
