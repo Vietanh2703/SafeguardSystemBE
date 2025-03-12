@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "wqbHkOKV2Y4=",
+  "dgSpecHash": "E6m77z9Rup8=",
   "success": true,
-  "projectFilePath": "C:\\Users\\nhatn\\OneDrive\\Desktop\\Ky 7\\SWD392\\dl\\dl\\SafeguardSystemBE\\SafeguardSystemBE\\SafeguardSystem.DAL\\SafeguardSystem.DAL.csproj",
+  "projectFilePath": "C:\\Users\\nhatn\\Desktop\\ky 7\\SWD\\SafeguardSystemBE\\SafeguardSystem.DAL\\SafeguardSystem.DAL.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\nhatn\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\nhatn\\.nuget\\packages\\awssdk.core\\3.7.402.13\\awssdk.core.3.7.402.13.nupkg.sha512",

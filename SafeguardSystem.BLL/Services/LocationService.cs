@@ -71,6 +71,8 @@ namespace SafeguardSystem.BLL.Services
                 Latitude = locationDTO.Latitude,
                 Longitude = locationDTO.Longitude,
                 Name = locationDTO.Name,
+                Address = locationDTO.Address,
+                Image = locationDTO.image,
                 PlaceId = Guid.NewGuid(),
                 BusinessId = businessId,
                 CreatedAt = DateTime.UtcNow,

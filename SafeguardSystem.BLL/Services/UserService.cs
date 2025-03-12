@@ -213,9 +213,20 @@ namespace SafeguardSystem.BLL.Services
         public async Task<ResponseDTO> GetAllUsersAsync(int pageIndex, int pageSize)
         {
             var paginatedUsers = await _unitOfWork.Users.GetAllUsersWithPagingAsync(pageIndex, pageSize);
+
             if (paginatedUsers == null || !paginatedUsers.Any())
             {
-                return new ResponseDTO("No users found in list.", 200, false);
+                return new ResponseDTO(
+                    "No users found in list.",
+                    200,
+                    false,
+                    new
+                    {
+                        users = new List<ViewUserListDTO>(),
+                        totalPages = 0,
+                        totalItems = 0
+                    }
+                );
             }
 
             var userDTOs = paginatedUsers
@@ -229,8 +240,20 @@ namespace SafeguardSystem.BLL.Services
                     Avatar = u.Avatar
                 }).ToList();
 
-            return new ResponseDTO("User list:", 200, true,
-                new PaginatedList<ViewUserListDTO>(userDTOs, paginatedUsers.Count, pageIndex, pageSize));
+            var totalUsers = await _unitOfWork.Users.GetTotalUserCountAsync();
+            var totalPages = (int)Math.Ceiling((double)totalUsers / pageSize);
+
+            return new ResponseDTO(
+                "User list.",
+                200,
+                true,
+                new
+                {
+                    users = userDTOs,
+                    totalPages = totalPages,
+                    totalUsers = totalUsers
+                }
+            );
         }
 
         //Lấy thông tin người dùng không phân trang

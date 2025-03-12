@@ -43,5 +43,12 @@ namespace SafeguardSystem.DAL.Repositories
         {
             return await _context.Users.Where(u => !u.IsDeleted).ToListAsync();
         }
+
+        public async Task<int> GetTotalUserCountAsync()
+        {
+            return await _context.Users
+                .Where(u => !u.IsDeleted)
+                .CountAsync();
+        }
     }
 }

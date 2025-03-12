@@ -10,5 +10,6 @@ namespace SafeguardSystem.DAL.IRepositories
         Task<User> CreateUserAsync(User user);
         Task<PaginatedList<User>> GetAllUsersWithPagingAsync(int pageIndex, int pageSize);
         Task<List<User>> GetAllUsersAsync();
+        Task<int> GetTotalUserCountAsync();
     }
 }

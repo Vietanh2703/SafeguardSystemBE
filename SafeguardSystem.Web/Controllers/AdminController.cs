@@ -39,11 +39,13 @@ namespace SafeguardSystem.Controllers
 
         [Route("view-all-users")]
         [HttpGet]
-        public async Task<IActionResult> GetAllUsers(int pageIndex, int pageSize)
+        public async Task<IActionResult> GetAllUsers(int pageIndex = 1, int pageSize = 5)
         {
             var results = await _userService.GetAllUsersAsync(pageIndex, pageSize);
             return StatusCode(results.StatusCode, results);
         }
+
+
 
         [Route("get-all-users")]
         [HttpGet]
