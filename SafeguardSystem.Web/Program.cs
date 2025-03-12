@@ -144,14 +144,14 @@ namespace SafeguardSystem
             });
 
             // Cấu hình CORS cho frontend
-            var allowedOrigins = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>();
+        //    var allowedOrigins = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>();
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("AllowFrontend",
                     policy =>
                     {
                         //Thay đổi địa chỉ cấu hình frontend để backend kết nối được tới frontend
-                        policy.WithOrigins(allowedOrigins)
+                        policy.WithOrigins("http://localhost:5173")
                               .AllowAnyMethod()
                               .AllowAnyHeader()
                               .AllowCredentials();

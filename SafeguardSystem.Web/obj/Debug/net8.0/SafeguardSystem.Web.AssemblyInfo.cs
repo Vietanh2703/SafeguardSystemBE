@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SafeguardSystem.Web")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7e65774b4cd943db41b885ecc82800e6123824c8")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+10f300d4cbe8caaf9b21d516eca11937b5499667")]
 [assembly: System.Reflection.AssemblyProductAttribute("SafeguardSystem.Web")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SafeguardSystem.Web")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

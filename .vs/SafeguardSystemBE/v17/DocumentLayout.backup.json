@@ -1,18 +1,26 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\nhatn\\Desktop\\ky 7\\SWD\\SafeguardSystemBE\\",
+  "WorkspaceRootPath": "C:\\Users\\nhatn\\OneDrive\\Desktop\\Ky 7\\SWD392\\dl\\dl\\SafeguardSystemBE\\SafeguardSystemBE\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{C981964B-F0A4-4F03-BE1F-87E55E8E3957}|SafeguardSystem.BLL\\SafeguardSystem.BLL.csproj|c:\\users\\nhatn\\desktop\\ky 7\\swd\\safeguardsystembe\\safeguardsystem.bll\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C981964B-F0A4-4F03-BE1F-87E55E8E3957}|SafeguardSystem.BLL\\SafeguardSystem.BLL.csproj|solutionrelative:safeguardsystem.bll\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C981964B-F0A4-4F03-BE1F-87E55E8E3957}|SafeguardSystem.BLL\\SafeguardSystem.BLL.csproj|c:\\users\\nhatn\\onedrive\\desktop\\ky 7\\swd392\\dl\\dl\\safeguardsystembe\\safeguardsystembe\\safeguardsystem.bll\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C981964B-F0A4-4F03-BE1F-87E55E8E3957}|SafeguardSystem.BLL\\SafeguardSystem.BLL.csproj|solutionrelative:safeguardsystem.bll\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B9EDB197-E649-4966-8C41-DB61D444A6B1}|SafeguardSystem.DAL\\SafeguardSystem.DAL.csproj|c:\\users\\nhatn\\desktop\\ky 7\\swd\\safeguardsystembe\\safeguardsystem.dal\\repositories\\rolerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B9EDB197-E649-4966-8C41-DB61D444A6B1}|SafeguardSystem.DAL\\SafeguardSystem.DAL.csproj|solutionrelative:safeguardsystem.dal\\repositories\\rolerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DDB287A4-F657-41C2-A41B-A029F28CBEA9}|SafeguardSystem.Common\\SafeguardSystem.Common.csproj|c:\\users\\nhatn\\onedrive\\desktop\\ky 7\\swd392\\dl\\dl\\safeguardsystembe\\safeguardsystembe\\safeguardsystem.common\\dtos\\viewuserlistdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DDB287A4-F657-41C2-A41B-A029F28CBEA9}|SafeguardSystem.Common\\SafeguardSystem.Common.csproj|solutionrelative:safeguardsystem.common\\dtos\\viewuserlistdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E2DA1AB1-35C3-4586-86FC-78173C4304EA}|SafeguardSystem.Web\\SafeguardSystem.Web.csproj|c:\\users\\nhatn\\desktop\\ky 7\\swd\\safeguardsystembe\\safeguardsystem.web\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E2DA1AB1-35C3-4586-86FC-78173C4304EA}|SafeguardSystem.Web\\SafeguardSystem.Web.csproj|solutionrelative:safeguardsystem.web\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E2DA1AB1-35C3-4586-86FC-78173C4304EA}|SafeguardSystem.Web\\SafeguardSystem.Web.csproj|c:\\users\\nhatn\\onedrive\\desktop\\ky 7\\swd392\\dl\\dl\\safeguardsystembe\\safeguardsystembe\\safeguardsystem.web\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E2DA1AB1-35C3-4586-86FC-78173C4304EA}|SafeguardSystem.Web\\SafeguardSystem.Web.csproj|solutionrelative:safeguardsystem.web\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E2DA1AB1-35C3-4586-86FC-78173C4304EA}|SafeguardSystem.Web\\SafeguardSystem.Web.csproj|c:\\users\\nhatn\\onedrive\\desktop\\ky 7\\swd392\\dl\\dl\\safeguardsystembe\\safeguardsystembe\\safeguardsystem.web\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E2DA1AB1-35C3-4586-86FC-78173C4304EA}|SafeguardSystem.Web\\SafeguardSystem.Web.csproj|solutionrelative:safeguardsystem.web\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B9EDB197-E649-4966-8C41-DB61D444A6B1}|SafeguardSystem.DAL\\SafeguardSystem.DAL.csproj|c:\\users\\nhatn\\onedrive\\desktop\\ky 7\\swd392\\dl\\dl\\safeguardsystembe\\safeguardsystembe\\safeguardsystem.dal\\migrations\\20250311164637_migrations.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B9EDB197-E649-4966-8C41-DB61D444A6B1}|SafeguardSystem.DAL\\SafeguardSystem.DAL.csproj|solutionrelative:safeguardsystem.dal\\migrations\\20250311164637_migrations.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,46 +30,68 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "RoleRepository.cs",
-              "DocumentMoniker": "C:\\Users\\nhatn\\Desktop\\ky 7\\SWD\\SafeguardSystemBE\\SafeguardSystem.DAL\\Repositories\\RoleRepository.cs",
-              "RelativeDocumentMoniker": "SafeguardSystem.DAL\\Repositories\\RoleRepository.cs",
-              "ToolTip": "C:\\Users\\nhatn\\Desktop\\ky 7\\SWD\\SafeguardSystemBE\\SafeguardSystem.DAL\\Repositories\\RoleRepository.cs",
-              "RelativeToolTip": "SafeguardSystem.DAL\\Repositories\\RoleRepository.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Title": "ViewUserListDTO.cs",
+              "DocumentMoniker": "C:\\Users\\nhatn\\OneDrive\\Desktop\\Ky 7\\SWD392\\dl\\dl\\SafeguardSystemBE\\SafeguardSystemBE\\SafeguardSystem.Common\\DTOs\\ViewUserListDTO.cs",
+              "RelativeDocumentMoniker": "SafeguardSystem.Common\\DTOs\\ViewUserListDTO.cs",
+              "ToolTip": "C:\\Users\\nhatn\\OneDrive\\Desktop\\Ky 7\\SWD392\\dl\\dl\\SafeguardSystemBE\\SafeguardSystemBE\\SafeguardSystem.Common\\DTOs\\ViewUserListDTO.cs",
+              "RelativeToolTip": "SafeguardSystem.Common\\DTOs\\ViewUserListDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-02T15:30:05.065Z",
+              "WhenOpened": "2025-03-11T18:44:37.986Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "UserService.cs",
+              "DocumentMoniker": "C:\\Users\\nhatn\\OneDrive\\Desktop\\Ky 7\\SWD392\\dl\\dl\\SafeguardSystemBE\\SafeguardSystemBE\\SafeguardSystem.BLL\\Services\\UserService.cs",
+              "RelativeDocumentMoniker": "SafeguardSystem.BLL\\Services\\UserService.cs",
+              "ToolTip": "C:\\Users\\nhatn\\OneDrive\\Desktop\\Ky 7\\SWD392\\dl\\dl\\SafeguardSystemBE\\SafeguardSystemBE\\SafeguardSystem.BLL\\Services\\UserService.cs",
+              "RelativeToolTip": "SafeguardSystem.BLL\\Services\\UserService.cs",
+              "ViewState": "AgIAANsAAAAAAAAAAAAswPoAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-11T18:43:25.513Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\nhatn\\Desktop\\ky 7\\SWD\\SafeguardSystemBE\\SafeguardSystem.Web\\Program.cs",
-              "RelativeDocumentMoniker": "SafeguardSystem.Web\\Program.cs",
-              "ToolTip": "C:\\Users\\nhatn\\Desktop\\ky 7\\SWD\\SafeguardSystemBE\\SafeguardSystem.Web\\Program.cs",
-              "RelativeToolTip": "SafeguardSystem.Web\\Program.cs",
-              "ViewState": "AgIAADEAAAAAAAAAAAAgwAAAAAAAAAAAAAAAAA==",
+              "Title": "AdminController.cs",
+              "DocumentMoniker": "C:\\Users\\nhatn\\OneDrive\\Desktop\\Ky 7\\SWD392\\dl\\dl\\SafeguardSystemBE\\SafeguardSystemBE\\SafeguardSystem.Web\\Controllers\\AdminController.cs",
+              "RelativeDocumentMoniker": "SafeguardSystem.Web\\Controllers\\AdminController.cs",
+              "ToolTip": "C:\\Users\\nhatn\\OneDrive\\Desktop\\Ky 7\\SWD392\\dl\\dl\\SafeguardSystemBE\\SafeguardSystemBE\\SafeguardSystem.Web\\Controllers\\AdminController.cs",
+              "RelativeToolTip": "SafeguardSystem.Web\\Controllers\\AdminController.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAhwDMAAAA4AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-02T11:52:25.443Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-11T18:42:32.803Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "AuthService.cs",
-              "DocumentMoniker": "C:\\Users\\nhatn\\Desktop\\ky 7\\SWD\\SafeguardSystemBE\\SafeguardSystem.BLL\\Services\\AuthService.cs",
-              "RelativeDocumentMoniker": "SafeguardSystem.BLL\\Services\\AuthService.cs",
-              "ToolTip": "C:\\Users\\nhatn\\Desktop\\ky 7\\SWD\\SafeguardSystemBE\\SafeguardSystem.BLL\\Services\\AuthService.cs*",
-              "RelativeToolTip": "SafeguardSystem.BLL\\Services\\AuthService.cs*",
-              "ViewState": "AgIAAHMAAAAAAAAAAAAqwMwAAAAuAAAAAAAAAA==",
+              "DocumentIndex": 3,
+              "Title": "UserController.cs",
+              "DocumentMoniker": "C:\\Users\\nhatn\\OneDrive\\Desktop\\Ky 7\\SWD392\\dl\\dl\\SafeguardSystemBE\\SafeguardSystemBE\\SafeguardSystem.Web\\Controllers\\UserController.cs",
+              "RelativeDocumentMoniker": "SafeguardSystem.Web\\Controllers\\UserController.cs",
+              "ToolTip": "C:\\Users\\nhatn\\OneDrive\\Desktop\\Ky 7\\SWD392\\dl\\dl\\SafeguardSystemBE\\SafeguardSystemBE\\SafeguardSystem.Web\\Controllers\\UserController.cs",
+              "RelativeToolTip": "SafeguardSystem.Web\\Controllers\\UserController.cs",
+              "ViewState": "AgIAABgAAAAAAAAAAAAYwBsAAABDAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-02T11:48:50.266Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-11T18:32:27.185Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "20250311164637_migrations.cs",
+              "DocumentMoniker": "C:\\Users\\nhatn\\OneDrive\\Desktop\\Ky 7\\SWD392\\dl\\dl\\SafeguardSystemBE\\SafeguardSystemBE\\SafeguardSystem.DAL\\Migrations\\20250311164637_migrations.cs",
+              "RelativeDocumentMoniker": "SafeguardSystem.DAL\\Migrations\\20250311164637_migrations.cs",
+              "ToolTip": "C:\\Users\\nhatn\\OneDrive\\Desktop\\Ky 7\\SWD392\\dl\\dl\\SafeguardSystemBE\\SafeguardSystemBE\\SafeguardSystem.DAL\\Migrations\\20250311164637_migrations.cs",
+              "RelativeToolTip": "SafeguardSystem.DAL\\Migrations\\20250311164637_migrations.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-11T16:46:37.88Z"
             }
           ]
         }

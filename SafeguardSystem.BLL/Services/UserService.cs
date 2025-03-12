@@ -222,6 +222,7 @@ namespace SafeguardSystem.BLL.Services
                 .Where(u => !u.IsDeleted)
                 .Select(u => new ViewUserListDTO
                 {
+                    UserId = u.UserId,
                     Email = u.Email,
                     FullName = u.FullName,
                     Phone = u.Phone,
@@ -247,6 +248,7 @@ namespace SafeguardSystem.BLL.Services
                     .Where(u => !u.IsDeleted)
                     .Select(u => new ViewUserListDTO
                     {
+                        UserId = u.UserId,
                         Email = u.Email,
                         FullName = u.FullName,
                         Phone = u.Phone,

@@ -8,6 +8,7 @@ namespace SafeguardSystem.Common.DTOs
 {
     public class ViewUserListDTO
     {
+        public string? UserId { get; set; }
         public string? Avatar { get; set; }
         public string? Email { get; set; }
         public string? FullName { get; set; }

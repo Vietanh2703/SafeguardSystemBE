@@ -12,8 +12,8 @@ using SafeguardSystem.DAL;
 namespace SafeguardSystem.DAL.Migrations
 {
     [DbContext(typeof(SafeguardDbContext))]
-    [Migration("20250310210347_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20250311164637_migrations")]
+    partial class migrations
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -61,7 +61,7 @@ namespace SafeguardSystem.DAL.Migrations
                         new
                         {
                             BusinessId = new Guid("7c54454f-337d-4b5b-a2d0-74ad4088686b"),
-                            ContractExpiry = new DateTime(2026, 3, 10, 21, 3, 46, 883, DateTimeKind.Utc).AddTicks(9243),
+                            ContractExpiry = new DateTime(2026, 3, 11, 16, 46, 36, 659, DateTimeKind.Utc).AddTicks(6249),
                             Description = "Nơi sinh hoạt văn hóa, giải trí dành cho sinh viên",
                             IsActive = true,
                             IsDeleted = false,
@@ -186,13 +186,13 @@ namespace SafeguardSystem.DAL.Migrations
                             LocationId = new Guid("c86114da-36c8-4644-8ab0-dbdcb5c2f830"),
                             Address = "Khu phố 6, Phường Linh Trung, Thủ Đức, Thành phố Hồ Chí Minh",
                             BusinessId = new Guid("7c54454f-337d-4b5b-a2d0-74ad4088686b"),
-                            CreatedAt = new DateTime(2025, 3, 10, 21, 3, 46, 883, DateTimeKind.Utc).AddTicks(9314),
+                            CreatedAt = new DateTime(2025, 3, 11, 16, 46, 36, 659, DateTimeKind.Utc).AddTicks(6308),
                             Image = "https://www.freepik.com/free-vector/simple-vibing-cat-square-meme_58459053.htm#fromView=keyword&page=1&position=0&uuid=f4bd18ef-8de6-4b6e-8e68-06073abf526b&query=Animal+Memes",
                             IsDeleted = false,
                             Latitude = 10.882934m,
                             Longitude = 106.785746m,
                             Name = "Nhà văn hóa sinh viên",
-                            PlaceId = new Guid("70f0d8da-2ff4-4958-86fc-f739555b69ef")
+                            PlaceId = new Guid("3c13faaa-2c0c-42c3-b596-38ca7cccac13")
                         });
                 });
 
@@ -387,9 +387,9 @@ namespace SafeguardSystem.DAL.Migrations
                             IdentityNumber = "123456789",
                             Latitude = 10.882934m,
                             Longitude = 106.785746m,
-                            StartDate = new DateTime(2025, 3, 10, 21, 3, 46, 883, DateTimeKind.Utc).AddTicks(9184),
+                            StartDate = new DateTime(2025, 3, 11, 16, 46, 36, 659, DateTimeKind.Utc).AddTicks(6184),
                             Status = "PENDING",
-                            UserId = "8RIijLXzhAfpXHOna9T2JWctYSE3"
+                            UserId = "ksyosShXa2QizFvCVkpe6dAG3ax1"
                         },
                         new
                         {
@@ -397,7 +397,7 @@ namespace SafeguardSystem.DAL.Migrations
                             IdentityNumber = "123456789",
                             Latitude = 10.882934m,
                             Longitude = 106.785746m,
-                            StartDate = new DateTime(2025, 3, 10, 21, 3, 46, 883, DateTimeKind.Utc).AddTicks(9189),
+                            StartDate = new DateTime(2025, 3, 11, 16, 46, 36, 659, DateTimeKind.Utc).AddTicks(6188),
                             Status = "PENDING",
                             UserId = "fH8JsAPWjJOHLvLSI4MJVG4aSBr1"
                         },
@@ -407,7 +407,7 @@ namespace SafeguardSystem.DAL.Migrations
                             IdentityNumber = "123456789",
                             Latitude = 10.882934m,
                             Longitude = 106.785746m,
-                            StartDate = new DateTime(2025, 3, 10, 21, 3, 46, 883, DateTimeKind.Utc).AddTicks(9192),
+                            StartDate = new DateTime(2025, 3, 11, 16, 46, 36, 659, DateTimeKind.Utc).AddTicks(6190),
                             Status = "PENDING",
                             UserId = "CkjtbJVJQxVm1eLjHW3p10TdV193"
                         },
@@ -417,7 +417,7 @@ namespace SafeguardSystem.DAL.Migrations
                             IdentityNumber = "123456789",
                             Latitude = 10.882934m,
                             Longitude = 106.785746m,
-                            StartDate = new DateTime(2025, 3, 10, 21, 3, 46, 883, DateTimeKind.Utc).AddTicks(9194),
+                            StartDate = new DateTime(2025, 3, 11, 16, 46, 36, 659, DateTimeKind.Utc).AddTicks(6192),
                             Status = "PENDING",
                             UserId = "GLgL2MXjY7Pg4gmEJrgFulyEgV23"
                         },
@@ -427,7 +427,7 @@ namespace SafeguardSystem.DAL.Migrations
                             IdentityNumber = "123456789",
                             Latitude = 10.882934m,
                             Longitude = 106.785746m,
-                            StartDate = new DateTime(2025, 3, 10, 21, 3, 46, 883, DateTimeKind.Utc).AddTicks(9196),
+                            StartDate = new DateTime(2025, 3, 11, 16, 46, 36, 659, DateTimeKind.Utc).AddTicks(6194),
                             Status = "PENDING",
                             UserId = "fNBgIDvy0JTd3wd9enqVywR8o612"
                         });
@@ -651,7 +651,7 @@ namespace SafeguardSystem.DAL.Migrations
                         {
                             UserId = "58sErANL7bbv096ghTnNN3qIiqX2",
                             Address = "Ho Chi Minh City",
-                            Avatar = "https://img.freepik.com/free-vector/simple-vibing-cat-square-meme_742173-4493.jpg?t=st=1741640485~exp=1741644085~hmac=2b51c5540d42bb03d640ddf64d9a7d048ebb8a62f836c15ae349ca193c7cce01&w=900",
+                            Avatar = "https://www.freepik.com/free-vector/simple-vibing-cat-square-meme_58459053.htm#fromView=keyword&page=1&position=0&uuid=f4bd18ef-8de6-4b6e-8e68-06073abf526b&query=Animal+Memes",
                             BirthDay = new DateTime(2004, 3, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "admin@test.com",
                             FullName = "Viet Anh",
@@ -669,7 +669,7 @@ namespace SafeguardSystem.DAL.Migrations
                         {
                             UserId = "SLuhlRSnI1VOm00lYZ0oHxnfpCx2",
                             Address = "Ho Chi Minh City",
-                            Avatar = "https://img.freepik.com/free-vector/simple-vibing-cat-square-meme_742173-4493.jpg?t=st=1741640485~exp=1741644085~hmac=2b51c5540d42bb03d640ddf64d9a7d048ebb8a62f836c15ae349ca193c7cce01&w=900",
+                            Avatar = "https://www.freepik.com/free-vector/simple-vibing-cat-square-meme_58459053.htm#fromView=keyword&page=1&position=0&uuid=f4bd18ef-8de6-4b6e-8e68-06073abf526b&query=Animal+Memes",
                             BirthDay = new DateTime(2004, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "manager@test.com",
                             FullName = "Nhat Nam",
@@ -703,9 +703,9 @@ namespace SafeguardSystem.DAL.Migrations
                         },
                         new
                         {
-                            UserId = "8RIijLXzhAfpXHOna9T2JWctYSE3",
+                            UserId = "ksyosShXa2QizFvCVkpe6dAG3ax1",
                             Address = "Ho Chi Minh City",
-                            Avatar = "https://img.freepik.com/free-vector/simple-vibing-cat-square-meme_742173-4493.jpg?t=st=1741640485~exp=1741644085~hmac=2b51c5540d42bb03d640ddf64d9a7d048ebb8a62f836c15ae349ca193c7cce01&w=900",
+                            Avatar = "https://www.freepik.com/free-vector/simple-vibing-cat-square-meme_58459053.htm#fromView=keyword&page=1&position=0&uuid=f4bd18ef-8de6-4b6e-8e68-06073abf526b&query=Animal+Memes",
                             BirthDay = new DateTime(2001, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "guard@test.com",
                             FullName = "Nguyen Khai Minh",
@@ -723,7 +723,7 @@ namespace SafeguardSystem.DAL.Migrations
                         {
                             UserId = "fH8JsAPWjJOHLvLSI4MJVG4aSBr1",
                             Address = "Ho Chi Minh City",
-                            Avatar = "https://img.freepik.com/free-vector/simple-vibing-cat-square-meme_742173-4493.jpg?t=st=1741640485~exp=1741644085~hmac=2b51c5540d42bb03d640ddf64d9a7d048ebb8a62f836c15ae349ca193c7cce01&w=900",
+                            Avatar = "https://www.freepik.com/free-vector/simple-vibing-cat-square-meme_58459053.htm#fromView=keyword&page=1&position=0&uuid=f4bd18ef-8de6-4b6e-8e68-06073abf526b&query=Animal+Memes",
                             BirthDay = new DateTime(2001, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "guard2@test.com",
                             FullName = "Nguyen Huy",
@@ -741,7 +741,7 @@ namespace SafeguardSystem.DAL.Migrations
                         {
                             UserId = "CkjtbJVJQxVm1eLjHW3p10TdV193",
                             Address = "Ho Chi Minh City",
-                            Avatar = "https://img.freepik.com/free-vector/simple-vibing-cat-square-meme_742173-4493.jpg?t=st=1741640485~exp=1741644085~hmac=2b51c5540d42bb03d640ddf64d9a7d048ebb8a62f836c15ae349ca193c7cce01&w=900",
+                            Avatar = "https://www.freepik.com/free-vector/simple-vibing-cat-square-meme_58459053.htm#fromView=keyword&page=1&position=0&uuid=f4bd18ef-8de6-4b6e-8e68-06073abf526b&query=Animal+Memes",
                             BirthDay = new DateTime(2001, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "guard3@test.com",
                             FullName = "Nguyen Hieu",
@@ -759,7 +759,7 @@ namespace SafeguardSystem.DAL.Migrations
                         {
                             UserId = "GLgL2MXjY7Pg4gmEJrgFulyEgV23",
                             Address = "Ho Chi Minh City",
-                            Avatar = "https://img.freepik.com/free-vector/simple-vibing-cat-square-meme_742173-4493.jpg?t=st=1741640485~exp=1741644085~hmac=2b51c5540d42bb03d640ddf64d9a7d048ebb8a62f836c15ae349ca193c7cce01&w=900",
+                            Avatar = "https://www.freepik.com/free-vector/simple-vibing-cat-square-meme_58459053.htm#fromView=keyword&page=1&position=0&uuid=f4bd18ef-8de6-4b6e-8e68-06073abf526b&query=Animal+Memes",
                             BirthDay = new DateTime(2001, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "guard4@test.com",
                             FullName = "Nguyen Phong",
@@ -777,7 +777,7 @@ namespace SafeguardSystem.DAL.Migrations
                         {
                             UserId = "fNBgIDvy0JTd3wd9enqVywR8o612",
                             Address = "Ho Chi Minh City",
-                            Avatar = "https://img.freepik.com/free-vector/simple-vibing-cat-square-meme_742173-4493.jpg?t=st=1741640485~exp=1741644085~hmac=2b51c5540d42bb03d640ddf64d9a7d048ebb8a62f836c15ae349ca193c7cce01&w=900",
+                            Avatar = "https://www.freepik.com/free-vector/simple-vibing-cat-square-meme_58459053.htm#fromView=keyword&page=1&position=0&uuid=f4bd18ef-8de6-4b6e-8e68-06073abf526b&query=Animal+Memes",
                             BirthDay = new DateTime(2001, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "guard5@test.com",
                             FullName = "Nguyen Dang",
