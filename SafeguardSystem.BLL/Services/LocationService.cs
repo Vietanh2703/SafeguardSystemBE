@@ -34,6 +34,24 @@ namespace SafeguardSystem.BLL.Services
 
             return new ResponseDTO("Retrieve location: ", 200, true,new PaginatedList<LocationDTO>(locationDTOs,paginatedLocations.Count, pageSize, pageNumber));
         }
+
+        public async Task<ResponseDTO> GetAllLocationAsync()
+        {
+            var locations = await _unitOfWork.Locations.GetAllLocations();
+            if (locations == null || !locations.Any())
+            {
+                return new ResponseDTO("Empty location in list.", 200, false);
+            }
+            var locationDTOs = locations.Where(l => !l.IsDeleted)
+                                        .Select(l => new LocationDTO
+                                        {
+                                            Name = l.Name,
+                                            Latitude = l.Latitude,
+                                            Longitude = l.Longitude
+                                        }).ToList();
+            return new ResponseDTO("Retrieve location: ", 200, true, locationDTOs);
+        }
+
         public async Task<ResponseDTO> GetLocationByName(string locationName)
         {
             var results = await _unitOfWork.Locations.GetLocationByName(locationName);

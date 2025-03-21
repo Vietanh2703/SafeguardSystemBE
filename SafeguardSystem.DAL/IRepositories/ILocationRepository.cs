@@ -11,6 +11,7 @@ namespace SafeguardSystem.DAL.IRepositories
     public interface ILocationRepository
     {
         Task<PaginatedList<Location>> GetAllLocations(int pageNumber, int pageSize);
+        Task<List<Location>> GetAllLocations();
         Task<Location> GetLocationByName(string locationName);
         Task AddLocation(Location location);
         Task<Location> GetByCoordinatesAsync(decimal latitude, decimal longitude);

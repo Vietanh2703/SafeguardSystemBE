@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SafeguardSystem.Common.Tokens;
 
 namespace SafeguardSystem.BLL.Services
 {
@@ -49,7 +50,32 @@ namespace SafeguardSystem.BLL.Services
             await _unitOfWork.SecurityShifts.AddAsync(Securityshift);
             await _unitOfWork.SaveChangeAsync();
 
+            var token = Guid.NewGuid().ToString();
+            var shiftToken = new ShiftToken
+            {
+                Id = Guid.NewGuid(),
+                ShiftId = Securityshift.ShiftId,
+                Token = token
+            };
+
+            //await _unitOfWork.ShiftTokens.AddAsync(shiftToken);
+
             return new ResponseDTO("Shift assigned to team successfully", 200, true);
+        }
+
+
+        public async Task<ResponseDTO> DeleteShiftAsync(Guid shiftId)
+        {
+            var shift = await _unitOfWork.SecurityShifts.GetByGuIdAsync(shiftId);
+            if (shift == null)
+            {
+                return new ResponseDTO("Shift not found", 404, false);
+            }
+
+            _unitOfWork.SecurityShifts.Delete(shift);
+            await _unitOfWork.SaveChangeAsync();
+
+            return new ResponseDTO("Shift deleted successfully", 200, true);
         }
     }
 }

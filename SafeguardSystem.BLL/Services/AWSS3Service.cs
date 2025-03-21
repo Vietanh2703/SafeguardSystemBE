@@ -18,6 +18,7 @@ namespace SafeguardSystem.BLL.Services
         private readonly string _bucketName;
         private readonly IAmazonS3 _awsS3Client;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly double _defaultDuration = 60;
 
         public AWSS3Service(IOptions<AwsS3Setting> awsS3Settings, IAmazonS3 amazonS3, IUnitOfWork unitOfWork)
         {
@@ -127,7 +128,7 @@ namespace SafeguardSystem.BLL.Services
         }
 
 
-        public async Task<ResponseDTO> GetPreSignedURLAsync1(string key, double durationMinutes = 60)
+        public async Task<ResponseDTO> GetPreSignedURLAsync(string key)
         {
             try
             {
@@ -135,11 +136,11 @@ namespace SafeguardSystem.BLL.Services
                 {
                     BucketName = _bucketName,
                     Key = key,
-                    Expires = DateTime.UtcNow.AddMinutes(durationMinutes),
+                    Expires = DateTime.UtcNow.AddMinutes(_defaultDuration),
                     Verb = HttpVerb.GET,
                     ResponseHeaderOverrides = new ResponseHeaderOverrides
                     {
-                        ContentDisposition = "attachment"
+                        ContentDisposition = "inline"
                     }
                 };
                 string url = _awsS3Client.GetPreSignedURL(request);
@@ -150,6 +151,33 @@ namespace SafeguardSystem.BLL.Services
                 return new ResponseDTO(e.Message, 500, false);
             }
         }
+
+        public async Task<ResponseDTO> ListUserFilesAsync(string userId)
+        {
+            try
+            {
+                var request = new ListObjectsV2Request
+                {
+                    BucketName = _bucketName,
+                    Prefix = $"{userId}_"
+                };
+
+                var response = await _awsS3Client.ListObjectsV2Async(request);
+
+                if (response.S3Objects.Count == 0)
+                {
+                    return new ResponseDTO("No files found for the user", 404, false);
+                }
+
+                var fileNames = response.S3Objects.Select(o => o.Key).ToList();
+                return new ResponseDTO("Files retrieved successfully", 200, true, fileNames);
+            }
+            catch (Exception e)
+            {
+                return new ResponseDTO(e.Message, 500, false);
+            }
+        }
+
     }
 }
 

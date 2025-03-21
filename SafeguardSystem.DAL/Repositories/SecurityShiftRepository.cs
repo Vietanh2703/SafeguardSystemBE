@@ -23,5 +23,15 @@ namespace SafeguardSystem.DAL.Repositories
             await _context.SaveChangesAsync();
             return entity;
         }
+
+        public async Task<SecurityShift> GetByGuIdAsync(Guid id)
+        {
+            return await _context.SecurityShifts.FindAsync(id);
+        }
+
+        public async Task<SecurityShift> GetShiftByDetailAsync(Guid locationId, Guid teamId, Guid typeId)
+        {
+            return await _context.SecurityShifts.FindAsync(locationId, teamId, typeId);
+        }
     }
 }

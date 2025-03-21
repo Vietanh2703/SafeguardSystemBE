@@ -13268,11 +13268,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\SafeguardSystemBE\\SafeguardSystem.Web\\SafeguardSystem.Web.csproj",
+      "projectUniqueName": "D:\\SafeguardSystem\\SafeguardSystemBE\\SafeguardSystem.Web\\SafeguardSystem.Web.csproj",
       "projectName": "SafeguardSystem.Web",
-      "projectPath": "D:\\SafeguardSystemBE\\SafeguardSystem.Web\\SafeguardSystem.Web.csproj",
+      "projectPath": "D:\\SafeguardSystem\\SafeguardSystemBE\\SafeguardSystem.Web\\SafeguardSystem.Web.csproj",
       "packagesPath": "C:\\Users\\anhnt\\.nuget\\packages\\",
-      "outputPath": "D:\\SafeguardSystemBE\\SafeguardSystem.Web\\obj\\",
+      "outputPath": "D:\\SafeguardSystem\\SafeguardSystemBE\\SafeguardSystem.Web\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -13293,14 +13293,14 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "D:\\SafeguardSystemBE\\SafeguardSystem.BLL\\SafeguardSystem.BLL.csproj": {
-              "projectPath": "D:\\SafeguardSystemBE\\SafeguardSystem.BLL\\SafeguardSystem.BLL.csproj"
+            "D:\\SafeguardSystem\\SafeguardSystemBE\\SafeguardSystem.BLL\\SafeguardSystem.BLL.csproj": {
+              "projectPath": "D:\\SafeguardSystem\\SafeguardSystemBE\\SafeguardSystem.BLL\\SafeguardSystem.BLL.csproj"
             },
-            "D:\\SafeguardSystemBE\\SafeguardSystem.Common\\SafeguardSystem.Common.csproj": {
-              "projectPath": "D:\\SafeguardSystemBE\\SafeguardSystem.Common\\SafeguardSystem.Common.csproj"
+            "D:\\SafeguardSystem\\SafeguardSystemBE\\SafeguardSystem.Common\\SafeguardSystem.Common.csproj": {
+              "projectPath": "D:\\SafeguardSystem\\SafeguardSystemBE\\SafeguardSystem.Common\\SafeguardSystem.Common.csproj"
             },
-            "D:\\SafeguardSystemBE\\SafeguardSystem.DAL\\SafeguardSystem.DAL.csproj": {
-              "projectPath": "D:\\SafeguardSystemBE\\SafeguardSystem.DAL\\SafeguardSystem.DAL.csproj"
+            "D:\\SafeguardSystem\\SafeguardSystemBE\\SafeguardSystem.DAL\\SafeguardSystem.DAL.csproj": {
+              "projectPath": "D:\\SafeguardSystem\\SafeguardSystemBE\\SafeguardSystem.DAL\\SafeguardSystem.DAL.csproj"
             }
           }
         }
@@ -13367,7 +13367,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

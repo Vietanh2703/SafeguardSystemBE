@@ -10,14 +10,16 @@
     "version": "v1"
   },
   "paths": {
-    "/api/Admin/view-all-business-partners": {
+    "/business-partners": {
       "get": {
         "tags": [
           "Admin"
         ],
+        "summary": "Retrieves all business partners.",
+        "description": "This API returns a list of all registered business partner in the system.",
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "Business partner retrieves successfully.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -35,15 +37,23 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "Invalid request data."
+          },
+          "500": {
+            "description": "Internal server error."
           }
         }
       }
     },
-    "/api/Admin/create-user": {
+    "/user": {
       "post": {
         "tags": [
           "Admin"
         ],
+        "summary": "Creates a new user",
+        "description": "This API creates a new user based on the provided information.",
         "requestBody": {
           "content": {
             "application/json": {
@@ -65,16 +75,24 @@
         },
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "User created successfully."
+          },
+          "400": {
+            "description": "Invalid request data."
+          },
+          "500": {
+            "description": "Internal server error."
           }
         }
       }
     },
-    "/api/Admin/view-all-users": {
+    "/user-pagings": {
       "get": {
         "tags": [
           "Admin"
         ],
+        "summary": "Retrieves all users with paging.",
+        "description": "This API returns all users that existed in system with paging.",
         "parameters": [
           {
             "name": "pageIndex",
@@ -97,28 +115,44 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "User retrieves successfully."
+          },
+          "400": {
+            "description": "Invalid request data."
+          },
+          "500": {
+            "description": "Internal server error."
           }
         }
       }
     },
-    "/api/Admin/get-all-users": {
+    "/users": {
       "get": {
         "tags": [
           "Admin"
         ],
+        "summary": "Retrieves all users no pagings.",
+        "description": "This API returns all users that existed in system.",
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "User retrieves successfully."
+          },
+          "400": {
+            "description": "Invalid request data."
+          },
+          "500": {
+            "description": "Internal server error."
           }
         }
       }
     },
-    "/api/Admin/get-users-by-role/{roleName}": {
+    "/{roleName}/users": {
       "get": {
         "tags": [
           "Admin"
         ],
+        "summary": "Retrieves all users with following role name.",
+        "description": "This API returns all users based on role name that existed in system.",
         "parameters": [
           {
             "name": "roleName",
@@ -131,16 +165,24 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "User retrieves successfully."
+          },
+          "400": {
+            "description": "Invalid request data."
+          },
+          "500": {
+            "description": "Internal server error."
           }
         }
       }
     },
-    "/api/Admin/ban-user/{userId}": {
+    "/{userId}/ban": {
       "put": {
         "tags": [
           "Admin"
         ],
+        "summary": "Ban user",
+        "description": "This API bans user based on user Id",
         "parameters": [
           {
             "name": "userId",
@@ -153,16 +195,24 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "User has been banned successfully."
+          },
+          "400": {
+            "description": "Invalid request data."
+          },
+          "500": {
+            "description": "Internal server error."
           }
         }
       }
     },
-    "/api/Admin/unban-user/{userId}": {
+    "/{userId}/unban": {
       "put": {
         "tags": [
           "Admin"
         ],
+        "summary": "Un-ban user",
+        "description": "This API un-bans user based on user Id",
         "parameters": [
           {
             "name": "userId",
@@ -175,16 +225,24 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "User has been un-banned successfully."
+          },
+          "400": {
+            "description": "Invalid request data."
+          },
+          "500": {
+            "description": "Internal server error."
           }
         }
       }
     },
-    "/api/Admin/delete-user/{userId}": {
+    "/{userId}/delete": {
       "put": {
         "tags": [
           "Admin"
         ],
+        "summary": "Delete user",
+        "description": "This API deletes user based on user Id",
         "parameters": [
           {
             "name": "userId",
@@ -197,23 +255,32 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "User has been deleted successfully."
+          },
+          "400": {
+            "description": "Invalid request data."
+          },
+          "500": {
+            "description": "Internal server error."
           }
         }
       }
     },
-    "/api/Admin/get-all-requests": {
+    "/requests": {
       "get": {
         "tags": [
           "Admin"
         ],
+        "summary": "Get all requests ",
+        "description": "This API gets all first-time login Google requests",
         "parameters": [
           {
             "name": "pageNumber",
             "in": "query",
             "schema": {
               "type": "integer",
-              "format": "int32"
+              "format": "int32",
+              "default": 1
             }
           },
           {
@@ -221,22 +288,31 @@
             "in": "query",
             "schema": {
               "type": "integer",
-              "format": "int32"
+              "format": "int32",
+              "default": 5
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "All requests have been retrieved successfully."
+          },
+          "400": {
+            "description": "Invalid request data."
+          },
+          "500": {
+            "description": "Internal server error."
           }
         }
       }
     },
-    "/api/Admin/approve-login-request": {
+    "/request": {
       "put": {
         "tags": [
           "Admin"
         ],
+        "summary": "Approve or reject requests",
+        "description": "This API is used to approve or reject a user's first-time Google login request.",
         "parameters": [
           {
             "name": "requestId",
@@ -263,72 +339,53 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Login request processed successfully."
+          },
+          "400": {
+            "description": "Invalid request data."
+          },
+          "500": {
+            "description": "Internal server error."
           }
         }
       }
     },
-    "/guard/{guardId}": {
+    "/location-pagings": {
       "get": {
         "tags": [
-          "Guard"
+          "Location"
         ],
+        "summary": "Retrieve all locations with pagination",
+        "description": "Fetches a paginated list of all registered locations in the system.",
         "parameters": [
           {
-            "name": "guardId",
-            "in": "path",
-            "required": true,
+            "name": "pageNumber",
+            "in": "query",
             "schema": {
-              "type": "string",
-              "format": "uuid"
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 5
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/guard/update/{guardId}": {
-      "put": {
-        "tags": [
-          "Guard"
-        ],
-        "parameters": [
-          {
-            "name": "guardId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SecurityGuardDTO"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SecurityGuardDTO"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/SecurityGuardDTO"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
+            "description": "Successfully retrieved locations."
+          },
+          "400": {
+            "description": "Invalid pagination parameters."
+          },
+          "500": {
+            "description": "Internal server error."
           }
         }
       }
@@ -338,36 +395,28 @@
         "tags": [
           "Location"
         ],
-        "parameters": [
-          {
-            "name": "pageNumber",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "pageSize",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
+        "summary": "Retrieve all locations",
+        "description": "Fetches a list of all registered locations in the system.",
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Successfully retrieved locations."
+          },
+          "400": {
+            "description": "Invalid request data."
+          },
+          "500": {
+            "description": "Internal server error."
           }
         }
       }
     },
-    "/search-location/{locationName}": {
+    "/{locationName}": {
       "get": {
         "tags": [
           "Location"
         ],
+        "summary": "Retrieve a location by name",
+        "description": "Fetches a location by its name.",
         "parameters": [
           {
             "name": "locationName",
@@ -380,16 +429,24 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Successfully retrieved location."
+          },
+          "404": {
+            "description": "Location not found."
+          },
+          "500": {
+            "description": "Internal server error."
           }
         }
       }
     },
-    "/create-location": {
+    "/location": {
       "post": {
         "tags": [
           "Location"
         ],
+        "summary": "Create a new location",
+        "description": "Creates a new location based on the provided information.",
         "parameters": [
           {
             "name": "businessId",
@@ -421,16 +478,24 @@
         },
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Location created successfully."
+          },
+          "400": {
+            "description": "Invalid request data."
+          },
+          "500": {
+            "description": "Internal server error."
           }
         }
       }
     },
-    "/generate-location-qr-code/{locationId}": {
+    "/{locationId}/qr-code": {
       "get": {
         "tags": [
           "Location"
         ],
+        "summary": "Generate a QR code for a location",
+        "description": "Generates a QR code for a location based on its ID.",
         "parameters": [
           {
             "name": "locationId",
@@ -444,16 +509,24 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "QR code generated successfully."
+          },
+          "404": {
+            "description": "Location not found."
+          },
+          "500": {
+            "description": "Internal server error."
           }
         }
       }
     },
-    "/api/login": {
+    "/login": {
       "post": {
         "tags": [
           "Login"
         ],
+        "summary": "User login",
+        "description": "Authenticates a user with their account and password.",
         "requestBody": {
           "content": {
             "application/json": {
@@ -475,16 +548,44 @@
         },
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Login successful",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid login request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal server error"
           }
         }
       }
     },
-    "/api/sign-in-google": {
+    "/google": {
       "post": {
         "tags": [
           "Login"
         ],
+        "summary": "Google sign-in",
+        "description": "Authenticates a user using their Google account.",
         "requestBody": {
           "content": {
             "application/json": {
@@ -506,16 +607,44 @@
         },
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Sign-in successful",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid sign-in request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal server error"
           }
         }
       }
     },
-    "/api/logout": {
+    "/logout": {
       "post": {
         "tags": [
           "Login"
         ],
+        "summary": "User logout",
+        "description": "Logs out a user by invalidating their refresh token.",
         "requestBody": {
           "content": {
             "application/json": {
@@ -537,16 +666,41 @@
         },
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Logout successful",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid logout request"
+          },
+          "500": {
+            "description": "Internal server error"
           }
         }
       }
     },
-    "/assign-shift": {
+    "/shift": {
       "post": {
         "tags": [
           "Manager"
         ],
+        "summary": "Assign shift",
+        "description": "Assigns a shift to a team at a specific location.",
         "parameters": [
           {
             "name": "locationId",
@@ -575,7 +729,84 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Shift assigned successfully",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request data"
+          },
+          "404": {
+            "description": "Location or team not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/shift/{shiftId}": {
+      "delete": {
+        "tags": [
+          "Manager"
+        ],
+        "summary": "Delete shift",
+        "description": "Deletes a shift.",
+        "parameters": [
+          {
+            "name": "shiftId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Shift deleted successfully",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request data"
+          },
+          "404": {
+            "description": "Shift not found"
+          },
+          "500": {
+            "description": "Internal server error"
           }
         }
       }
@@ -652,7 +883,7 @@
         }
       }
     },
-    "/create-shift-type": {
+    "/shift-type": {
       "post": {
         "tags": [
           "Shift"
@@ -685,7 +916,7 @@
         }
       }
     },
-    "/update-shift-type/{typeId}": {
+    "/shift-type/{typeId}": {
       "put": {
         "tags": [
           "Shift"
@@ -729,11 +960,13 @@
         }
       }
     },
-    "/delete-shift-type/{typeId}": {
+    "/shift-type/delete/{typeId}": {
       "put": {
         "tags": [
           "Shift"
         ],
+        "summary": "Delete shift type",
+        "description": "Deletes a shift type.",
         "parameters": [
           {
             "name": "typeId",
@@ -747,7 +980,33 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Shift type deleted successfully",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request data"
+          },
+          "404": {
+            "description": "Shift type not found"
+          },
+          "500": {
+            "description": "Internal server error"
           }
         }
       }
@@ -1139,6 +1398,8 @@
         "tags": [
           "User"
         ],
+        "summary": "Get user details",
+        "description": "Fetches the details of a user including the avatar URL.",
         "parameters": [
           {
             "name": "userId",
@@ -1151,7 +1412,162 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "User details retrieved successfully.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found."
+          },
+          "500": {
+            "description": "Internal server error."
+          }
+        }
+      }
+    },
+    "/{guardId}": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Retrieve security guard profile",
+        "description": "Fetches the profile details of a security guard based on the provided guard ID.",
+        "parameters": [
+          {
+            "name": "guardId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved security guard profile."
+          },
+          "400": {
+            "description": "Invalid request or missing guard ID."
+          },
+          "404": {
+            "description": "Security guard not found."
+          },
+          "500": {
+            "description": "Internal server error."
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Update security guard profile",
+        "description": "Updates the profile details of a security guard based on the provided guard ID.",
+        "parameters": [
+          {
+            "name": "guardId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SecurityGuardDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SecurityGuardDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SecurityGuardDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Security guard profile updated successfully."
+          },
+          "400": {
+            "description": "Invalid request data."
+          },
+          "404": {
+            "description": "Security guard not found."
+          },
+          "500": {
+            "description": "Internal server error."
+          }
+        }
+      }
+    },
+    "/{userId}/avatar": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "View user avatar",
+        "description": "Fetches the pre-signed URL for the user's avatar.",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Pre-signed URL generated successfully.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User avatar not found."
+          },
+          "500": {
+            "description": "Internal server error."
           }
         }
       }
@@ -1379,6 +1795,40 @@
             "type": "string",
             "nullable": true
           },
+          "address": {
+            "type": "string",
+            "nullable": true
+          },
+          "workingContract": {
+            "type": "string",
+            "nullable": true
+          },
+          "fullName": {
+            "type": "string",
+            "nullable": true
+          },
+          "birthday": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UserDTO": {
+        "type": "object",
+        "properties": {
+          "identityNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "userName": {
+            "type": "string",
+            "nullable": true
+          },
+          "fullName": {
+            "type": "string",
+            "nullable": true
+          },
           "avatar": {
             "type": "string",
             "nullable": true
@@ -1395,21 +1845,14 @@
             "type": "string",
             "nullable": true
           },
-          "fullName": {
+          "phone": {
             "type": "string",
             "nullable": true
           },
-          "password": {
+          "birthDay": {
             "type": "string",
+            "format": "date-time",
             "nullable": true
-          },
-          "confirmPassword": {
-            "type": "string",
-            "nullable": true
-          },
-          "birthday": {
-            "type": "string",
-            "format": "date-time"
           }
         },
         "additionalProperties": false

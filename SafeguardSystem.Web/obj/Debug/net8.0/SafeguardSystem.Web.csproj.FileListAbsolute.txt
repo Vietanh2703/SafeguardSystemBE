@@ -1957,3 +1957,4 @@ D:\SafeguardSystemBE\SafeguardSystem.Web\bin\Debug\net8.0\AWSSDK.Core.dll
 D:\SafeguardSystemBE\SafeguardSystem.Web\bin\Debug\net8.0\AWSSDK.Extensions.NETCore.Setup.dll
 D:\SafeguardSystemBE\SafeguardSystem.Web\bin\Debug\net8.0\AWSSDK.S3.dll
 D:\SafeguardSystemBE\SafeguardSystem.Web\bin\Debug\net8.0\QRCoder.dll
+D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.Web\bin\Debug\net8.0\QRCoder.dll

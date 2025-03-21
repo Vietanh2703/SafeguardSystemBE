@@ -79,8 +79,10 @@ namespace SafeguardSystem
                         Url = new Uri("https://github.com/Vietanh2703/SafeguardSystemBE.git")
                     },
                 });
+                //Cấu hình note cho Swagger
                 var xmlFile = Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml");
                 c.IncludeXmlComments(xmlFile);
+                c.EnableAnnotations();
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     In = ParameterLocation.Header,

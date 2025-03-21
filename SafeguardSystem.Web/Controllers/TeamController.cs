@@ -2,6 +2,7 @@
 using SafeguardSystem.BLL.IServices;
 using SafeguardSystem.Common.DTOs;
 using SafeguardSystem.DAL.IRepositories;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace SafeguardSystem.Web.Controllers
 {
@@ -14,8 +15,9 @@ namespace SafeguardSystem.Web.Controllers
             _teamService = teamService;
         }
 
-        [Route("team/all")]
+        [Route("teams")]
         [HttpGet]
+        [SwaggerOperation]
         public async Task<IActionResult> GetAllTeams(int pageNumber, int pageSize)
         {
             var teams = await _teamService.GetAllTeamsAsync(pageNumber,pageSize);
@@ -30,7 +32,7 @@ namespace SafeguardSystem.Web.Controllers
             return StatusCode(team.StatusCode, team);
         }
 
-        [Route("create")]
+        [Route("team")]
         [HttpPost]
         public async Task<IActionResult> CreateTeam([FromBody] TeamDTO teamDTO)
         {
@@ -38,7 +40,7 @@ namespace SafeguardSystem.Web.Controllers
             return StatusCode(response.StatusCode, response);
         }
 
-        [Route("update/{teamId}")]
+        [Route("team/{teamId}")]
         [HttpPut]
         public async Task<IActionResult> UpdateTeam(Guid teamId, [FromBody] TeamDTO teamDTO)
         {
@@ -46,7 +48,7 @@ namespace SafeguardSystem.Web.Controllers
             return StatusCode(response.StatusCode, response);
         }
 
-        [Route("delete/{teamId}")]
+        [Route("team/delete/{teamId}")]
         [HttpPut]
         public async Task<IActionResult> DeleteTeam(Guid teamId)
         {
@@ -54,7 +56,7 @@ namespace SafeguardSystem.Web.Controllers
             return StatusCode(response.StatusCode, response);
         }
 
-        [Route("assign-guard")]
+        [Route("guard")]
         [HttpPost]
         public async Task<IActionResult> AssignGuardToTeam(Guid teamId, Guid guardId)
         {
@@ -62,7 +64,7 @@ namespace SafeguardSystem.Web.Controllers
             return StatusCode(response.StatusCode, response);
         }
 
-        [Route("remove-guard/{teamGuardId}")]
+        [Route("guard/{teamGuardId}")]
         [HttpDelete]
         public async Task<IActionResult> RemoveGuardFromTeam(Guid teamGuardId)
         {
@@ -70,7 +72,7 @@ namespace SafeguardSystem.Web.Controllers
             return StatusCode(response.StatusCode, response);
         }
 
-        [Route("team/{teamId}/guards")]
+        [Route(".{teamId}/guards")]
         [HttpGet]
         public async Task<IActionResult> GetGuardsInTeam(Guid teamId)
         {

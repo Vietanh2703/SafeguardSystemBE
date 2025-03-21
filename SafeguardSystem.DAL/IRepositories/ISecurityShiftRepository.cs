@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 
 namespace SafeguardSystem.DAL.IRepositories
 {
-    public interface ISecurityShiftRepository
+    public interface ISecurityShiftRepository : IGenericRepository<SecurityShift>
     {
+        Task<SecurityShift> GetByGuIdAsync(Guid id);
         Task<SecurityShift> AddAsync(SecurityShift entity);
+
     }
 }

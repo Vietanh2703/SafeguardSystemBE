@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "DaFlct4THrc=",
+  "dgSpecHash": "lp1JC6ppc40=",
   "success": true,
-  "projectFilePath": "D:\\SafeguardSystemBE\\SafeguardSystem.Common\\SafeguardSystem.Common.csproj",
+  "projectFilePath": "D:\\SafeguardSystem\\SafeguardSystemBE\\SafeguardSystem.Common\\SafeguardSystem.Common.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\anhnt\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\anhnt\\.nuget\\packages\\awssdk.core\\3.7.402.13\\awssdk.core.3.7.402.13.nupkg.sha512",

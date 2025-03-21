@@ -1,113 +1,151 @@
 [
   {
-    "ContainingType": "SafeguardSystem.Controllers.AdminController",
-    "Method": "ApproveLoginRequest",
-    "RelativePath": "api/Admin/approve-login-request",
-    "HttpMethod": "PUT",
+    "ContainingType": "SafeguardSystem.Web.Controllers.UserController",
+    "Method": "GetGuardProfileById",
+    "RelativePath": "{guardId}",
+    "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "requestId",
+        "Name": "guardId",
         "Type": "System.Guid",
-        "IsRequired": false
-      },
-      {
-        "Name": "status",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "reason",
-        "Type": "System.String",
-        "IsRequired": false
+        "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 400
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 404
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
+      }
+    ]
   },
   {
-    "ContainingType": "SafeguardSystem.Controllers.AdminController",
-    "Method": "BanUser",
-    "RelativePath": "api/Admin/ban-user/{userId}",
+    "ContainingType": "SafeguardSystem.Web.Controllers.UserController",
+    "Method": "UpdateGuardProfile",
+    "RelativePath": "{guardId}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "userId",
-        "Type": "System.String",
+        "Name": "guardId",
+        "Type": "System.Guid",
         "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "SafeguardSystem.Controllers.AdminController",
-    "Method": "CreateUser",
-    "RelativePath": "api/Admin/create-user",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "createUserDTO",
-        "Type": "SafeguardSystem.Common.DTOs.CreateUserDTO",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "SafeguardSystem.Controllers.AdminController",
-    "Method": "DeleteUser",
-    "RelativePath": "api/Admin/delete-user/{userId}",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "userId",
-        "Type": "System.String",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "SafeguardSystem.Controllers.AdminController",
-    "Method": "GetAllRequests",
-    "RelativePath": "api/Admin/get-all-requests",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "pageNumber",
-        "Type": "System.Int32",
-        "IsRequired": false
       },
       {
-        "Name": "pageSize",
-        "Type": "System.Int32",
-        "IsRequired": false
+        "Name": "guardDTO",
+        "Type": "SafeguardSystem.Common.DTOs.SecurityGuardDTO",
+        "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 400
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 404
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
+      }
+    ]
   },
   {
-    "ContainingType": "SafeguardSystem.Controllers.AdminController",
-    "Method": "GetAllUsers",
-    "RelativePath": "api/Admin/get-all-users",
+    "ContainingType": "SafeguardSystem.Web.Controllers.LocationController",
+    "Method": "GenerateLocationQrCode",
+    "RelativePath": "{locationId}/qr-code",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
+    "Parameters": [
+      {
+        "Name": "locationId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 404
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
+      }
+    ]
+  },
+  {
+    "ContainingType": "SafeguardSystem.Web.Controllers.LocationController",
+    "Method": "GetLocationByName",
+    "RelativePath": "{locationName}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "locationName",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 404
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
+      }
+    ]
   },
   {
     "ContainingType": "SafeguardSystem.Controllers.AdminController",
     "Method": "GetUsersByRole",
-    "RelativePath": "api/Admin/get-users-by-role/{roleName}",
+    "RelativePath": "{roleName}/users",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -118,12 +156,64 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 400
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
+      }
+    ]
+  },
+  {
+    "ContainingType": "SafeguardSystem.Web.Controllers.UserController",
+    "Method": "ViewAvatar",
+    "RelativePath": "{userId}/avatar",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.String",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 404
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
+      }
+    ]
   },
   {
     "ContainingType": "SafeguardSystem.Controllers.AdminController",
-    "Method": "UnbanUser",
-    "RelativePath": "api/Admin/unban-user/{userId}",
+    "Method": "BanUser",
+    "RelativePath": "{userId}/ban",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -134,96 +224,87 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "SafeguardSystem.Controllers.AdminController",
-    "Method": "GetAllBusinesses",
-    "RelativePath": "api/Admin/view-all-business-partners",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "SafeguardSystem.Common.DTOs.ResponseDTO",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
+        "Type": "System.Void",
+        "MediaTypes": [],
         "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 400
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
       }
     ]
   },
   {
     "ContainingType": "SafeguardSystem.Controllers.AdminController",
-    "Method": "GetAllUsers",
-    "RelativePath": "api/Admin/view-all-users",
-    "HttpMethod": "GET",
+    "Method": "DeleteUser",
+    "RelativePath": "{userId}/delete",
+    "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "pageIndex",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "pageSize",
-        "Type": "System.Int32",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "SafeguardSystem.Web.Controllers.LoginController",
-    "Method": "Login",
-    "RelativePath": "api/login",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "loginDTO",
-        "Type": "SafeguardSystem.Common.DTOs.LoginDTO",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "SafeguardSystem.Web.Controllers.LoginController",
-    "Method": "Logout",
-    "RelativePath": "api/logout",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "refreshToken",
+        "Name": "userId",
         "Type": "System.String",
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 400
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
+      }
+    ]
   },
   {
-    "ContainingType": "SafeguardSystem.Web.Controllers.LoginController",
-    "Method": "SignInWithGoogle",
-    "RelativePath": "api/sign-in-google",
-    "HttpMethod": "POST",
+    "ContainingType": "SafeguardSystem.Controllers.AdminController",
+    "Method": "UnbanUser",
+    "RelativePath": "{userId}/unban",
+    "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "googleLoginDTO",
-        "Type": "SafeguardSystem.Common.DTOs.GoogleLoginDTO",
+        "Name": "userId",
+        "Type": "System.String",
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 400
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
+      }
+    ]
   },
   {
     "ContainingType": "SafeguardSystem.Web.Controllers.TeamController",
@@ -247,30 +328,34 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "SafeguardSystem.Web.Controllers.ManagerController",
-    "Method": "AssignShift",
-    "RelativePath": "assign-shift",
-    "HttpMethod": "POST",
+    "ContainingType": "SafeguardSystem.Controllers.AdminController",
+    "Method": "GetAllBusinesses",
+    "RelativePath": "business-partners",
+    "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [
+    "Parameters": [],
+    "ReturnTypes": [
       {
-        "Name": "locationId",
-        "Type": "System.Guid",
-        "IsRequired": false
+        "Type": "SafeguardSystem.Common.DTOs.ResponseDTO",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
       },
       {
-        "Name": "teamId",
-        "Type": "System.Guid",
-        "IsRequired": false
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 400
       },
       {
-        "Name": "typeId",
-        "Type": "System.Guid",
-        "IsRequired": false
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
       }
-    ],
-    "ReturnTypes": []
+    ]
   },
   {
     "ContainingType": "SafeguardSystem.Web.Controllers.TeamController",
@@ -283,59 +368,6 @@
       {
         "Name": "teamDTO",
         "Type": "SafeguardSystem.Common.DTOs.TeamDTO",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "SafeguardSystem.Web.Controllers.LocationController",
-    "Method": "CreateLocation",
-    "RelativePath": "create-location",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "businessId",
-        "Type": "System.Guid",
-        "IsRequired": false
-      },
-      {
-        "Name": "locationDTO",
-        "Type": "SafeguardSystem.Common.DTOs.LocationDTO",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "SafeguardSystem.Web.Controllers.ShiftController",
-    "Method": "CreateShiftType",
-    "RelativePath": "create-shift-type",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "shiftTypeDTO",
-        "Type": "SafeguardSystem.Common.DTOs.ShiftTypeDTO",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "SafeguardSystem.Web.Controllers.ShiftController",
-    "Method": "DeleteShiftType",
-    "RelativePath": "delete-shift-type/{typeId}",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "typeId",
-        "Type": "System.Guid",
         "IsRequired": true
       }
     ],
@@ -358,22 +390,6 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "SafeguardSystem.Web.Controllers.LocationController",
-    "Method": "GenerateLocationQrCode",
-    "RelativePath": "generate-location-qr-code/{locationId}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "locationId",
-        "Type": "System.Guid",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
     "ContainingType": "SafeguardSystem.Web.Controllers.UserController",
     "Method": "GetUserByUserId",
     "RelativePath": "get-user-details/{userId}",
@@ -387,49 +403,110 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "SafeguardSystem.Web.Controllers.GuardController",
-    "Method": "GetGuardProfileById",
-    "RelativePath": "guard/{guardId}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
+    "ReturnTypes": [
       {
-        "Name": "guardId",
-        "Type": "System.Guid",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "SafeguardSystem.Web.Controllers.GuardController",
-    "Method": "UpdateGuardProfile",
-    "RelativePath": "guard/update/{guardId}",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "guardId",
-        "Type": "System.Guid",
-        "IsRequired": true
+        "Type": "SafeguardSystem.Common.DTOs.UserDTO",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
       },
       {
-        "Name": "guardDTO",
-        "Type": "SafeguardSystem.Common.DTOs.SecurityGuardDTO",
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 404
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
+      }
+    ]
+  },
+  {
+    "ContainingType": "SafeguardSystem.Web.Controllers.LoginController",
+    "Method": "SignInWithGoogle",
+    "RelativePath": "google",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "googleLoginDTO",
+        "Type": "SafeguardSystem.Common.DTOs.GoogleLoginDTO",
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "SafeguardSystem.Common.DTOs.ResponseDTO",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 400
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 401
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
+      }
+    ]
+  },
+  {
+    "ContainingType": "SafeguardSystem.Web.Controllers.LocationController",
+    "Method": "CreateLocation",
+    "RelativePath": "location",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "businessId",
+        "Type": "System.Guid",
+        "IsRequired": false
+      },
+      {
+        "Name": "locationDTO",
+        "Type": "SafeguardSystem.Common.DTOs.LocationDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 400
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
+      }
+    ]
   },
   {
     "ContainingType": "SafeguardSystem.Web.Controllers.LocationController",
     "Method": "GetLocations",
-    "RelativePath": "locations",
+    "RelativePath": "location-pagings",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -445,7 +522,126 @@
         "IsRequired": false
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 400
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
+      }
+    ]
+  },
+  {
+    "ContainingType": "SafeguardSystem.Web.Controllers.LocationController",
+    "Method": "GetAllLocations",
+    "RelativePath": "locations",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 400
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
+      }
+    ]
+  },
+  {
+    "ContainingType": "SafeguardSystem.Web.Controllers.LoginController",
+    "Method": "Login",
+    "RelativePath": "login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "loginDTO",
+        "Type": "SafeguardSystem.Common.DTOs.LoginDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "SafeguardSystem.Common.DTOs.ResponseDTO",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 400
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 401
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
+      }
+    ]
+  },
+  {
+    "ContainingType": "SafeguardSystem.Web.Controllers.LoginController",
+    "Method": "Logout",
+    "RelativePath": "logout",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "refreshToken",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "SafeguardSystem.Common.DTOs.ResponseDTO",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 400
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
+      }
+    ]
   },
   {
     "ContainingType": "SafeguardSystem.Web.Controllers.UserController",
@@ -516,6 +712,85 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "SafeguardSystem.Controllers.AdminController",
+    "Method": "ApproveLoginRequest",
+    "RelativePath": "request",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "requestId",
+        "Type": "System.Guid",
+        "IsRequired": false
+      },
+      {
+        "Name": "status",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "reason",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 400
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
+      }
+    ]
+  },
+  {
+    "ContainingType": "SafeguardSystem.Controllers.AdminController",
+    "Method": "GetAllRequests",
+    "RelativePath": "requests",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "pageNumber",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 400
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
+      }
+    ]
+  },
+  {
     "ContainingType": "SafeguardSystem.Web.Controllers.UserController",
     "Method": "GetRoles",
     "RelativePath": "roles",
@@ -526,20 +801,133 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "SafeguardSystem.Web.Controllers.LocationController",
-    "Method": "GetLocationByName",
-    "RelativePath": "search-location/{locationName}",
-    "HttpMethod": "GET",
+    "ContainingType": "SafeguardSystem.Web.Controllers.ManagerController",
+    "Method": "AssignShift",
+    "RelativePath": "shift",
+    "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "locationName",
-        "Type": "System.String",
+        "Name": "locationId",
+        "Type": "System.Guid",
+        "IsRequired": false
+      },
+      {
+        "Name": "teamId",
+        "Type": "System.Guid",
+        "IsRequired": false
+      },
+      {
+        "Name": "typeId",
+        "Type": "System.Guid",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "SafeguardSystem.Common.DTOs.ResponseDTO",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 400
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 404
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
+      }
+    ]
+  },
+  {
+    "ContainingType": "SafeguardSystem.Web.Controllers.ShiftController",
+    "Method": "CreateShiftType",
+    "RelativePath": "shift-type",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "shiftTypeDTO",
+        "Type": "SafeguardSystem.Common.DTOs.ShiftTypeDTO",
         "IsRequired": true
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SafeguardSystem.Web.Controllers.ShiftController",
+    "Method": "UpdateShiftType",
+    "RelativePath": "shift-type/{typeId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "typeId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "shiftTypeDTO",
+        "Type": "SafeguardSystem.Common.DTOs.ShiftTypeDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SafeguardSystem.Web.Controllers.ShiftController",
+    "Method": "DeleteShiftType",
+    "RelativePath": "shift-type/delete/{typeId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "typeId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "SafeguardSystem.Common.DTOs.ResponseDTO",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 400
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 404
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
+      }
+    ]
   },
   {
     "ContainingType": "SafeguardSystem.Web.Controllers.ShiftController",
@@ -550,6 +938,47 @@
     "Order": 0,
     "Parameters": [],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SafeguardSystem.Web.Controllers.ManagerController",
+    "Method": "DeleteShift",
+    "RelativePath": "shift/{shiftId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "shiftId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "SafeguardSystem.Common.DTOs.ResponseDTO",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 400
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 404
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
+      }
+    ]
   },
   {
     "ContainingType": "SafeguardSystem.Web.Controllers.TeamController",
@@ -626,27 +1055,6 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "SafeguardSystem.Web.Controllers.ShiftController",
-    "Method": "UpdateShiftType",
-    "RelativePath": "update-shift-type/{typeId}",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "typeId",
-        "Type": "System.Guid",
-        "IsRequired": true
-      },
-      {
-        "Name": "shiftTypeDTO",
-        "Type": "SafeguardSystem.Common.DTOs.ShiftTypeDTO",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
     "ContainingType": "SafeguardSystem.Web.Controllers.UserController",
     "Method": "UpdateUser",
     "RelativePath": "update-user/{userId}",
@@ -687,6 +1095,101 @@
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SafeguardSystem.Controllers.AdminController",
+    "Method": "CreateUser",
+    "RelativePath": "user",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "createUserDTO",
+        "Type": "SafeguardSystem.Common.DTOs.CreateUserDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 400
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
+      }
+    ]
+  },
+  {
+    "ContainingType": "SafeguardSystem.Controllers.AdminController",
+    "Method": "GetAllUsers",
+    "RelativePath": "user-pagings",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "pageIndex",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 400
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
+      }
+    ]
+  },
+  {
+    "ContainingType": "SafeguardSystem.Controllers.AdminController",
+    "Method": "GetAllUsers",
+    "RelativePath": "users",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 400
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
+      }
+    ]
   },
   {
     "ContainingType": "SafeguardSystem.Web.Controllers.UserController",

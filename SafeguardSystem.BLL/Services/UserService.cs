@@ -1,4 +1,5 @@
 ﻿using FirebaseAdmin.Auth;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using SafeguardSystem.BLL.IServices;
 using SafeguardSystem.Common.DTOs;
@@ -12,11 +13,20 @@ namespace SafeguardSystem.BLL.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IEmailService _emailService;
+        private readonly IAWSS3Service _awsS3Service;
+        private const long MaxFileSize = 20 * 1024 * 1024; //Max file size is 20MB
 
-        public UserService(IUnitOfWork unitOfWork, IEmailService emailService)
+        private static readonly List<string> AllowedFileTypes = new List<string>
+        {
+            // Image file types
+            "image/jpeg", "image/png",
+        };
+
+        public UserService(IUnitOfWork unitOfWork, IEmailService emailService, IAWSS3Service aWSS3Service)
         {
             _unitOfWork = unitOfWork;
             _emailService = emailService;
+            _awsS3Service = aWSS3Service;
         }
 
         // Tạo người dùng mới trên Firebase và MySQL
@@ -444,15 +454,6 @@ namespace SafeguardSystem.BLL.Services
                     return new ResponseDTO("User not found in database", 404, false);
                 }
 
-                // Kiểm tra nếu người dùng muốn đổi mật khẩu
-                if (!string.IsNullOrEmpty(updateUserDTO.Password))
-                {
-                    if (updateUserDTO.Password != updateUserDTO.ConfirmPassword)
-                    {
-                        return new ResponseDTO("Password and Confirm Password do not match", 400, false);
-                    }
-                }
-
                 // Cập nhật thông tin trên Firebase
                 try
                 {
@@ -463,11 +464,6 @@ namespace SafeguardSystem.BLL.Services
                         DisplayName = updateUserDTO.FullName ?? firebaseUser.DisplayName,
                     };
 
-                    // Nếu có mật khẩu mới, cập nhật trên Firebase
-                    if (!string.IsNullOrEmpty(updateUserDTO.Password))
-                    {
-                        userRecordArgs.Password = updateUserDTO.Password;
-                    }
 
                     await FirebaseAuth.DefaultInstance.UpdateUserAsync(userRecordArgs);
                 }
@@ -476,11 +472,32 @@ namespace SafeguardSystem.BLL.Services
                     return new ResponseDTO($"Firebase error: {ex.Message}", 500, false);
                 }
 
+                //Xác thực file ảnh có hợp lệ không
+                //if (updateUserDTO.Avatar != null)
+                //{
+                //    var fileVerificationResult = FileVerification(updateUserDTO.Avatar);
+                //    if (!fileVerificationResult.IsSuccess)
+                //    {
+                //        return fileVerificationResult;
+                //    }
+                //}
+
+                // Upload ảnh lên AWS S3
+                //string ImageUrl = null;
+                //if (updateUserDTO.Avatar != null)
+                //{
+                //    var uploadResult = await _awsS3Service.DefaultUploadFileAsync(updateUserDTO.Avatar, userId);
+                //    if (!uploadResult.IsSuccess)
+                //    {
+                //        return new ResponseDTO($"Failed to upload image: {uploadResult.Message}", 500, false);
+                //    }
+                //    ImageUrl = uploadResult.Result.ToString();
+                //}
+
                 // Cập nhật thông tin trong MySQL
-                user.UserName = updateUserDTO.UserName ?? user.UserName;
-                user.FullName = updateUserDTO.FullName ?? user.FullName;
-                user.Phone = updateUserDTO.Phone ?? user.Phone;
-                user.Avatar = updateUserDTO.Avatar ?? user.Avatar;
+                user.WorkingContract = updateUserDTO.WorkingContract;
+                user.Address = updateUserDTO.Address;
+                user.Phone = updateUserDTO.Phone;
                 user.BirthDay = updateUserDTO.Birthday != DateTime.MinValue ? updateUserDTO.Birthday : user.BirthDay;
                 await _unitOfWork.SaveChangeAsync();
 
@@ -524,12 +541,24 @@ namespace SafeguardSystem.BLL.Services
                 return new ResponseDTO("Role not found", 404, false);
             }
 
+            // Get the pre-signed URL for the avatar
+            string avatarUrl = null;
+            if (!string.IsNullOrEmpty(user.Avatar))
+            {
+                var avatarUrlResponse = await _awsS3Service.GetPreSignedURLAsync(user.Avatar);
+                if (!avatarUrlResponse.IsSuccess)
+                {
+                    return new ResponseDTO($"Error retrieving avatar URL: {avatarUrlResponse.Message}", 500, false);
+                }
+                avatarUrl = avatarUrlResponse.Result.ToString();
+            }
+
             // Create the UserDTO
             var userDTO = new UserDTO
             {
                 UserName = user.UserName,
                 FullName = user.FullName,
-                Avatar = user.Avatar,
+                Avatar = avatarUrl,
                 Address = user.Address,
                 Gender = user.Gender,
                 WorkingContract = user.WorkingContract,
@@ -549,6 +578,8 @@ namespace SafeguardSystem.BLL.Services
 
             return new ResponseDTO("User found", 200, true, userDTO);
         }
+
+
 
         //Chặn người dùng
         public async Task<ResponseDTO> BanUserAsync(string userId)
@@ -632,6 +663,29 @@ namespace SafeguardSystem.BLL.Services
             emailRequest.Subject = "Your Account has been Unbanned";
             emailRequest.EmailBody = _emailService.GenerateUnbanUserEmailBody(FullName);
             await _emailService.SendEmailAsync(emailRequest);
+        }
+
+        private ResponseDTO FileVerification(IFormFile file)
+        {
+            ResponseDTO result = new ResponseDTO("StepAttachment not found", 404, false);
+
+            if (file.Length > MaxFileSize)
+            {
+                result.StatusCode = 413;
+                result.Message = $"File size exceeds the maximum allowed size of {MaxFileSize / (1024 * 1024)} MB.";
+                result.IsSuccess = false;
+                return result;
+            }
+
+            if (!AllowedFileTypes.Contains(file.ContentType))
+            {
+                result.StatusCode = 415;
+                result.Message = "File type is not allowed. Only image and video files are allowed.";
+                result.IsSuccess = false;
+                return result;
+            }
+
+            return new ResponseDTO("File verification successful", 200, true);
         }
     }
 }

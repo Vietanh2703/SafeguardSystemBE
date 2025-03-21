@@ -12,10 +12,8 @@ public partial class Checkpoint
     public Guid CheckpointId { get; set; }
 
     public string Name { get; set; }
-
-    public decimal Latitude { get; set; }
-
-    public decimal Longitude { get; set; }
+    public string Description { get; set; }
+    public string Image { get; set; }
 
     [ForeignKey("Location")]
     public Guid LocationId { get; set; }

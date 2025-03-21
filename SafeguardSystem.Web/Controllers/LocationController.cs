@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SafeguardSystem.BLL.IServices;
 using SafeguardSystem.Common.DTOs;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace SafeguardSystem.Web.Controllers
 {
@@ -13,32 +14,65 @@ namespace SafeguardSystem.Web.Controllers
             _locationService = locationService;
         }
 
-        [Route("locations")]
+        [Route("location-pagings")]
         [HttpGet]
-        public async Task<IActionResult> GetLocations([FromQuery] int pageNumber, [FromQuery] int pageSize)
+        [SwaggerOperation(Summary = "Retrieve all locations with pagination",
+                          Description = "Fetches a paginated list of all registered locations in the system.")]
+        [SwaggerResponse(200, "Successfully retrieved locations.")]
+        [SwaggerResponse(400, "Invalid pagination parameters.")]
+        [SwaggerResponse(500, "Internal server error.")]
+        public async Task<IActionResult> GetLocations([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 5)
         {
             var locations = await _locationService.GetAllLocationsAsync(pageNumber, pageSize);
             return StatusCode(locations.StatusCode, locations);
         }
 
-        [Route("search-location/{locationName}")]
+        [Route("locations")]
         [HttpGet]
+        [SwaggerOperation(Summary = "Retrieve all locations",
+                          Description = "Fetches a list of all registered locations in the system.")]
+        [SwaggerResponse(200, "Successfully retrieved locations.")]
+        [SwaggerResponse(400, "Invalid request data.")]
+        [SwaggerResponse(500, "Internal server error.")]
+        public async Task<IActionResult> GetAllLocations()
+        {
+            var locations = await _locationService.GetAllLocationAsync();
+            return StatusCode(locations.StatusCode, locations);
+        }
+
+        [Route("{locationName}")]
+        [HttpGet]
+        [SwaggerOperation(Summary = "Retrieve a location by name",
+                          Description = "Fetches a location by its name.")]
+        [SwaggerResponse(200, "Successfully retrieved location.")]
+        [SwaggerResponse(404, "Location not found.")]
+        [SwaggerResponse(500, "Internal server error.")]
         public async Task<IActionResult> GetLocationByName(string locationName)
         {
             var location = await _locationService.GetLocationByName(locationName);
             return StatusCode(location.StatusCode, location);
         }
 
-        [Route("create-location")]
+        [Route("location")]
         [HttpPost]
+        [SwaggerOperation(Summary = "Create a new location",
+                          Description = "Creates a new location based on the provided information.")]
+        [SwaggerResponse(200, "Location created successfully.")]
+        [SwaggerResponse(400, "Invalid request data.")]
+        [SwaggerResponse(500, "Internal server error.")]
         public async Task<IActionResult> CreateLocation( Guid businessId,[FromBody] LocationDTO locationDTO)
         {
             var result = await _locationService.CreateLocationAsync(businessId,locationDTO);
             return StatusCode(result.StatusCode, result);
         }
 
-        [Route("generate-location-qr-code/{locationId}")]
+        [Route("{locationId}/qr-code")]
         [HttpGet]
+        [SwaggerOperation(Summary = "Generate a QR code for a location",
+                          Description = "Generates a QR code for a location based on its ID.")]
+        [SwaggerResponse(200, "QR code generated successfully.")]
+        [SwaggerResponse(404, "Location not found.")]
+        [SwaggerResponse(500, "Internal server error.")]
         public async Task<IActionResult> GenerateLocationQrCode(Guid locationId)
         {
             var result = await _locationService.GenerateLocationQrCodeAsync(locationId);

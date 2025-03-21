@@ -25,6 +25,11 @@ namespace SafeguardSystem.DAL.Repositories
             return await PaginatedList<Location>.CreateAsync(query, pageNumber, pageSize);
         }
 
+        public async Task<List<Location>> GetAllLocations()
+        {
+            return await _context.Locations.ToListAsync();
+        }
+
         // Lấy Location theo tên
         public async Task<Location> GetLocationByName(string locationName)
         {

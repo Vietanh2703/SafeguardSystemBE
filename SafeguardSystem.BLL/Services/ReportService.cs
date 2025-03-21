@@ -62,7 +62,7 @@ namespace SafeguardSystem.BLL.Services
         {
             try
             {
-                var user = await _unitOfWork.Users.GetUserByFirebaseUidAsync(userId);
+                var user = await _unitOfWork.Users.GetUserWithRoleByFirebaseUidAsync(userId);
                 if (user == null || user.IsDeleted)
                 {
                     return new ResponseDTO("Cannot find user.", 400, false);
