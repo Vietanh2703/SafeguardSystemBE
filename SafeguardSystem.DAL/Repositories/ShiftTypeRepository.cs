@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using SafeguardSystem.DAL.Entities;
 using SafeguardSystem.DAL.IRepositories;
@@ -121,6 +122,11 @@ public class ShiftTypeRepository : GenericRepository<ShiftType>, IShiftTypeRepos
 
         // Kiểm tra overlap
         return !(e1 <= s2 || s1 >= e2);
+    }
+    
+    public async Task<ShiftType> GetAsync(Expression<Func<ShiftType, bool>> predicate)
+    {
+        return await _context.ShiftTypes.FirstOrDefaultAsync(predicate);
     }
 
 

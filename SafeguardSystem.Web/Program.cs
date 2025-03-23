@@ -14,6 +14,7 @@ using SafeguardSystem.BLL.IServices;
 using SafeguardSystem.BLL.Services;
 using SafeguardSystem.Common.AWSSettings;
 using SafeguardSystem.DAL;
+using SafeguardSystem.DAL.IRepositories;
 using SafeguardSystem.DAL.UnitOfWork;
 
 namespace SafeguardSystem;
@@ -27,6 +28,7 @@ public class Program
         // Dependency Injection cho các dịch vụ
         builder.Services.AddHttpClient();
         builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+        builder.Services.AddScoped<IAttendenceService, AttendenceService>();
         builder.Services.AddScoped<IAuthService, AuthService>();
         builder.Services.AddScoped<IUserService, UserService>();
         builder.Services.AddScoped<IEmailService, EmailService>();

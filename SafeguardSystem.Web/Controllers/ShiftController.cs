@@ -123,4 +123,20 @@ public class ShiftController : ControllerBase
         var response = await _attendenceService.CheckInAsync(attendenceId, attendenceDTO);
         return StatusCode(response.StatusCode, response);
     }
+    
+    [Route("status")]
+    [HttpPut]
+    [SwaggerOperation(Summary = "Update status", Description = "Updates the status of absent attendances.")]
+    [SwaggerResponse(200, "Status updated successfully", typeof(ResponseDTO))]
+    [SwaggerResponse(400, "Invalid request data")]
+    [SwaggerResponse(500, "Internal server error")]
+    public async Task<IActionResult> UpdateStatus()
+    {
+        var response = await _attendenceService.UpdateAbsentAttendancesAsync();
+        if (response.StatusCode == 200)
+        {
+            return Ok(response);
+        }
+        return BadRequest(response);
+    }
 }
