@@ -1,14 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace SafeguardSystem.Common.DTOs
+namespace SafeguardSystem.Common.DTOs;
+
+public class UpdateUserAvatarDTO
 {
-    public class UpdateUserAvatarDTO
-    {
-        public IFormFile Avatar { get; set; }
-    }
+    public IFormFile Avatar { get; set; }
 }

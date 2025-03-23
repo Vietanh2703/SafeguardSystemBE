@@ -6,22 +6,26 @@
     <members>
         <member name="M:SafeguardSystem.Web.Controllers.ShiftController.GetShiftTypes">
             <summary>
-            Security manager gets all shift type.
+                Security manager gets all shift type.
             </summary>
         </member>
         <member name="M:SafeguardSystem.Web.Controllers.ShiftController.CreateShiftType(SafeguardSystem.Common.DTOs.ShiftTypeDTO)">
             <summary>
-            Security manager creates a new shift type.
+                Security manager creates a new shift type.
             </summary>
-            <param name="shiftTypeDTO" >Lưu ý khi nhập thông tin time vào nhớ định dạng hh:mm:ss
-            (12:30:05 hay 05:45:12) chứ nhập 12:30 hay 5:45:12 hay 24:00:00 thay vì 00:00:00 lỗi ráng chịu</param>
+            <param name="shiftTypeDTO">
+                Lưu ý khi nhập thông tin time vào nhớ định dạng hh:mm:ss
+                (12:30:05 hay 05:45:12) chứ nhập 12:30 hay 5:45:12 hay 24:00:00 thay vì 00:00:00 lỗi ráng chịu
+            </param>
         </member>
         <member name="M:SafeguardSystem.Web.Controllers.ShiftController.UpdateShiftType(System.Guid,SafeguardSystem.Common.DTOs.ShiftTypeDTO)">
             <summary>
-            Security manager updates a shift type.
+                Security manager updates a shift type.
             </summary>
-            <param name="shiftTypeDTO" >Lưu ý khi nhập thông tin time vào nhớ định dạng hh:mm:ss
-            (12:30:05 hay 05:45:12) chứ nhập 12:30 hay 5:45:12 hay 24:00:00 thay vì 00:00:00 lỗi ráng chịu</param>
+            <param name="shiftTypeDTO">
+                Lưu ý khi nhập thông tin time vào nhớ định dạng hh:mm:ss
+                (12:30:05 hay 05:45:12) chứ nhập 12:30 hay 5:45:12 hay 24:00:00 thay vì 00:00:00 lỗi ráng chịu
+            </param>
         </member>
     </members>
 </doc>

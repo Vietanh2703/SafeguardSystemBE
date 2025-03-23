@@ -7,21 +7,22 @@ public class User
 {
     [Key]
     [Required(ErrorMessage = "Id is required")]
-    public string UserId { get; set; }  //Firebase UID
+    public string UserId { get; set; } //Firebase UID
 
-    [Required, MaxLength(100)]
-    public string UserName { get; set; }
+    [Required] [MaxLength(100)] public string UserName { get; set; }
 
-    [Required, EmailAddress, MaxLength(100)]
+    [Required]
+    [EmailAddress]
+    [MaxLength(100)]
     public string Email { get; set; }
 
-    public string FullName { get; set; } 
+    public string FullName { get; set; }
 
-    public string Avatar { get; set; } 
+    public string Avatar { get; set; }
 
     public string Address { get; set; }
-        public string Gender { get; set; }
-        public string WorkingContract { get; set; }
+    public string Gender { get; set; }
+    public string WorkingContract { get; set; }
     public string Phone { get; set; }
 
     public DateTime? BirthDay { get; set; }
@@ -42,8 +43,7 @@ public class User
 
     public bool IsDeleted { get; set; }
 
-    [ForeignKey("Role")]
-    public Guid RoleID { get; set; }
+    [ForeignKey("Role")] public Guid RoleID { get; set; }
 
     public virtual ICollection<Business> Businesses { get; set; } = new List<Business>();
     public virtual ICollection<SecurityGuard> SecurityGuards { get; set; } = new List<SecurityGuard>();

@@ -25,7 +25,6 @@ D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.Web\obj\Debug\net8.0\static
 D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.Web\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.SafeguardSystem.Web.props
 D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.Web\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.SafeguardSystem.Web.props
 D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.Web\obj\Debug\net8.0\staticwebassets.pack.json
-D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.Web\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.Web\obj\Debug\net8.0\Safeguar.AEB6456C.Up2Date
 D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.Web\obj\Debug\net8.0\SafeguardSystem.Web.dll
 D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.Web\obj\Debug\net8.0\refint\SafeguardSystem.Web.dll

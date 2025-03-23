@@ -1,15 +1,7 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace SafeguardSystem.Common.DTOs;
 
-namespace SafeguardSystem.Common.DTOs
+public class RoleDTO
 {
-    public class RoleDTO
-    {
-        public Guid RoleId { get; set; }
-        public string? RoleName { get; set; }
-    }
+    public Guid RoleId { get; set; }
+    public string? RoleName { get; set; }
 }

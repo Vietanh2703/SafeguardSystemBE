@@ -3,58 +3,57 @@ using SafeguardSystem.DAL.Entities;
 using SafeguardSystem.DAL.Extensions;
 using SafeguardSystem.DAL.IRepositories;
 
-namespace SafeguardSystem.DAL.Repositories
+namespace SafeguardSystem.DAL.Repositories;
+
+public class UserRepository : GenericRepository<User>, IUserRepository
 {
-    public class UserRepository : GenericRepository<User>, IUserRepository
+    private readonly SafeguardDbContext _context;
+
+    public UserRepository(SafeguardDbContext context) : base(context)
     {
-        private readonly SafeguardDbContext _context;
+        _context = context;
+    }
 
-        public UserRepository(SafeguardDbContext context) : base(context)
-        {
-            _context = context;
-        }
+    public async Task<User> GetUserByEmailAsync(string email)
+    {
+        return await _context.Users.FirstOrDefaultAsync(x => x.Email == email && !x.IsDeleted);
+    }
 
-        public async Task<User> GetUserByEmailAsync(string email)
-        {
-            return await _context.Users.FirstOrDefaultAsync(x => x.Email == email && !x.IsDeleted);
-        }
+    public async Task<User> GetUserWithRoleByFirebaseUidAsync(string userId)
+    {
+        return await _context.Users
+            .Include(u => u.Role)
+            .FirstOrDefaultAsync(u => u.UserId == userId && !u.IsDeleted);
+    }
 
-        public async Task<User> GetUserWithRoleByFirebaseUidAsync(string userId)
-        {
-            return await _context.Users
-                .Include(u => u.Role)
-                .FirstOrDefaultAsync(u => u.UserId == userId && !u.IsDeleted);
-        }
+    public async Task<User> GetUserByFirebaseUidAsync(string userId)
+    {
+        return await _context.Users
+            .FirstOrDefaultAsync(u => u.UserId == userId && !u.IsDeleted);
+    }
 
-        public async Task<User> GetUserByFirebaseUidAsync(string userId)
-        {
-            return await _context.Users
-                .FirstOrDefaultAsync(u => u.UserId == userId && !u.IsDeleted);
-        }
+    public async Task<User> CreateUserAsync(User user)
+    {
+        await _context.Users.AddAsync(user);
+        await _context.SaveChangesAsync();
+        return user;
+    }
 
-        public async Task<User> CreateUserAsync(User user)
-        {
-            await _context.Users.AddAsync(user);
-            await _context.SaveChangesAsync();
-            return user;
-        }
+    public async Task<PaginatedList<User>> GetAllUsersWithPagingAsync(int pageIndex, int pageSize)
+    {
+        var query = _context.Users.Where(u => !u.IsDeleted).AsQueryable();
+        return await PaginatedList<User>.CreateAsync(query, pageIndex, pageSize);
+    }
 
-        public async Task<PaginatedList<User>> GetAllUsersWithPagingAsync(int pageIndex, int pageSize)
-        {
-            var query = _context.Users.Where(u => !u.IsDeleted).AsQueryable();
-            return await PaginatedList<User>.CreateAsync(query, pageIndex, pageSize);
-        }
+    public async Task<List<User>> GetAllUsersAsync()
+    {
+        return await _context.Users.Where(u => !u.IsDeleted).ToListAsync();
+    }
 
-        public async Task<List<User>> GetAllUsersAsync()
-        {
-            return await _context.Users.Where(u => !u.IsDeleted).ToListAsync();
-        }
-
-        public async Task<int> GetTotalUserCountAsync()
-        {
-            return await _context.Users
-                .Where(u => !u.IsDeleted)
-                .CountAsync();
-        }
+    public async Task<int> GetTotalUserCountAsync()
+    {
+        return await _context.Users
+            .Where(u => !u.IsDeleted)
+            .CountAsync();
     }
 }

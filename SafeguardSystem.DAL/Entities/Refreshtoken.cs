@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SafeguardSystem.DAL.Entities;
@@ -11,8 +9,7 @@ public class RefreshToken
     [Required(ErrorMessage = "Id is required")]
     public Guid RefreshTokenId { get; set; }
 
-    [ForeignKey("User")]
-    public string? UserId { get; set; }
+    [ForeignKey("User")] public string? UserId { get; set; }
 
     public string? RefreshTokenKey { get; set; }
 

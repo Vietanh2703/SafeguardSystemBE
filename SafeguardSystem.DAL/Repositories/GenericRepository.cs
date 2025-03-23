@@ -1,158 +1,146 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
 using SafeguardSystem.DAL.IRepositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace SafeguardSystem.DAL.Repositories
+namespace SafeguardSystem.DAL.Repositories;
+
+public class GenericRepository<T> : IGenericRepository<T> where T : class
 {
-    public class GenericRepository<T> : IGenericRepository<T> where T : class
+    protected readonly SafeguardDbContext _context; // Change to protected
+    private readonly DbSet<T> _dbSet;
+
+    public GenericRepository(SafeguardDbContext context)
     {
+        _context = context;
+        _dbSet = _context.Set<T>();
+    }
 
-        protected readonly SafeguardDbContext _context; // Change to protected
-        private readonly DbSet<T> _dbSet;
+    public async Task<T> AddAsync(T entity)
+    {
+        await _dbSet.AddAsync(entity);
+        return entity;
+    }
 
-        public GenericRepository(SafeguardDbContext context)
+    public T Add(T entity)
+    {
+        _dbSet.Add(entity);
+        return entity;
+    }
+
+    public bool Delete(T entity)
+    {
+        _dbSet.Remove(entity);
+        return true;
+    }
+
+    public async Task DeleteAsync(Guid id)
+    {
+        var entity = await GetByGuIdAsync(id);
+        if (entity != null)
         {
-            _context = context;
-            _dbSet = _context.Set<T>();
+            Delete(entity);
+            await _context.SaveChangesAsync();
         }
-        public async Task<T> AddAsync(T entity)
-        {
-            await _dbSet.AddAsync(entity);
-            return entity;
-        }
+    }
 
-        public T Add(T entity)
-        {
-            _dbSet.Add(entity);
-            return entity;
-        }
+    public IQueryable<T> FindAll(Expression<Func<T, bool>> expression)
+    {
+        return _dbSet.Where(expression).AsQueryable();
+    }
 
-        public bool Delete(T entity)
-        {
-            _dbSet.Remove(entity);
-            return true;
-        }
+    public IEnumerable<T> FindAllAsync(Expression<Func<T, bool>> expression)
+    {
+        return _dbSet.Where(expression).AsEnumerable();
+    }
 
-        public async Task DeleteAsync(Guid id)
-        {
-            var entity = await GetByGuIdAsync(id);
-            if (entity != null)
-            {
-                Delete(entity);
-                await _context.SaveChangesAsync();
-            }
-        }
+    public async Task<bool> AnyAsync(Expression<Func<T, bool>> expression)
+    {
+        return await _dbSet.AnyAsync(expression);
+    }
 
-        public IQueryable<T> FindAll(Expression<Func<T, bool>> expression)
-        {
-            return _dbSet.Where(expression).AsQueryable();
-        }
+    public IQueryable<T> GetAll()
+    {
+        return _dbSet.AsQueryable();
+    }
 
-        public IEnumerable<T> FindAllAsync(Expression<Func<T, bool>> expression)
-        {
-            return _dbSet.Where(expression).AsEnumerable();
-        }
+    public async Task<List<T>> GetAllByListAsync(Expression<Func<T, bool>> expression)
+    {
+        return await _dbSet.Where(expression).ToListAsync();
+    }
 
-        public async Task<bool> AnyAsync(Expression<Func<T, bool>> expression)
-        {
-            return await _dbSet.AnyAsync(expression);
-        }
+    public async Task<List<T>> GetAllByListAsync(Expression<Func<T, bool>> expression, object include)
+    {
+        return await _dbSet.Where(expression).ToListAsync();
+    }
 
-        public IQueryable<T> GetAll()
-        {
-            return _dbSet.AsQueryable();
-        }
+    public T GetById(string id)
+    {
+        throw new NotImplementedException();
+    }
 
-        public async Task<List<T>> GetAllByListAsync(Expression<Func<T, bool>> expression)
-        {
-            return await _dbSet.Where(expression).ToListAsync();
-        }
+    public T GetByGuid(Guid id)
+    {
+        return _dbSet.Find(id);
+    }
 
-        public async Task<List<T>> GetAllByListAsync(Expression<Func<T, bool>> expression, object include)
-        {
-            return await _dbSet.Where(expression).ToListAsync();
-        }
+    public async Task<T> GetByGuIdAsync(Guid id)
+    {
+        if (id == Guid.Empty) throw new ArgumentException("Id cannot be empty", nameof(id));
 
-        public T GetById(string id)
-        {
-            throw new NotImplementedException();
-        }
-        public T GetByGuid(Guid id)
-        {
-            return _dbSet.Find(id);
-        }
-
-        public async Task<T> GetByGuIdAsync(Guid id)
-        {
-            if (id == Guid.Empty)
-            {
-                throw new ArgumentException("Id cannot be empty", nameof(id));
-            }
-
-            return await _dbSet.FindAsync(id);
-        }
+        return await _dbSet.FindAsync(id);
+    }
 
 
+    public async Task<T> GetByIdsAsync(int id)
+    {
+        if (id == 0) throw new ArgumentException("Id cannot be zero", nameof(id));
 
-        public async Task<T> GetByIdsAsync(int id)
-        {
-            if (id == 0)
-            {
-                throw new ArgumentException("Id cannot be zero", nameof(id));
-            }
+        return await _dbSet.FindAsync(id);
+    }
 
-            return await _dbSet.FindAsync(id);
-        }
+    public async Task<T> UpdateAsync(T entity)
+    {
+        _dbSet.Update(entity);
 
-        public async Task<T> UpdateAsync(T entity)
-        {
-            _dbSet.Update(entity);
-
-            return entity;
-        }
+        return entity;
+    }
 
 
-        public void UpdateRange(List<T> entities)
-        {
-            _dbSet.UpdateRange(entities);
-        }
+    public void UpdateRange(List<T> entities)
+    {
+        _dbSet.UpdateRange(entities);
+    }
 
-        public void RemoveRange(List<T> entities)
-        {
-            _dbSet.RemoveRange(entities);
-        }
+    public void RemoveRange(List<T> entities)
+    {
+        _dbSet.RemoveRange(entities);
+    }
 
 
-        public void AddRange(List<T> entity)
-        { _dbSet.AddRange(entity); }
+    public void AddRange(List<T> entity)
+    {
+        _dbSet.AddRange(entity);
+    }
 
-        public async Task<T> FirstOrDefaultAsync(Expression<Func<T, bool>> expression)
-        {
-            return await _dbSet.FirstOrDefaultAsync(expression);
-        }
+    public async Task<T> FirstOrDefaultAsync(Expression<Func<T, bool>> expression)
+    {
+        return await _dbSet.FirstOrDefaultAsync(expression);
+    }
 
-        public async Task<T> GetByConditionAsync(Expression<Func<T, bool>> expression)
-        {
-            return await _dbSet.FirstOrDefaultAsync(expression);
-        }
+    public async Task<T> GetByConditionAsync(Expression<Func<T, bool>> expression)
+    {
+        return await _dbSet.FirstOrDefaultAsync(expression);
+    }
 
-        public Task<List<T>> ToListAsync()
-        {
-            return _dbSet.ToListAsync();
-        }
-        public async Task<T> GetByIdAsync(string id)
-        {
-            if (string.IsNullOrEmpty(id))
-            {
-                throw new ArgumentException("Id cannot be null or empty", nameof(id));
-            }
+    public Task<List<T>> ToListAsync()
+    {
+        return _dbSet.ToListAsync();
+    }
 
-            return await _dbSet.FindAsync(id);
-        }
+    public async Task<T> GetByIdAsync(string id)
+    {
+        if (string.IsNullOrEmpty(id)) throw new ArgumentException("Id cannot be null or empty", nameof(id));
+
+        return await _dbSet.FindAsync(id);
     }
 }

@@ -2,80 +2,86 @@
 using SafeguardSystem.Common.DTOs;
 using SafeguardSystem.DAL.Entities;
 using SafeguardSystem.DAL.UnitOfWork;
-using SafeguardSystem.DAL.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SafeguardSystem.Common.Tokens;
 
-namespace SafeguardSystem.BLL.Services
+namespace SafeguardSystem.BLL.Services;
+
+public class SecurityshiftService : ISecurityshiftService
 {
-    public class SecurityshiftService : ISecurityshiftService
+    private readonly IUnitOfWork _unitOfWork;
+
+    public SecurityshiftService(IUnitOfWork unitOfWork)
     {
-        private readonly IUnitOfWork _unitOfWork;
-        public SecurityshiftService(IUnitOfWork unitOfWork)
-        {
-            _unitOfWork = unitOfWork;
-        }
-        public async Task<ResponseDTO> AssignShiftAsync(Guid locationId, Guid teamId, Guid typeId)
-        {
-            var location = await _unitOfWork.Locations.GetLocationByIdAsync(locationId);
-            if (location == null)
-            {
-                return new ResponseDTO("Location not found", 404, false);
-            }
-
-            var team = await _unitOfWork.Teams.GetByGuIdAsync(teamId);
-            if (team == null)
-            {
-                return new ResponseDTO("Team not found", 404, false);
-            }
-
-            var type = await _unitOfWork.ShiftTypes.GetByGuIdAsync(typeId);
-            if (type == null)
-            {
-                return new ResponseDTO("Type not found", 404, false);
-            }
-
-            var Securityshift = new SecurityShift
-            {
-                ShiftId = Guid.NewGuid(),
-                LocationId = locationId,
-                TeamId = teamId,
-                TypeId = typeId
-            };
-
-            await _unitOfWork.SecurityShifts.AddAsync(Securityshift);
-            await _unitOfWork.SaveChangeAsync();
-
-            var token = Guid.NewGuid().ToString();
-            var shiftToken = new ShiftToken
-            {
-                Id = Guid.NewGuid(),
-                ShiftId = Securityshift.ShiftId,
-                Token = token
-            };
-
-            //await _unitOfWork.ShiftTokens.AddAsync(shiftToken);
-
-            return new ResponseDTO("Shift assigned to team successfully", 200, true);
-        }
-
-
-        public async Task<ResponseDTO> DeleteShiftAsync(Guid shiftId)
-        {
-            var shift = await _unitOfWork.SecurityShifts.GetByGuIdAsync(shiftId);
-            if (shift == null)
-            {
-                return new ResponseDTO("Shift not found", 404, false);
-            }
-
-            _unitOfWork.SecurityShifts.Delete(shift);
-            await _unitOfWork.SaveChangeAsync();
-
-            return new ResponseDTO("Shift deleted successfully", 200, true);
-        }
+        _unitOfWork = unitOfWork;
     }
+
+    public async Task<ResponseDTO> AssignShiftAsync(SecurityShiftDTO securityShiftDTO)
+    {
+        if (securityShiftDTO.ShiftDate < DateOnly.FromDateTime(DateTime.UtcNow))
+        {
+            return new ResponseDTO("Cannot assign a shift with a date in the past", 400);
+        }
+
+        var location = await _unitOfWork.Locations.GetLocationByIdAsync(securityShiftDTO.LocationId);
+        if (location == null) return new ResponseDTO("Location not found", 404);
+
+        var team = await _unitOfWork.Teams.GetByGuIdAsync(securityShiftDTO.TeamId);
+        if (team == null) return new ResponseDTO("Team not found", 404);
+
+        var type = await _unitOfWork.ShiftTypes.GetByGuIdAsync(securityShiftDTO.TypeId);
+        if (type == null) return new ResponseDTO("Type not found", 404);
+
+        var securityshift = new SecurityShift 
+        {
+            ShiftId = Guid.NewGuid(),
+            LocationId = securityShiftDTO.LocationId,
+            TeamId = securityShiftDTO.TeamId,
+            TypeId = securityShiftDTO.TypeId,
+            ShiftDate = securityShiftDTO.ShiftDate
+        };
+        await _unitOfWork.SecurityShifts.AddAsync(securityshift);
+    
+        var teamGuards = await _unitOfWork.TeamGuards.GetAllAsync(tg => tg.TeamId == securityShiftDTO.TeamId);
+        foreach (var teamGuard in teamGuards)
+        {
+            var attendance = new Attendance
+            {
+                AttendanceId = Guid.NewGuid(),
+                GuardId = teamGuard.GuardId,
+                ShiftId = securityshift.ShiftId,
+                Status = "NOT YET"
+            };
+            await _unitOfWork.Attendences.AddAsync(attendance);
+        }
+        await _unitOfWork.SaveChangeAsync();
+    
+        return new ResponseDTO("Shift assigned to team successfully", 200, true);
+    }
+
+
+    public async Task<ResponseDTO> DeleteShiftAsync(Guid shiftId)
+    {
+        var shift = await _unitOfWork.SecurityShifts.GetByGuIdAsync(shiftId);
+        if (shift == null) return new ResponseDTO("Shift not found", 404);
+
+        var attendances = await _unitOfWork.Attendences.GetAllAsync(a => a.ShiftId == shiftId);
+        foreach (var attendance in attendances)
+        {
+            _unitOfWork.Attendences.Delete(attendance);
+        }
+        _unitOfWork.SecurityShifts.Delete(shift);
+        await _unitOfWork.SaveChangeAsync();
+
+        return new ResponseDTO("Shift and related attendances deleted successfully", 200, true);
+    }
+    
+    public async Task<ResponseDTO> GetShiftsByGuardIdAsync(Guid guardId)
+    {
+        var attendances = await _unitOfWork.Attendences.GetShiftsByGuardIdAsync(guardId);
+        if (!attendances.Any())
+        {
+            return new ResponseDTO("No shifts found for the guard", 404);
+        }
+        return new ResponseDTO("Shifts retrieved successfully", 200, true, attendances);
+    }
+    
 }

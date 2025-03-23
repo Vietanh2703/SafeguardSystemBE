@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SafeguardSystem.DAL.Entities;
@@ -17,8 +15,7 @@ public class Location
     public decimal Latitude { get; set; }
     public decimal Longitude { get; set; }
 
-    [ForeignKey("Business")]
-    public Guid BusinessId { get; set; }
+    [ForeignKey("Business")] public Guid BusinessId { get; set; }
 
     public DateTime? CreatedAt { get; set; }
 

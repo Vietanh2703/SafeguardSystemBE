@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SafeguardSystem.DAL.Entities;
@@ -21,8 +19,7 @@ public class Contract
 
     public string Status { get; set; }
 
-    [ForeignKey("Business")]
-    public Guid BusinessId { get; set; }
+    [ForeignKey("Business")] public Guid BusinessId { get; set; }
 
     public bool IsDeleted { get; set; }
 

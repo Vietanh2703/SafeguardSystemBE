@@ -1,11 +1,9 @@
 ﻿using SafeguardSystem.Common.DTOs;
 
+namespace SafeguardSystem.BLL.IServices;
 
-namespace SafeguardSystem.BLL.IServices
+public interface IReportService
 {
-    public interface IReportService
-    {
-        Task<ResponseDTO> GetAllReportsAsync();
-        Task<ResponseDTO> CreateReportAsync(string userId, CreateReportDTO reportDTO);
-    }
+    Task<ResponseDTO> GetAllReportsAsync();
+    Task<ResponseDTO> CreateReportAsync(string userId, CreateReportDTO reportDTO);
 }

@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace SafeguardSystem.DAL.Entities;
 
-public partial class Role
+public class Role
 {
     [Key]
     [Required(ErrorMessage = "Id is required")]

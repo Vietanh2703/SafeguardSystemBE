@@ -1,17 +1,11 @@
 ﻿using SafeguardSystem.DAL.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace SafeguardSystem.DAL.IRepositories
+namespace SafeguardSystem.DAL.IRepositories;
+
+public interface IRoleRepository : IGenericRepository<Role>
 {
-    public interface IRoleRepository : IGenericRepository<Role>
-    {
-            Task<Role> GetByGuidAsync(Guid id);
+    Task<Role> GetByGuidAsync(Guid id);
 
-            Task<Guid> GetSecurityGuardRoleIdAsync();
-            Task<Role> GetRoleIdByNameAsync(string roleName);
-    }
+    Task<Guid> GetSecurityGuardRoleIdAsync();
+    Task<Role> GetRoleIdByNameAsync(string roleName);
 }

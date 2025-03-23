@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace SafeguardSystem.DAL.Entities;
+﻿namespace SafeguardSystem.DAL.Entities;
 
 public class Business
 {

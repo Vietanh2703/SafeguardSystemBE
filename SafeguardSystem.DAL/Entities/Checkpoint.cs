@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SafeguardSystem.DAL.Entities;
 
-public partial class Checkpoint
+public class Checkpoint
 {
     [Key]
     [Required(ErrorMessage = "Id is required")]
@@ -15,11 +13,9 @@ public partial class Checkpoint
     public string Description { get; set; }
     public string Image { get; set; }
 
-    [ForeignKey("Location")]
-    public Guid LocationId { get; set; }
+    [ForeignKey("Location")] public Guid LocationId { get; set; }
 
     public bool IsDeleted { get; set; }
 
     public virtual Location Location { get; set; }
-
 }
