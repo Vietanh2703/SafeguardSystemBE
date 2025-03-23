@@ -9,9 +9,9 @@ public class Checkpoint
     [Required(ErrorMessage = "Id is required")]
     public Guid CheckpointId { get; set; }
 
-    public string Name { get; set; }
-    public string Description { get; set; }
-    public string Image { get; set; }
+    public string? Name { get; set; }
+    public string? Description { get; set; }
+    public string? Image { get; set; }
 
     [ForeignKey("Location")] public Guid LocationId { get; set; }
 

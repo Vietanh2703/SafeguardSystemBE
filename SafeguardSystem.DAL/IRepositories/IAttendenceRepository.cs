@@ -7,4 +7,5 @@ public interface IAttendenceRepository : IGenericRepository<Attendance>
 {
     Task<IEnumerable<Attendance>> GetShiftsByGuardIdAsync(Guid guardId);
     Task<IEnumerable<Attendance>> GetAllAsync(Expression<Func<Attendance, bool>> predicate);
+    Task<Attendance?> GetAsync(Expression<Func<Attendance, bool>> predicate);
 }

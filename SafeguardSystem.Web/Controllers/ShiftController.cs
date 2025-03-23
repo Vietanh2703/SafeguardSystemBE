@@ -9,11 +9,13 @@ public class ShiftController : ControllerBase
 {
     private readonly ISecurityshiftService _securityshiftService;
     private readonly IShiftTypeService _shiftTypeService;
+    private readonly IAttendenceService _attendenceService;
 
-    public ShiftController(IShiftTypeService shiftTypeService, ISecurityshiftService securityshiftService)
+    public ShiftController(IShiftTypeService shiftTypeService, ISecurityshiftService securityshiftService, IAttendenceService attendenceService)
     {
         _shiftTypeService = shiftTypeService;
         _securityshiftService = securityshiftService;
+        _attendenceService = attendenceService;
     }
 
     /// <summary>
@@ -106,6 +108,19 @@ public class ShiftController : ControllerBase
     public async Task<IActionResult> GetShiftsByGuardId([FromRoute] Guid guardId)
     {
         var response = await _securityshiftService.GetShiftsByGuardIdAsync(guardId);
+        return StatusCode(response.StatusCode, response);
+    }
+
+    [Route("checkin")]
+    [HttpPut]
+    [SwaggerOperation(Summary = "Check in", Description = "Checks in a guard for a shift.")]
+    [SwaggerResponse(200, "Checked in successfully", typeof(ResponseDTO))]
+    [SwaggerResponse(400, "Invalid request data")]
+    [SwaggerResponse(404, "Shift not found")]
+    [SwaggerResponse(500, "Internal server error")]
+    public async Task<IActionResult> CheckIn(Guid attendenceId, [FromBody] AttendenceDTO attendenceDTO)
+    {
+        var response = await _attendenceService.CheckInAsync(attendenceId, attendenceDTO);
         return StatusCode(response.StatusCode, response);
     }
 }

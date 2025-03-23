@@ -28,5 +28,10 @@ public class AttendenceRepository : GenericRepository<Attendance>,IAttendenceRep
     {
         return await _dbContext.Attendances.Where(a => a.GuardId == guardId).ToListAsync();
     }
-    
+
+    public async Task<Attendance?> GetAsync(Expression<Func<Attendance, bool>> predicate)
+    {
+        return await _context.Set<Attendance>().FirstOrDefaultAsync(predicate);
+    }
+
 }

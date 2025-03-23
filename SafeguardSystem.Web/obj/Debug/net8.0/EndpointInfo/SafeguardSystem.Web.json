@@ -694,140 +694,30 @@
         }
       }
     },
-    "/shift": {
-      "post": {
-        "tags": [
-          "Manager"
-        ],
-        "summary": "Assign shift",
-        "description": "Assigns a shift to a team at a specific location.",
-        "parameters": [
-          {
-            "name": "locationId",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "teamId",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "typeId",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Shift assigned successfully",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseDTO"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseDTO"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseDTO"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid request data"
-          },
-          "404": {
-            "description": "Location or team not found"
-          },
-          "500": {
-            "description": "Internal server error"
-          }
-        }
-      }
-    },
-    "/shift/{shiftId}": {
-      "delete": {
-        "tags": [
-          "Manager"
-        ],
-        "summary": "Delete shift",
-        "description": "Deletes a shift.",
-        "parameters": [
-          {
-            "name": "shiftId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Shift deleted successfully",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseDTO"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseDTO"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseDTO"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid request data"
-          },
-          "404": {
-            "description": "Shift not found"
-          },
-          "500": {
-            "description": "Internal server error"
-          }
-        }
-      }
-    },
-    "/reports/all": {
+    "/reports": {
       "get": {
         "tags": [
           "Report"
         ],
+        "summary": "Get all reports",
+        "description": "Retrieve a list of all reports.",
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Successfully retrieved list of reports."
+          },
+          "500": {
+            "description": "Internal server error."
           }
         }
       }
     },
-    "/report/create": {
+    "/report": {
       "post": {
         "tags": [
           "Report"
         ],
+        "summary": "Create a report",
+        "description": "Create a new report with the provided details.",
         "parameters": [
           {
             "name": "userId",
@@ -864,8 +754,14 @@
           }
         },
         "responses": {
-          "200": {
-            "description": "OK"
+          "201": {
+            "description": "Report created successfully."
+          },
+          "400": {
+            "description": "Invalid report data."
+          },
+          "500": {
+            "description": "Internal server error."
           }
         }
       }
@@ -890,7 +786,7 @@
         ],
         "summary": "Security manager creates a new shift type.",
         "requestBody": {
-          "description": "Lưu ý khi nhập thông tin time vào nhớ định dạng hh:mm:ss\r\n            (12:30:05 hay 05:45:12) chứ nhập 12:30 hay 5:45:12 hay 24:00:00 thay vì 00:00:00 lỗi ráng chịu",
+          "description": "Lưu ý khi nhập thông tin time vào nhớ định dạng hh:mm:ss\r\n(12:30:05 hay 05:45:12) chứ nhập 12:30 hay 5:45:12 hay 24:00:00 thay vì 00:00:00 lỗi ráng chịu",
           "content": {
             "application/json": {
               "schema": {
@@ -934,7 +830,7 @@
           }
         ],
         "requestBody": {
-          "description": "Lưu ý khi nhập thông tin time vào nhớ định dạng hh:mm:ss\r\n            (12:30:05 hay 05:45:12) chứ nhập 12:30 hay 5:45:12 hay 24:00:00 thay vì 00:00:00 lỗi ráng chịu",
+          "description": "Lưu ý khi nhập thông tin time vào nhớ định dạng hh:mm:ss\r\n(12:30:05 hay 05:45:12) chứ nhập 12:30 hay 5:45:12 hay 24:00:00 thay vì 00:00:00 lỗi ráng chịu",
           "content": {
             "application/json": {
               "schema": {
@@ -1011,11 +907,271 @@
         }
       }
     },
-    "/team/all": {
+    "/shift": {
+      "post": {
+        "tags": [
+          "Shift"
+        ],
+        "summary": "Assign shift",
+        "description": "Assigns a shift to a team at a specific location.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SecurityShiftDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SecurityShiftDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SecurityShiftDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Shift assigned successfully",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request data"
+          },
+          "404": {
+            "description": "Location or team not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/shift/{shiftId}": {
+      "delete": {
+        "tags": [
+          "Shift"
+        ],
+        "summary": "Delete shift",
+        "description": "Deletes a shift.",
+        "parameters": [
+          {
+            "name": "shiftId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Shift deleted successfully",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request data"
+          },
+          "404": {
+            "description": "Shift not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/guard/{guardId}/shifts": {
+      "get": {
+        "tags": [
+          "Shift"
+        ],
+        "summary": "Get shifts by guard ID",
+        "description": "Retrieves the list of shifts for a specific guard.",
+        "parameters": [
+          {
+            "name": "guardId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Shifts retrieved successfully",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No shifts found for the guard"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/checkin": {
+      "put": {
+        "tags": [
+          "Shift"
+        ],
+        "summary": "Check in",
+        "description": "Checks in a guard for a shift.",
+        "parameters": [
+          {
+            "name": "attendenceId",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AttendenceDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AttendenceDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AttendenceDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/teams": {
       "get": {
         "tags": [
           "Team"
         ],
+        "summary": "Get all teams",
+        "description": "Retrieve a paginated list of all teams.",
         "parameters": [
           {
             "name": "pageNumber",
@@ -1036,7 +1192,13 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Successfully retrieved list of teams."
+          },
+          "400": {
+            "description": "Invalid request parameters."
+          },
+          "500": {
+            "description": "Internal server error."
           }
         }
       }
@@ -1046,6 +1208,8 @@
         "tags": [
           "Team"
         ],
+        "summary": "Get team by ID",
+        "description": "Retrieve details of a specific team by its ID.",
         "parameters": [
           {
             "name": "teamId",
@@ -1059,47 +1223,22 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Successfully retrieved team details."
+          },
+          "404": {
+            "description": "Team not found."
+          },
+          "500": {
+            "description": "Internal server error."
           }
         }
-      }
-    },
-    "/create": {
-      "post": {
-        "tags": [
-          "Team"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TeamDTO"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TeamDTO"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/TeamDTO"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/update/{teamId}": {
+      },
       "put": {
         "tags": [
           "Team"
         ],
+        "summary": "Update team details",
+        "description": "Update the details of an existing team by its ID.",
         "parameters": [
           {
             "name": "teamId",
@@ -1132,16 +1271,66 @@
         },
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Successfully updated team details."
+          },
+          "400": {
+            "description": "Invalid team data."
+          },
+          "404": {
+            "description": "Team not found."
+          },
+          "500": {
+            "description": "Internal server error."
           }
         }
       }
     },
-    "/delete/{teamId}": {
+    "/team": {
+      "post": {
+        "tags": [
+          "Team"
+        ],
+        "summary": "Create a new team",
+        "description": "Create a new team with the provided details.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TeamDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TeamDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/TeamDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successfully created new team."
+          },
+          "400": {
+            "description": "Invalid team data."
+          },
+          "500": {
+            "description": "Internal server error."
+          }
+        }
+      }
+    },
+    "/team/delete/{teamId}": {
       "put": {
         "tags": [
           "Team"
         ],
+        "summary": "Delete a team",
+        "description": "Mark a team as deleted by its ID.",
         "parameters": [
           {
             "name": "teamId",
@@ -1155,16 +1344,24 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Successfully deleted team."
+          },
+          "404": {
+            "description": "Team not found."
+          },
+          "500": {
+            "description": "Internal server error."
           }
         }
       }
     },
-    "/assign-guard": {
+    "/guard": {
       "post": {
         "tags": [
           "Team"
         ],
+        "summary": "Assign guard to team",
+        "description": "Assign a guard to a specific team.",
         "parameters": [
           {
             "name": "teamId",
@@ -1185,16 +1382,24 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Successfully assigned guard to team."
+          },
+          "400": {
+            "description": "Invalid guard or team ID."
+          },
+          "500": {
+            "description": "Internal server error."
           }
         }
       }
     },
-    "/remove-guard/{teamGuardId}": {
+    "/guard/{teamGuardId}": {
       "delete": {
         "tags": [
           "Team"
         ],
+        "summary": "Remove guard from team",
+        "description": "Remove a guard from a specific team by the team-guard ID.",
         "parameters": [
           {
             "name": "teamGuardId",
@@ -1208,16 +1413,24 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Successfully removed guard from team."
+          },
+          "404": {
+            "description": "Guard not found in team."
+          },
+          "500": {
+            "description": "Internal server error."
           }
         }
       }
     },
-    "/team/{teamId}/guards": {
+    "/{teamId}/guards": {
       "get": {
         "tags": [
           "Team"
         ],
+        "summary": "Get guards in team",
+        "description": "Retrieve a list of all guards in a specific team by the team ID.",
         "parameters": [
           {
             "name": "teamId",
@@ -1231,7 +1444,13 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Successfully retrieved list of guards in team."
+          },
+          "404": {
+            "description": "Team not found."
+          },
+          "500": {
+            "description": "Internal server error."
           }
         }
       }
@@ -1241,9 +1460,14 @@
         "tags": [
           "User"
         ],
+        "summary": "Get all roles",
+        "description": "Retrieve a list of all roles.",
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Successfully retrieved list of roles."
+          },
+          "500": {
+            "description": "Internal server error."
           }
         }
       }
@@ -1253,6 +1477,8 @@
         "tags": [
           "User"
         ],
+        "summary": "Refresh OTP",
+        "description": "Refresh the OTP for the given email.",
         "parameters": [
           {
             "name": "email",
@@ -1265,16 +1491,24 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OTP refreshed successfully."
+          },
+          "400": {
+            "description": "Invalid email address."
+          },
+          "500": {
+            "description": "Internal server error."
           }
         }
       }
     },
-    "/verify-email/{Email}": {
+    "/email/{Email}": {
       "post": {
         "tags": [
           "User"
         ],
+        "summary": "Verify OTP",
+        "description": "Verify the OTP for the given email.",
         "parameters": [
           {
             "name": "Email",
@@ -1306,16 +1540,24 @@
         },
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OTP verified successfully."
+          },
+          "400": {
+            "description": "Invalid OTP or email address."
+          },
+          "500": {
+            "description": "Internal server error."
           }
         }
       }
     },
-    "/update-password/{Email}": {
+    "/password/{Email}": {
       "put": {
         "tags": [
           "User"
         ],
+        "summary": "Update password",
+        "description": "Update the password for the given email.",
         "parameters": [
           {
             "name": "Email",
@@ -1347,16 +1589,24 @@
         },
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Password updated successfully."
+          },
+          "400": {
+            "description": "Invalid request data."
+          },
+          "500": {
+            "description": "Internal server error."
           }
         }
       }
     },
-    "/update-user/{userId}": {
+    "/user/{userId}": {
       "put": {
         "tags": [
           "User"
         ],
+        "summary": "Update user details",
+        "description": "Update the details of an existing user by their ID.",
         "parameters": [
           {
             "name": "userId",
@@ -1388,12 +1638,19 @@
         },
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "User details updated successfully."
+          },
+          "400": {
+            "description": "Invalid request data."
+          },
+          "404": {
+            "description": "User not found."
+          },
+          "500": {
+            "description": "Internal server error."
           }
         }
-      }
-    },
-    "/get-user-details/{userId}": {
+      },
       "get": {
         "tags": [
           "User"
@@ -1582,6 +1839,28 @@
         ],
         "type": "string"
       },
+      "AttendenceDTO": {
+        "type": "object",
+        "properties": {
+          "checkInDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "checkInTime": {
+            "type": "string",
+            "format": "time"
+          },
+          "latitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
       "CreateUserDTO": {
         "type": "object",
         "properties": {
@@ -1729,6 +2008,28 @@
             "type": "string",
             "format": "date-time",
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SecurityShiftDTO": {
+        "type": "object",
+        "properties": {
+          "locationId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "teamId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "typeId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "shiftDate": {
+            "type": "string",
+            "format": "date"
           }
         },
         "additionalProperties": false
