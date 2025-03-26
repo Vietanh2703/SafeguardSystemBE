@@ -81,8 +81,10 @@ public class ShiftController : ControllerBase
     [SwaggerResponse(500, "Internal server error")]
     public async Task<IActionResult> AssignShift([FromBody] SecurityShiftDTO securityShiftDTO)
     {
-        var response = await _securityshiftService.AssignShiftAsync(securityShiftDTO);
-        return StatusCode(response.StatusCode, response);
+        var result = await _securityshiftService.AssignShiftAsync(securityShiftDTO);
+        if(!result.IsSuccess) return StatusCode(result.StatusCode, result);
+        var qrCodeBytes = (byte[])result.Result;
+        return File(qrCodeBytes, "image/png");
     }
 
 
@@ -118,9 +120,17 @@ public class ShiftController : ControllerBase
     [SwaggerResponse(400, "Invalid request data")]
     [SwaggerResponse(404, "Shift not found")]
     [SwaggerResponse(500, "Internal server error")]
-    public async Task<IActionResult> CheckIn(Guid attendenceId, [FromBody] AttendenceDTO attendenceDTO)
+    public async Task<IActionResult> CheckIn(Guid attendanceId, decimal latitude, decimal longitude)
     {
-        var response = await _attendenceService.CheckInAsync(attendenceId, attendenceDTO);
+        var attendenceDTO = new AttendenceDTO
+        {
+            Latitude = latitude,
+            Longitude = longitude,
+            CheckInDate = DateOnly.FromDateTime(DateTime.UtcNow),
+            CheckInTime = TimeOnly.FromDateTime(DateTime.UtcNow)
+        };
+
+        var response = await _attendenceService.CheckInAsync(attendanceId, attendenceDTO);
         return StatusCode(response.StatusCode, response);
     }
     

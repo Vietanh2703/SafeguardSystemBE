@@ -8,6 +8,7 @@ public interface ILocationService
     Task<ResponseDTO> GetAllLocationAsync();
     Task<ResponseDTO> GetLocationByName(string locationName);
     Task<ResponseDTO> CreateLocationAsync(Guid businessId, LocationDTO locationDTO);
-
+    Task<ResponseDTO> DeleteLocationAsync(Guid locationId);
+    Task<ResponseDTO> UpdateLocationAsync(Guid locationId, LocationDTO locationDTO);
     Task<ResponseDTO> GenerateLocationQrCodeAsync(Guid locationId);
 }

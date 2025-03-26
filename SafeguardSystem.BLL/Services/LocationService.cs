@@ -91,6 +91,46 @@ public class LocationService : ILocationService
         await _unitOfWork.SaveChangeAsync();
         return new ResponseDTO("Location created successfully", 201, true, newLocation);
     }
+    
+    public async Task<ResponseDTO> UpdateLocationAsync(Guid locationId, LocationDTO locationDTO)
+    {
+        var location = await _unitOfWork.Locations.GetLocationByIdAsync(locationId);
+        if (location == null)
+        {
+            return new ResponseDTO("Location not found", 404);
+        }
+
+        location.Name = locationDTO.Name;
+        location.Address = locationDTO.Address;
+        location.Image = locationDTO.image;
+        location.Latitude = locationDTO.Latitude;
+        location.Longitude = locationDTO.Longitude;
+        location.UpdatedAt = DateTime.UtcNow;
+        
+        await _unitOfWork.SaveChangeAsync();
+
+        return new ResponseDTO("Location updated successfully", 200, true, location);
+    }
+
+    public async Task<ResponseDTO> DeleteLocationAsync(Guid locationId)
+    {
+        var location = await _unitOfWork.Locations.GetLocationByIdAsync(locationId);
+        if (location == null)
+        {
+            return new ResponseDTO("Location not found", 404);
+        }
+
+        var checkpoints = await _unitOfWork.Checkpoints.GetCheckpointsByLocationIdAsync(locationId);
+        foreach (var checkpoint in checkpoints)
+        {
+            await _unitOfWork.Checkpoints.DeleteAsync(checkpoint.CheckpointId);
+        }
+
+        location.IsDeleted = true;
+        await _unitOfWork.SaveChangeAsync();
+
+        return new ResponseDTO("Location and related checkpoints marked as deleted successfully", 200, true, location);
+    }
 
     public async Task<ResponseDTO> GenerateLocationQrCodeAsync(Guid locationId)
     {

@@ -39,7 +39,7 @@ public class LocationRepository : GenericRepository<Location>, ILocationReposito
     {
         await _context.Locations.AddAsync(location);
     }
-
+    
     // Lấy Location theo tọa độ
     public async Task<Location> GetByCoordinatesAsync(decimal latitude, decimal longitude)
     {

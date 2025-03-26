@@ -65,6 +65,33 @@ public class LocationController : ControllerBase
         var result = await _locationService.CreateLocationAsync(businessId, locationDTO);
         return StatusCode(result.StatusCode, result);
     }
+    
+    [Route("{locationId}")]
+    [HttpPut]
+    [SwaggerOperation(Summary = "Update a location",
+        Description = "Updates an existing location based on the provided information.")]
+    [SwaggerResponse(200, "Location updated successfully.")]
+    [SwaggerResponse(404, "Location not found.")]
+    [SwaggerResponse(500, "Internal server error.")]
+    public async Task<IActionResult> UpdateLocation(Guid locationId, [FromBody] LocationDTO locationDTO)
+    {
+        var response = await _locationService.UpdateLocationAsync(locationId, locationDTO);
+        return StatusCode(response.StatusCode, response);
+    }
+
+    
+    [Route("{locationId}/delete")]
+    [HttpPut]
+    [SwaggerOperation(Summary = "Delete a location",
+        Description = "Deletes an existing location based on its ID.")]
+    [SwaggerResponse(200, "Location deleted successfully.")]
+    [SwaggerResponse(404, "Location not found.")]
+    [SwaggerResponse(500, "Internal server error.")]
+    public async Task<IActionResult> DeleteLocation(Guid locationId)
+    {
+        var response = await _locationService.DeleteLocationAsync(locationId);
+        return StatusCode(response.StatusCode, response);
+    }
 
     [Route("{locationId}/qr-code")]
     [HttpGet]

@@ -1,4 +1,6 @@
-﻿using SafeguardSystem.BLL.IServices;
+﻿using System.Drawing.Imaging;
+using QRCoder;
+using SafeguardSystem.BLL.IServices;
 using SafeguardSystem.Common.DTOs;
 using SafeguardSystem.DAL.Entities;
 using SafeguardSystem.DAL.UnitOfWork;
@@ -30,7 +32,7 @@ public class SecurityshiftService : ISecurityshiftService
         var type = await _unitOfWork.ShiftTypes.GetByGuIdAsync(securityShiftDTO.TypeId);
         if (type == null) return new ResponseDTO("Type not found", 404);
 
-        var securityshift = new SecurityShift 
+        var securityshift = new SecurityShift
         {
             ShiftId = Guid.NewGuid(),
             LocationId = securityShiftDTO.LocationId,
@@ -39,8 +41,9 @@ public class SecurityshiftService : ISecurityshiftService
             ShiftDate = securityShiftDTO.ShiftDate
         };
         await _unitOfWork.SecurityShifts.AddAsync(securityshift);
-    
+
         var teamGuards = await _unitOfWork.TeamGuards.GetAllAsync(tg => tg.TeamId == securityShiftDTO.TeamId);
+        byte[] qrCodeData = null;
         foreach (var teamGuard in teamGuards)
         {
             var attendance = new Attendance
@@ -51,10 +54,14 @@ public class SecurityshiftService : ISecurityshiftService
                 Status = "NOT YET"
             };
             await _unitOfWork.Attendences.AddAsync(attendance);
+            
+            //Chỉnh lại url của api
+            var checkInUrl = $"https://yourapi.com/checkin?attendanceId={attendance.AttendanceId}&latitude={securityshift.Location.Latitude}&longitude={securityshift.Location.Longitude}";
+            qrCodeData = GenerateQrCode(checkInUrl);
         }
         await _unitOfWork.SaveChangeAsync();
-    
-        return new ResponseDTO("Shift assigned to team successfully", 200, true);
+
+        return new ResponseDTO("Shift assigned to team successfully", 200, true, qrCodeData);
     }
 
 
@@ -82,6 +89,25 @@ public class SecurityshiftService : ISecurityshiftService
             return new ResponseDTO("No shifts found for the guard", 404);
         }
         return new ResponseDTO("Shifts retrieved successfully", 200, true, attendances);
+    }
+    
+    private byte[] GenerateQrCode(string data)
+    {
+        using (var qrGenerator = new QRCodeGenerator())
+        {
+            var qrCodeData = qrGenerator.CreateQrCode(data, QRCodeGenerator.ECCLevel.Q);
+            using (var qrCode = new QRCode(qrCodeData))
+            {
+                using (var qrCodeImage = qrCode.GetGraphic(20))
+                {
+                    using (var ms = new MemoryStream())
+                    {
+                        qrCodeImage.Save(ms, ImageFormat.Png);
+                        return ms.ToArray();
+                    }
+                }
+            }
+        }
     }
     
 }

@@ -34,6 +34,7 @@ public class Program
         builder.Services.AddScoped<IEmailService, EmailService>();
         builder.Services.AddScoped<EmailService>();
         builder.Services.AddScoped<IBusinessService, BusinessService>();
+        builder.Services.AddScoped<ICheckpointService, CheckpointService>();
         builder.Services.AddScoped<IShiftTypeService, ShiftTypeService>();
         builder.Services.AddScoped<IGuardService, GuardService>();
         builder.Services.AddScoped<ILocationService, LocationService>();
