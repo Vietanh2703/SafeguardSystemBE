@@ -80,6 +80,107 @@
   },
   {
     "ContainingType": "SafeguardSystem.Web.Controllers.LocationController",
+    "Method": "UpdateLocation",
+    "RelativePath": "{locationId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "locationId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "locationDTO",
+        "Type": "SafeguardSystem.Common.DTOs.LocationDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 404
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
+      }
+    ]
+  },
+  {
+    "ContainingType": "SafeguardSystem.Web.Controllers.CheckpointController",
+    "Method": "GetCheckpointsByLocationId",
+    "RelativePath": "{locationId}/checkpoints",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "locationId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 400
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
+      }
+    ]
+  },
+  {
+    "ContainingType": "SafeguardSystem.Web.Controllers.LocationController",
+    "Method": "DeleteLocation",
+    "RelativePath": "{locationId}/delete",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "locationId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 404
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
+      }
+    ]
+  },
+  {
+    "ContainingType": "SafeguardSystem.Web.Controllers.LocationController",
     "Method": "GenerateLocationQrCode",
     "RelativePath": "{locationId}/qr-code",
     "HttpMethod": "GET",
@@ -377,14 +478,19 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "attendenceId",
+        "Name": "attendanceId",
         "Type": "System.Guid",
         "IsRequired": false
       },
       {
-        "Name": "attendenceDTO",
-        "Type": "SafeguardSystem.Common.DTOs.AttendenceDTO",
-        "IsRequired": true
+        "Name": "latitude",
+        "Type": "System.Decimal",
+        "IsRequired": false
+      },
+      {
+        "Name": "longitude",
+        "Type": "System.Decimal",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": [
@@ -398,21 +504,99 @@
         "StatusCode": 200
       },
       {
-        "Type": "SafeguardSystem.Common.DTOs.ResponseDTO",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
+        "Type": "System.Void",
+        "MediaTypes": [],
         "StatusCode": 400
       },
       {
-        "Type": "SafeguardSystem.Common.DTOs.ResponseDTO",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 404
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
+      }
+    ]
+  },
+  {
+    "ContainingType": "SafeguardSystem.Web.Controllers.CheckpointController",
+    "Method": "CreateCheckpoint",
+    "RelativePath": "checkpoint",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "checkpointDTO",
+        "Type": "SafeguardSystem.Common.DTOs.CheckpointDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "SafeguardSystem.Web.Controllers.CheckpointController",
+    "Method": "UpdateCheckpoint",
+    "RelativePath": "checkpoint",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "CheckpointId",
+        "Type": "System.Guid",
+        "IsRequired": false
+      },
+      {
+        "Name": "checkpointDTO",
+        "Type": "SafeguardSystem.Common.DTOs.UpdateCheckpointDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 404
+      }
+    ]
+  },
+  {
+    "ContainingType": "SafeguardSystem.Web.Controllers.CheckpointController",
+    "Method": "DeleteCheckpoint",
+    "RelativePath": "checkpoint/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
         "StatusCode": 404
       }
     ]
@@ -1171,6 +1355,36 @@
         "Type": "System.Void",
         "MediaTypes": [],
         "StatusCode": 404
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
+      }
+    ]
+  },
+  {
+    "ContainingType": "SafeguardSystem.Web.Controllers.ShiftController",
+    "Method": "UpdateStatus",
+    "RelativePath": "status",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "SafeguardSystem.Common.DTOs.ResponseDTO",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 400
       },
       {
         "Type": "System.Void",

@@ -1958,3 +1958,4 @@ D:\SafeguardSystemBE\SafeguardSystem.Web\bin\Debug\net8.0\AWSSDK.S3.dll
 D:\SafeguardSystemBE\SafeguardSystem.Web\bin\Debug\net8.0\QRCoder.dll
 D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.Web\bin\Debug\net8.0\QRCoder.dll
 D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.Web\bin\Debug\net8.0\GeoCoordinate.NetCore.dll
+D:\SafeguardSystem\SafeguardSystemBE\SafeguardSystem.Web\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

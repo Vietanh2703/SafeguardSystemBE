@@ -350,6 +350,142 @@
         }
       }
     },
+    "/{locationId}/checkpoints": {
+      "get": {
+        "tags": [
+          "Checkpoint"
+        ],
+        "summary": "Retrieve all checkpoints by location",
+        "description": "Fetches a list of all registered checkpoints in the system by location.",
+        "parameters": [
+          {
+            "name": "locationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved checkpoints."
+          },
+          "400": {
+            "description": "Invalid request data."
+          },
+          "500": {
+            "description": "Internal server error."
+          }
+        }
+      }
+    },
+    "/checkpoint": {
+      "post": {
+        "tags": [
+          "Checkpoint"
+        ],
+        "summary": "Create a new checkpoint",
+        "description": "Creates a new checkpoint based on the provided information.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CheckpointDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CheckpointDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CheckpointDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Checkpoint created successfully."
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Checkpoint"
+        ],
+        "summary": "Update a checkpoint",
+        "description": "Updates an existing checkpoint based on the provided information.",
+        "parameters": [
+          {
+            "name": "CheckpointId",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateCheckpointDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateCheckpointDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateCheckpointDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Checkpoint updated successfully."
+          },
+          "404": {
+            "description": "Checkpoint not found."
+          }
+        }
+      }
+    },
+    "/checkpoint/{id}": {
+      "delete": {
+        "tags": [
+          "Checkpoint"
+        ],
+        "summary": "Delete a checkpoint",
+        "description": "Deletes an existing checkpoint based on the provided information.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Checkpoint deleted successfully."
+          },
+          "404": {
+            "description": "Checkpoint not found."
+          }
+        }
+      }
+    },
     "/location-pagings": {
       "get": {
         "tags": [
@@ -482,6 +618,87 @@
           },
           "400": {
             "description": "Invalid request data."
+          },
+          "500": {
+            "description": "Internal server error."
+          }
+        }
+      }
+    },
+    "/{locationId}": {
+      "put": {
+        "tags": [
+          "Location"
+        ],
+        "summary": "Update a location",
+        "description": "Updates an existing location based on the provided information.",
+        "parameters": [
+          {
+            "name": "locationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LocationDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LocationDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/LocationDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Location updated successfully."
+          },
+          "404": {
+            "description": "Location not found."
+          },
+          "500": {
+            "description": "Internal server error."
+          }
+        }
+      }
+    },
+    "/{locationId}/delete": {
+      "put": {
+        "tags": [
+          "Location"
+        ],
+        "summary": "Delete a location",
+        "description": "Deletes an existing location based on its ID.",
+        "parameters": [
+          {
+            "name": "locationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Location deleted successfully."
+          },
+          "404": {
+            "description": "Location not found."
           },
           "500": {
             "description": "Internal server error."
@@ -1074,36 +1291,33 @@
         "description": "Checks in a guard for a shift.",
         "parameters": [
           {
-            "name": "attendenceId",
+            "name": "attendanceId",
             "in": "query",
             "schema": {
               "type": "string",
               "format": "uuid"
             }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AttendenceDTO"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AttendenceDTO"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/AttendenceDTO"
-              }
+          },
+          {
+            "name": "latitude",
+            "in": "query",
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          {
+            "name": "longitude",
+            "in": "query",
+            "schema": {
+              "type": "number",
+              "format": "double"
             }
           }
-        },
+        ],
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "Checked in successfully",
             "content": {
               "text/plain": {
                 "schema": {
@@ -1123,7 +1337,27 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Invalid request data"
+          },
+          "404": {
+            "description": "Shift not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/status": {
+      "put": {
+        "tags": [
+          "Shift"
+        ],
+        "summary": "Update status",
+        "description": "Updates the status of absent attendances.",
+        "responses": {
+          "200": {
+            "description": "Status updated successfully",
             "content": {
               "text/plain": {
                 "schema": {
@@ -1142,25 +1376,11 @@
               }
             }
           },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseDTO"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseDTO"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseDTO"
-                }
-              }
-            }
+          "400": {
+            "description": "Invalid request data"
+          },
+          "500": {
+            "description": "Internal server error"
           }
         }
       }
@@ -1839,24 +2059,20 @@
         ],
         "type": "string"
       },
-      "AttendenceDTO": {
+      "CheckpointDTO": {
         "type": "object",
         "properties": {
-          "checkInDate": {
+          "name": {
             "type": "string",
-            "format": "date"
+            "nullable": true
           },
-          "checkInTime": {
+          "description": {
             "type": "string",
-            "format": "time"
+            "nullable": true
           },
-          "latitude": {
-            "type": "number",
-            "format": "double"
-          },
-          "longitude": {
-            "type": "number",
-            "format": "double"
+          "locationId": {
+            "type": "string",
+            "format": "uuid"
           }
         },
         "additionalProperties": false
@@ -2065,6 +2281,20 @@
         "type": "object",
         "properties": {
           "name": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateCheckpointDTO": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
             "type": "string",
             "nullable": true
           }

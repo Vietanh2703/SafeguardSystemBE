@@ -122,18 +122,24 @@ public class ShiftController : ControllerBase
     [SwaggerResponse(500, "Internal server error")]
     public async Task<IActionResult> CheckIn(Guid attendanceId, decimal latitude, decimal longitude)
     {
+        var currentTime = DateTime.Now;
+        var checkInTime = TimeOnly.FromDateTime(currentTime);
+
+        // In ra giá trị checkInTime
+        Console.WriteLine($"CheckInTime: {checkInTime}");
+
         var attendenceDTO = new AttendenceDTO
         {
             Latitude = latitude,
             Longitude = longitude,
-            CheckInDate = DateOnly.FromDateTime(DateTime.UtcNow),
-            CheckInTime = TimeOnly.FromDateTime(DateTime.UtcNow)
+            CheckInDate = DateOnly.FromDateTime(currentTime),
+            CheckInTime = checkInTime
         };
 
         var response = await _attendenceService.CheckInAsync(attendanceId, attendenceDTO);
         return StatusCode(response.StatusCode, response);
     }
-    
+
     [Route("status")]
     [HttpPut]
     [SwaggerOperation(Summary = "Update status", Description = "Updates the status of absent attendances.")]

@@ -56,7 +56,7 @@ public class SecurityshiftService : ISecurityshiftService
             await _unitOfWork.Attendences.AddAsync(attendance);
             
             //Chỉnh lại url của api
-            var checkInUrl = $"https://yourapi.com/checkin?attendanceId={attendance.AttendanceId}&latitude={securityshift.Location.Latitude}&longitude={securityshift.Location.Longitude}";
+            var checkInUrl = $"https://yourapi.com/checkin?attendanceId={attendance.AttendanceId}&latitude={attendance.Latitude}&longitude={attendance.Longitude}";
             qrCodeData = GenerateQrCode(checkInUrl);
         }
         await _unitOfWork.SaveChangeAsync();
