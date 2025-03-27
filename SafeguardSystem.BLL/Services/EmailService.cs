@@ -209,7 +209,6 @@ public class EmailService : IEmailService
         return body;
     }
 
-
     public string GenerateUnbanUserEmailBody(string FullName)
     {
         var body = string.Empty;
@@ -268,6 +267,56 @@ public class EmailService : IEmailService
         body += "<div style='text-align: center; margin-top: 40px;'>"; // Increased margin-top to 40px
         body +=
             "<p style='color: #999; font-size: 14px;'>© 2025 Safeguard Assignment & Management System. All rights reserved.</p>";
+        body += "</div>";
+        body += "</div>";
+        body += "</div>";
+        body += "</div>";
+        return body;
+    }
+
+    public string GenerateAcceptedReportEmail(string sender, string respondent, string reason, DateTime date)
+    {
+        var body = string.Empty;
+        body = "<div style='font-family: Arial, sans-serif;'>";
+        body += "<div style='background-color: #f8f8f8; padding: 20px;'>";
+        body += "<div style='background-color: #fff; padding: 20px; border-radius: 10px;'>";
+        body += "<div style='text-align: left;'>";
+        body += "<h1 style='color: #333; font-size: 24px; margin-bottom: 20px;'>Safeguard System Automatic Sender</h1>";
+        body += "<p style='color: #333; font-size: 12px; margin-bottom: 10px;'>Dear " + sender + ",</p>";
+        body += "<p style='color: #333; font-size: 12px; margin-bottom: 10px;'>Your report has been approved.</p>";
+        body += "<p style='color: #333; font-size: 12px; margin-bottom: 10px;'><strong>Respondent:</strong> " + respondent + "</p>";
+        body += "<p style='color: #333; font-size: 12px; margin-bottom: 10px;'><strong>Date:</strong> " + date.ToString("yyyy-MM-dd") + "</p>";
+        body += "<p style='color: #333; font-size: 12px; margin-bottom: 10px;'><strong>Reason:</strong> " + reason + "</p>";
+        body += "<p style='color: #333; font-size: 12px; margin-bottom: 10px;'>Thank you for your submission.</p>";
+        body += "<p style='color: #333; font-size: 12px; margin-bottom: 10px;'>Best regards,<br>Safeguard System Team</p>";
+        body += "</div>";
+        body += "<div style='text-align: center; margin-top: 40px;'>";
+        body += "<p style='color: #999; font-size: 14px;'>© 2025 Safeguard Assignment & Management System. All rights reserved.</p>";
+        body += "</div>";
+        body += "</div>";
+        body += "</div>";
+        body += "</div>";
+        return body;
+    }
+
+    public string GenerateRejectedReportEmail(string sender, string respondent, string reason, DateTime date)
+    {
+        var body = string.Empty;
+        body = "<div style='font-family: Arial, sans-serif;'>";
+        body += "<div style='background-color: #f8f8f8; padding: 20px;'>";
+        body += "<div style='background-color: #fff; padding: 20px; border-radius: 10px;'>";
+        body += "<div style='text-align: left;'>";
+        body += "<h1 style='color: #333; font-size: 24px; margin-bottom: 20px;'>Safeguard System Automatic Sender</h1>";
+        body += "<p style='color: #333; font-size: 12px; margin-bottom: 10px;'>Dear " + sender + ",</p>";
+        body += "<p style='color: #333; font-size: 12px; margin-bottom: 10px;'>Your report has been rejected.</p>";
+        body += "<p style='color: #333; font-size: 12px; margin-bottom: 10px;'><strong>Respondent:</strong> " + respondent + "</p>";
+        body += "<p style='color: #333; font-size: 12px; margin-bottom: 10px;'><strong>Date:</strong> " + date.ToString("yyyy-MM-dd") + "</p>";
+        body += "<p style='color: #333; font-size: 12px; margin-bottom: 10px;'><strong>Reason:</strong> " + reason + "</p>";
+        body += "<p style='color: #333; font-size: 12px; margin-bottom: 10px;'>Thank you for your submission.</p>";
+        body += "<p style='color: #333; font-size: 12px; margin-bottom: 10px;'>Best regards,<br>Safeguard System Team</p>";
+        body += "</div>";
+        body += "<div style='text-align: center; margin-top: 40px;'>";
+        body += "<p style='color: #999; font-size: 14px;'>© 2025 Safeguard Assignment & Management System. All rights reserved.</p>";
         body += "</div>";
         body += "</div>";
         body += "</div>";

@@ -67,7 +67,7 @@ public class UserService : IUserService
                 Email = createUserDTO.Email,
                 UserName = createUserDTO.Email,
                 FullName = createUserDTO.FullName,
-                Avatar = "https://www.didongmy.com/vnt_upload/news/05_2024/anh-13-meme-dang-yeu-didongmy.jpg",
+                Avatar = "58sErANL7bbv096ghTnNN3qIiqX2_cooper.jpg",
                 Phone = createUserDTO.Phone,
                 RoleID = createUserDTO.RoleId,
                 Address = "N/A",
@@ -428,7 +428,7 @@ public class UserService : IUserService
             user.WorkingContract = updateUserDTO.WorkingContract;
             user.Address = updateUserDTO.Address;
             user.Phone = updateUserDTO.Phone;
-            user.BirthDay = updateUserDTO.Birthday != DateTime.MinValue ? updateUserDTO.Birthday : user.BirthDay;
+            user.BirthDay = updateUserDTO.Birthday != DateOnly.MinValue ? updateUserDTO.Birthday : user.BirthDay;
             await _unitOfWork.SaveChangeAsync();
 
             return new ResponseDTO("User profile updated successfully", 200, true, user);
@@ -436,6 +436,41 @@ public class UserService : IUserService
         catch (Exception ex)
         {
             return new ResponseDTO($"Error updating user profile: {ex.Message}", 500);
+        }
+    }
+
+    public async Task<ResponseDTO> UpdateAvatarAsync(string userId, AvatarDTO avatarDTO)
+    {
+        try
+        {
+            // Validate the file
+            var fileVerificationResult = FileVerification(avatarDTO.AvatarFile);
+            if (!fileVerificationResult.IsSuccess)
+            {
+                return fileVerificationResult;
+            }
+
+            // Find the user in MySQL by UserId
+            var user = await _unitOfWork.Users.GetUserByFirebaseUidAsync(userId);
+            if (user == null) return new ResponseDTO("User not found", 404);
+
+            // Upload the avatar to AWS S3
+            var uploadResult = await _awsS3Service.DefaultUploadFileAsync(avatarDTO.AvatarFile, userId);
+            if (!uploadResult.IsSuccess)
+            {
+                return new ResponseDTO($"Failed to upload image: {uploadResult.Message}", 500, false);
+            }
+
+            // Update the user's avatar URL in MySQL
+            user.Avatar = uploadResult.Result.ToString();
+            await _unitOfWork.SaveChangeAsync();
+
+            return new ResponseDTO("Avatar updated successfully", 200, true, user.Avatar);
+        }
+        catch (Exception ex)
+        {
+            var errorDetails = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+            return new ResponseDTO($"Error updating avatar: {errorDetails}", 500);
         }
     }
 
@@ -558,7 +593,7 @@ public class UserService : IUserService
     {
         var emailRequest = new EmailRequest();
         emailRequest.Email = Email;
-        emailRequest.Subject = "[NO-REPLY]Welcome to Safeguard System";
+        emailRequest.Subject = "[NO-REPLY] Welcome to Safeguard System";
         emailRequest.EmailBody = _emailService.GenerateWelcomeEmailBody(FullName, Email, Password);
         await _emailService.SendEmailAsync(emailRequest);
     }
@@ -568,7 +603,7 @@ public class UserService : IUserService
     {
         var emailRequest = new EmailRequest();
         emailRequest.Email = Email;
-        emailRequest.Subject = "Your OTP Code for Account Activation";
+        emailRequest.Subject = "[NO-REPLY] Your OTP Code for Account Activation";
         emailRequest.EmailBody = _emailService.GenerateOtpEmailBody(FullName, OtpText);
         await _emailService.SendEmailAsync(emailRequest);
     }
@@ -577,7 +612,7 @@ public class UserService : IUserService
     {
         var emailRequest = new EmailRequest();
         emailRequest.Email = Email;
-        emailRequest.Subject = "Your Account has been Banned";
+        emailRequest.Subject = "[NO-REPLY] Your Account has been Banned";
         emailRequest.EmailBody = _emailService.GenerateBanUserEmailBody(FullName);
         await _emailService.SendEmailAsync(emailRequest);
     }
@@ -586,7 +621,7 @@ public class UserService : IUserService
     {
         var emailRequest = new EmailRequest();
         emailRequest.Email = Email;
-        emailRequest.Subject = "Your Account has been Unbanned";
+        emailRequest.Subject = "[NO-REPLY] Your Account has been Unbanned";
         emailRequest.EmailBody = _emailService.GenerateUnbanUserEmailBody(FullName);
         await _emailService.SendEmailAsync(emailRequest);
     }

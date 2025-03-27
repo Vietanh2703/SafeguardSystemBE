@@ -12,7 +12,7 @@ using SafeguardSystem.DAL;
 namespace SafeguardSystem.DAL.Migrations
 {
     [DbContext(typeof(SafeguardDbContext))]
-    [Migration("20250326070646_InitialMigration")]
+    [Migration("20250327112854_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -98,7 +98,7 @@ namespace SafeguardSystem.DAL.Migrations
                         new
                         {
                             BusinessId = new Guid("7c54454f-337d-4b5b-a2d0-74ad4088686b"),
-                            ContractExpiry = new DateTime(2026, 3, 26, 7, 6, 37, 284, DateTimeKind.Utc).AddTicks(9392),
+                            ContractExpiry = new DateTime(2026, 3, 27, 11, 28, 53, 463, DateTimeKind.Utc).AddTicks(4495),
                             Description = "Nơi sinh hoạt văn hóa, giải trí dành cho sinh viên",
                             IsActive = true,
                             IsDeleted = false,
@@ -214,7 +214,7 @@ namespace SafeguardSystem.DAL.Migrations
                             LocationId = new Guid("c86114da-36c8-4644-8ab0-dbdcb5c2f830"),
                             Address = "Khu phố 6, Phường Linh Trung, Thủ Đức, Thành phố Hồ Chí Minh",
                             BusinessId = new Guid("7c54454f-337d-4b5b-a2d0-74ad4088686b"),
-                            CreatedAt = new DateTime(2025, 3, 26, 7, 6, 37, 284, DateTimeKind.Utc).AddTicks(9435),
+                            CreatedAt = new DateTime(2025, 3, 27, 11, 28, 53, 463, DateTimeKind.Utc).AddTicks(4539),
                             Image = "https://www.freepik.com/free-vector/simple-vibing-cat-square-meme_58459053.htm#fromView=keyword&page=1&position=0&uuid=f4bd18ef-8de6-4b6e-8e68-06073abf526b&query=Animal+Memes",
                             IsDeleted = false,
                             Latitude = 10.8751312m,
@@ -406,7 +406,7 @@ namespace SafeguardSystem.DAL.Migrations
                         {
                             GuardId = new Guid("d2a9201b-59ad-40b7-bde5-dfda937d7433"),
                             IdentityNumber = "123456789",
-                            StartDate = new DateTime(2025, 3, 26, 7, 6, 37, 284, DateTimeKind.Utc).AddTicks(9319),
+                            StartDate = new DateTime(2025, 3, 27, 11, 28, 53, 463, DateTimeKind.Utc).AddTicks(3167),
                             Status = "PENDING",
                             UserId = "8RIijLXzhAfpXHOna9T2JWctYSE3"
                         },
@@ -414,7 +414,7 @@ namespace SafeguardSystem.DAL.Migrations
                         {
                             GuardId = new Guid("399c04bc-31f2-4296-bf32-4b6d3b0cb1c1"),
                             IdentityNumber = "123456789",
-                            StartDate = new DateTime(2025, 3, 26, 7, 6, 37, 284, DateTimeKind.Utc).AddTicks(9323),
+                            StartDate = new DateTime(2025, 3, 27, 11, 28, 53, 463, DateTimeKind.Utc).AddTicks(3173),
                             Status = "PENDING",
                             UserId = "fH8JsAPWjJOHLvLSI4MJVG4aSBr1"
                         },
@@ -422,7 +422,7 @@ namespace SafeguardSystem.DAL.Migrations
                         {
                             GuardId = new Guid("e24aa81d-c60e-4dfd-9909-991c837e6631"),
                             IdentityNumber = "123456789",
-                            StartDate = new DateTime(2025, 3, 26, 7, 6, 37, 284, DateTimeKind.Utc).AddTicks(9325),
+                            StartDate = new DateTime(2025, 3, 27, 11, 28, 53, 463, DateTimeKind.Utc).AddTicks(3175),
                             Status = "PENDING",
                             UserId = "CkjtbJVJQxVm1eLjHW3p10TdV193"
                         },
@@ -430,7 +430,7 @@ namespace SafeguardSystem.DAL.Migrations
                         {
                             GuardId = new Guid("5144d02b-8aa2-43d1-88e9-774087acb37e"),
                             IdentityNumber = "123456789",
-                            StartDate = new DateTime(2025, 3, 26, 7, 6, 37, 284, DateTimeKind.Utc).AddTicks(9327),
+                            StartDate = new DateTime(2025, 3, 27, 11, 28, 53, 463, DateTimeKind.Utc).AddTicks(3178),
                             Status = "PENDING",
                             UserId = "GLgL2MXjY7Pg4gmEJrgFulyEgV23"
                         },
@@ -438,7 +438,7 @@ namespace SafeguardSystem.DAL.Migrations
                         {
                             GuardId = new Guid("3de02800-eecb-4abe-adb4-cd114896e0bc"),
                             IdentityNumber = "123456789",
-                            StartDate = new DateTime(2025, 3, 26, 7, 6, 37, 284, DateTimeKind.Utc).AddTicks(9329),
+                            StartDate = new DateTime(2025, 3, 27, 11, 28, 53, 463, DateTimeKind.Utc).AddTicks(3180),
                             Status = "PENDING",
                             UserId = "fNBgIDvy0JTd3wd9enqVywR8o612"
                         });
@@ -604,8 +604,8 @@ namespace SafeguardSystem.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<DateTime?>("BirthDay")
-                        .HasColumnType("datetime(6)");
+                    b.Property<DateOnly?>("BirthDay")
+                        .HasColumnType("date");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -665,8 +665,8 @@ namespace SafeguardSystem.DAL.Migrations
                         {
                             UserId = "58sErANL7bbv096ghTnNN3qIiqX2",
                             Address = "Ho Chi Minh City",
-                            Avatar = "https://img.freepik.com/free-vector/simple-vibing-cat-square-meme_742173-4493.jpg?t=st=1741640485~exp=1741644085~hmac=2b51c5540d42bb03d640ddf64d9a7d048ebb8a62f836c15ae349ca193c7cce01&w=900",
-                            BirthDay = new DateTime(2004, 3, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Avatar = "58sErANL7bbv096ghTnNN3qIiqX2_cooper.jpg",
+                            BirthDay = new DateOnly(2004, 3, 27),
                             Email = "admin@test.com",
                             FullName = "Viet Anh",
                             Gender = "Male",
@@ -683,8 +683,8 @@ namespace SafeguardSystem.DAL.Migrations
                         {
                             UserId = "SLuhlRSnI1VOm00lYZ0oHxnfpCx2",
                             Address = "Ho Chi Minh City",
-                            Avatar = "https://img.freepik.com/free-vector/simple-vibing-cat-square-meme_742173-4493.jpg?t=st=1741640485~exp=1741644085~hmac=2b51c5540d42bb03d640ddf64d9a7d048ebb8a62f836c15ae349ca193c7cce01&w=900",
-                            BirthDay = new DateTime(2004, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Avatar = "58sErANL7bbv096ghTnNN3qIiqX2_cooper.jpg",
+                            BirthDay = new DateOnly(2004, 1, 1),
                             Email = "manager@test.com",
                             FullName = "Nhat Nam",
                             Gender = "Male",
@@ -701,8 +701,8 @@ namespace SafeguardSystem.DAL.Migrations
                         {
                             UserId = "zJofxJXGJvStWSLCCJVoGz8uXsf2",
                             Address = "Ho Chi Minh City",
-                            Avatar = "https://img.freepik.com/free-vector/simple-vibing-cat-square-meme_742173-4493.jpg?t=st=1741640485~exp=1741644085~hmac=2b51c5540d42bb03d640ddf64d9a7d048ebb8a62f836c15ae349ca193c7cce01&w=900",
-                            BirthDay = new DateTime(2001, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Avatar = "58sErANL7bbv096ghTnNN3qIiqX2_cooper.jpg",
+                            BirthDay = new DateOnly(2001, 1, 1),
                             Email = "business@test.com",
                             FullName = "Nguyen Phuc Hau",
                             Gender = "Male",
@@ -719,8 +719,8 @@ namespace SafeguardSystem.DAL.Migrations
                         {
                             UserId = "8RIijLXzhAfpXHOna9T2JWctYSE3",
                             Address = "Ho Chi Minh City",
-                            Avatar = "https://img.freepik.com/free-vector/simple-vibing-cat-square-meme_742173-4493.jpg?t=st=1741640485~exp=1741644085~hmac=2b51c5540d42bb03d640ddf64d9a7d048ebb8a62f836c15ae349ca193c7cce01&w=900",
-                            BirthDay = new DateTime(2001, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Avatar = "58sErANL7bbv096ghTnNN3qIiqX2_cooper.jpg",
+                            BirthDay = new DateOnly(2001, 1, 1),
                             Email = "guard@test.com",
                             FullName = "Nguyen Khai Minh",
                             Gender = "Male",
@@ -737,8 +737,8 @@ namespace SafeguardSystem.DAL.Migrations
                         {
                             UserId = "fH8JsAPWjJOHLvLSI4MJVG4aSBr1",
                             Address = "Ho Chi Minh City",
-                            Avatar = "https://img.freepik.com/free-vector/simple-vibing-cat-square-meme_742173-4493.jpg?t=st=1741640485~exp=1741644085~hmac=2b51c5540d42bb03d640ddf64d9a7d048ebb8a62f836c15ae349ca193c7cce01&w=900",
-                            BirthDay = new DateTime(2001, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Avatar = "58sErANL7bbv096ghTnNN3qIiqX2_cooper.jpg",
+                            BirthDay = new DateOnly(2001, 1, 1),
                             Email = "guard2@test.com",
                             FullName = "Nguyen Huy",
                             Gender = "Male",
@@ -755,8 +755,8 @@ namespace SafeguardSystem.DAL.Migrations
                         {
                             UserId = "CkjtbJVJQxVm1eLjHW3p10TdV193",
                             Address = "Ho Chi Minh City",
-                            Avatar = "https://img.freepik.com/free-vector/simple-vibing-cat-square-meme_742173-4493.jpg?t=st=1741640485~exp=1741644085~hmac=2b51c5540d42bb03d640ddf64d9a7d048ebb8a62f836c15ae349ca193c7cce01&w=900",
-                            BirthDay = new DateTime(2001, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Avatar = "58sErANL7bbv096ghTnNN3qIiqX2_cooper.jpg",
+                            BirthDay = new DateOnly(2001, 1, 1),
                             Email = "guard3@test.com",
                             FullName = "Nguyen Hieu",
                             Gender = "Male",
@@ -773,8 +773,8 @@ namespace SafeguardSystem.DAL.Migrations
                         {
                             UserId = "GLgL2MXjY7Pg4gmEJrgFulyEgV23",
                             Address = "Ho Chi Minh City",
-                            Avatar = "https://img.freepik.com/free-vector/simple-vibing-cat-square-meme_742173-4493.jpg?t=st=1741640485~exp=1741644085~hmac=2b51c5540d42bb03d640ddf64d9a7d048ebb8a62f836c15ae349ca193c7cce01&w=900",
-                            BirthDay = new DateTime(2001, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Avatar = "58sErANL7bbv096ghTnNN3qIiqX2_cooper.jpg",
+                            BirthDay = new DateOnly(2001, 1, 1),
                             Email = "guard4@test.com",
                             FullName = "Nguyen Phong",
                             Gender = "Male",
@@ -791,8 +791,8 @@ namespace SafeguardSystem.DAL.Migrations
                         {
                             UserId = "fNBgIDvy0JTd3wd9enqVywR8o612",
                             Address = "Ho Chi Minh City",
-                            Avatar = "https://img.freepik.com/free-vector/simple-vibing-cat-square-meme_742173-4493.jpg?t=st=1741640485~exp=1741644085~hmac=2b51c5540d42bb03d640ddf64d9a7d048ebb8a62f836c15ae349ca193c7cce01&w=900",
-                            BirthDay = new DateTime(2001, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Avatar = "58sErANL7bbv096ghTnNN3qIiqX2_cooper.jpg",
+                            BirthDay = new DateOnly(2001, 1, 1),
                             Email = "guard5@test.com",
                             FullName = "Nguyen Dang",
                             Gender = "Male",

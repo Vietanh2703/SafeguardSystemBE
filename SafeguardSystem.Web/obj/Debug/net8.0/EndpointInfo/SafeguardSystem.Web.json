@@ -983,6 +983,88 @@
         }
       }
     },
+    "/report/{reportId}": {
+      "post": {
+        "tags": [
+          "Report"
+        ],
+        "summary": "Respond to a report",
+        "description": "Respond to a report with the provided details.",
+        "parameters": [
+          {
+            "name": "reportId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResReportDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResReportDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResReportDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Report response submitted successfully."
+          },
+          "400": {
+            "description": "Invalid response data."
+          },
+          "404": {
+            "description": "Report not found."
+          },
+          "500": {
+            "description": "Internal server error."
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Report"
+        ],
+        "summary": "Delete a report",
+        "description": "Delete a report with the specified ID.",
+        "parameters": [
+          {
+            "name": "reportId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Report deleted successfully."
+          },
+          "404": {
+            "description": "Report not found."
+          },
+          "500": {
+            "description": "Internal server error."
+          }
+        }
+      }
+    },
     "/shift-types": {
       "get": {
         "tags": [
@@ -2003,12 +2085,12 @@
       }
     },
     "/{userId}/avatar": {
-      "get": {
+      "put": {
         "tags": [
           "User"
         ],
-        "summary": "View user avatar",
-        "description": "Fetches the pre-signed URL for the user's avatar.",
+        "summary": "Update user avatar",
+        "description": "Update the avatar of an existing user by their ID.",
         "parameters": [
           {
             "name": "userId",
@@ -2019,29 +2101,35 @@
             }
           }
         ],
-        "responses": {
-          "200": {
-            "description": "Pre-signed URL generated successfully.",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "string"
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "AvatarFile": {
+                    "type": "string",
+                    "format": "binary"
+                  }
                 }
               },
-              "application/json": {
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "string"
+              "encoding": {
+                "AvatarFile": {
+                  "style": "form"
                 }
               }
             }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Avatar updated successfully."
+          },
+          "400": {
+            "description": "Invalid request data."
           },
           "404": {
-            "description": "User avatar not found."
+            "description": "User not found."
           },
           "500": {
             "description": "Internal server error."
@@ -2169,6 +2257,24 @@
         },
         "additionalProperties": false
       },
+      "ResReportDTO": {
+        "type": "object",
+        "properties": {
+          "respondent": {
+            "type": "string",
+            "nullable": true
+          },
+          "reason": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "ResponseDTO": {
         "type": "object",
         "properties": {
@@ -2222,7 +2328,7 @@
           },
           "birthDay": {
             "type": "string",
-            "format": "date-time",
+            "format": "date",
             "nullable": true
           }
         },
@@ -2340,7 +2446,7 @@
           },
           "birthday": {
             "type": "string",
-            "format": "date-time"
+            "format": "date"
           }
         },
         "additionalProperties": false
@@ -2382,7 +2488,7 @@
           },
           "birthDay": {
             "type": "string",
-            "format": "date-time",
+            "format": "date",
             "nullable": true
           }
         },

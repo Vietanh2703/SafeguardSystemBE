@@ -146,17 +146,8 @@ public class LocationService : ILocationService
         using (var qrGenerator = new QRCodeGenerator())
         {
             var qrCodeData = qrGenerator.CreateQrCode(data, QRCodeGenerator.ECCLevel.Q);
-            using (var qrCode = new QRCode(qrCodeData))
-            {
-                using (var qrCodeImage = qrCode.GetGraphic(20))
-                {
-                    using (var ms = new MemoryStream())
-                    {
-                        qrCodeImage.Save(ms, ImageFormat.Png);
-                        return ms.ToArray();
-                    }
-                }
-            }
+            var qrCode = new BitmapByteQRCode(qrCodeData);
+            return qrCode.GetGraphic(20);
         }
     }
 }

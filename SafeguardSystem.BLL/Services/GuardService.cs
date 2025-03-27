@@ -71,7 +71,7 @@ public class GuardService : IGuardService
         guard.User.Email = guardDTO.Email ?? user.Email;
         guard.User.FullName = guardDTO.FullName ?? user.FullName;
         guard.User.Phone = guardDTO.PhoneNumber ?? user.Phone;
-        guard.User.BirthDay = guardDTO.BirthDay != DateTime.MinValue ? guardDTO.BirthDay : user.BirthDay;
+        guard.User.BirthDay = guardDTO.BirthDay != DateOnly.MinValue ? guardDTO.BirthDay : user.BirthDay;
 
         await _unitOfWork.SaveChangeAsync();
 

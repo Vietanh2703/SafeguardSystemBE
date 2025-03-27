@@ -9,5 +9,5 @@ public class SecurityGuardDTO
     public string? ConfirmPassword { get; set; }
     public string? Avatar { get; set; }
     public string? PhoneNumber { get; set; }
-    public DateTime? BirthDay { get; set; }
+    public DateOnly? BirthDay { get; set; }
 }

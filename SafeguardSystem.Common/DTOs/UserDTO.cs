@@ -10,5 +10,5 @@ public class UserDTO
     public string Gender { get; set; }
     public string WorkingContract { get; set; }
     public string? Phone { get; set; }
-    public DateTime? BirthDay { get; set; }
+    public DateOnly? BirthDay { get; set; }
 }

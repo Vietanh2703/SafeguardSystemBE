@@ -21,11 +21,13 @@ public class ReportService : IReportService
 
     private readonly IAWSS3Service _awsS3Service;
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IEmailService _emailService;
 
-    public ReportService(IUnitOfWork unitOfWork, IAWSS3Service awsS3Service)
+    public ReportService(IUnitOfWork unitOfWork, IAWSS3Service awsS3Service, IEmailService emailService)
     {
         _unitOfWork = unitOfWork;
         _awsS3Service = awsS3Service;
+        _emailService = emailService;
     }
 
     public async Task<ResponseDTO> GetAllReportsAsync()
@@ -40,6 +42,7 @@ public class ReportService : IReportService
                 ReportComment = report.ReportComment,
                 Sender = report.Sender,
                 ImageUrl = report.ImageUrl,
+                Status = report.Status,
                 CreatedAt = report.CreatedAt
             }).ToList();
 
@@ -110,6 +113,79 @@ public class ReportService : IReportService
         }
     }
 
+    public async Task<ResponseDTO> ResponseReportServiceAsync(Guid ReportId, ResReportDTO resReportDTO)
+    {
+        try
+        {
+            var report = await _unitOfWork.Reports.GetReportByIdAsync(ReportId);
+            if (report == null) return new ResponseDTO("Report not found.", 404);
+
+            var user = await _unitOfWork.Users.GetUserWithRoleByFirebaseUidAsync(report.UserId);
+            if (user == null || user.IsDeleted) return new ResponseDTO("Cannot find user.", 400);
+
+            report.Respondent = resReportDTO.Respondent;
+            report.Reason = resReportDTO.Reason;
+            report.Status = resReportDTO.Status;
+            report.AnsweredAt = DateTime.UtcNow;
+            report.IsClosed = true;
+
+            await _unitOfWork.SaveChangeAsync();
+
+            if (resReportDTO.Status == "APPROVED")
+            {
+                await SendApprovedEmail(user.Email, report.Sender, resReportDTO.Respondent, resReportDTO.Reason, DateTime.UtcNow);
+            }
+            else if (resReportDTO.Status == "REJECTED")
+            {
+                await SendRejectedEmail(user.Email, report.Sender, resReportDTO.Respondent, resReportDTO.Reason, DateTime.UtcNow);
+            }
+            else
+            {
+                return new ResponseDTO("Invalid status.", 400);
+            }
+            return new ResponseDTO("Report response processed successfully", 200, true);
+        }
+        catch (Exception ex)
+        {
+            return new ResponseDTO(ex.Message, 500);
+        }
+    }
+
+    public async Task<ResponseDTO> DeleteReportAsync(Guid reportId)
+    {
+        try
+        {
+            var report = await _unitOfWork.Reports.GetReportByIdAsync(reportId);
+            if (report == null) return new ResponseDTO("Report not found.", 404);
+
+            _unitOfWork.Reports.Delete(report);
+            await _unitOfWork.SaveChangeAsync();
+
+            return new ResponseDTO("Report deleted successfully", 200, true);
+        }
+        catch (Exception ex)
+        {
+            return new ResponseDTO(ex.Message, 500);
+        }
+    }
+
+    public async Task SendApprovedEmail(string Email,string sender, string respondent, string reason, DateTime date)
+    {
+        var emailRequest = new EmailRequest();
+        emailRequest.Email = Email;
+        emailRequest.Subject = "[NO-REPLY] Your report has been executed";
+        emailRequest.EmailBody = _emailService.GenerateAcceptedReportEmail(sender,respondent,reason,date);
+        await _emailService.SendEmailAsync(emailRequest);
+    }
+
+    public async Task SendRejectedEmail(string Email,string sender, string respondent, string reason, DateTime date)
+    {
+        var emailRequest = new EmailRequest();
+        emailRequest.Email = Email;
+        emailRequest.Subject = "[NO-REPLY] Your report has been executed";
+        emailRequest.EmailBody = _emailService.GenerateRejectedReportEmail(sender, respondent, reason, date);
+        await _emailService.SendEmailAsync(emailRequest);
+    }
 
     private ResponseDTO FileVerification(IFormFile file)
     {

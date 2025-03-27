@@ -9,6 +9,7 @@ public interface IUserService
     Task<ResponseDTO> RefreshOtpAsync(string email);
     Task<ResponseDTO> UpdatePasswordAsync(string email, UpdatePasswordDTO updatePasswordDTO);
     Task<ResponseDTO> UpdateUserAsync(string UserId, UpdateUserDTO updateUserDTO);
+    Task<ResponseDTO> UpdateAvatarAsync(string userId, AvatarDTO avatarDTO);
     Task<ResponseDTO> DeleteUserAsync(string userId);
     Task<ResponseDTO> GetAllUsersAsync(int pageIndex, int pageSize);
     Task<ResponseDTO> GetAllUsersAsync();

@@ -183,7 +183,7 @@ public class AuthService : IAuthService
                 IsDeleted = false,
                 IsLocked = false,
                 Phone = "",
-                Avatar = "https://www.veryicon.com/icons/miscellaneous/generic-icon-3/avatar-real.html",
+                Avatar = "58sErANL7bbv096ghTnNN3qIiqX2_cooper.jpg",
                 RoleID = processingRole.RoleId
             };
             await _unitOfWork.Users.CreateUserAsync(user);

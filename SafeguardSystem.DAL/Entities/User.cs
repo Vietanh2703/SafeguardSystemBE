@@ -25,7 +25,7 @@ public class User
     public string WorkingContract { get; set; }
     public string Phone { get; set; }
 
-    public DateTime? BirthDay { get; set; }
+    public DateOnly? BirthDay { get; set; }
 
     public string? ActivationToken { get; set; }
 

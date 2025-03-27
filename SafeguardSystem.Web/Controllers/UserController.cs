@@ -120,26 +120,20 @@ public class UserController : ControllerBase
         return StatusCode(response.StatusCode, response);
     }
 
-    [HttpGet("{userId}/avatar")]
-    [SwaggerOperation(Summary = "View user avatar", Description = "Fetches the pre-signed URL for the user's avatar.")]
-    [SwaggerResponse(200, "Pre-signed URL generated successfully.", typeof(string))]
-    [SwaggerResponse(404, "User avatar not found.")]
+    [Route("{userId}/avatar")]
+    [HttpPut]
+    [SwaggerOperation(Summary = "Update user avatar", Description = "Update the avatar of an existing user by their ID.")]
+    [SwaggerResponse(200, "Avatar updated successfully.")]
+    [SwaggerResponse(400, "Invalid request data.")]
+    [SwaggerResponse(404, "User not found.")]
     [SwaggerResponse(500, "Internal server error.")]
-    public async Task<IActionResult> ViewAvatar(string userId)
+    public async Task<IActionResult> UpdateAvatar(string userId, [FromForm] AvatarDTO avatarDTO)
     {
-        // Fetch user details to get the avatar key
-        var userResponse = await _userService.GetUserByUserIdAsync(userId);
-        if (!userResponse.IsSuccess) return StatusCode(userResponse.StatusCode, userResponse.Message);
-
-        var user = userResponse.Result as UserDTO;
-        if (user == null || string.IsNullOrEmpty(user.Avatar)) return StatusCode(404, "User avatar not found.");
-
-        // Use the avatar key directly from the user's avatar property
-        var avatarKey = user.Avatar;
-        var response = await _awsS3Service.GetPreSignedURLAsync(avatarKey);
-
-        if (!response.IsSuccess) return StatusCode(response.StatusCode, response.Message);
-
-        return Ok(response.Result.ToString());
+        var response = await _userService.UpdateAvatarAsync(userId, avatarDTO);
+        if (!response.IsSuccess)
+        {
+            return StatusCode(response.StatusCode, response.Message);
+        }
+        return Ok(response);
     }
 }

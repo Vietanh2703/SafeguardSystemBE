@@ -10070,11 +10070,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\SafeguardSystem\\SafeguardSystemBE\\SafeguardSystem.Common\\SafeguardSystem.Common.csproj",
+      "projectUniqueName": "D:\\SafeguardSystemBE\\SafeguardSystem.Common\\SafeguardSystem.Common.csproj",
       "projectName": "SafeguardSystem.Common",
-      "projectPath": "D:\\SafeguardSystem\\SafeguardSystemBE\\SafeguardSystem.Common\\SafeguardSystem.Common.csproj",
+      "projectPath": "D:\\SafeguardSystemBE\\SafeguardSystem.Common\\SafeguardSystem.Common.csproj",
       "packagesPath": "C:\\Users\\anhnt\\.nuget\\packages\\",
-      "outputPath": "D:\\SafeguardSystem\\SafeguardSystemBE\\SafeguardSystem.Common\\obj\\",
+      "outputPath": "D:\\SafeguardSystemBE\\SafeguardSystem.Common\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -10095,8 +10095,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "D:\\SafeguardSystem\\SafeguardSystemBE\\SafeguardSystem.DAL\\SafeguardSystem.DAL.csproj": {
-              "projectPath": "D:\\SafeguardSystem\\SafeguardSystemBE\\SafeguardSystem.DAL\\SafeguardSystem.DAL.csproj"
+            "D:\\SafeguardSystemBE\\SafeguardSystem.DAL\\SafeguardSystem.DAL.csproj": {
+              "projectPath": "D:\\SafeguardSystemBE\\SafeguardSystem.DAL\\SafeguardSystem.DAL.csproj"
             }
           }
         }

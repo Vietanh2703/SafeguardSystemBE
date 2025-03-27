@@ -11,4 +11,6 @@ public interface IEmailService
     string GenerateActivationSuccessEmailBody(string FullName);
     string GenerateBanUserEmailBody(string FullName);
     string GenerateUnbanUserEmailBody(string FullName);
+    string GenerateAcceptedReportEmail(string sender, string respondent, string reason, DateTime date);
+    string GenerateRejectedReportEmail(string sender, string respondent, string reason, DateTime date);
 }
