@@ -25,4 +25,9 @@ public class LoginRequestRepository : GenericRepository<LoginRequest>, ILoginReq
         var query = _context.loginRequests.AsQueryable();
         return await PaginatedList<LoginRequest>.CreateAsync(query, pageNumber, pageSize);
     }
+
+    public async Task<List<LoginRequest>> GetAllAsync()
+    {
+        return await _context.Set<LoginRequest>().ToListAsync();
+    }
 }

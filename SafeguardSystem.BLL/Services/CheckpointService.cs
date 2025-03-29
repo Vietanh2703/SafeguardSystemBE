@@ -23,6 +23,7 @@ public class CheckpointService : ICheckpointService
             var checkpoints = await _unitOfWork.Checkpoints.GetCheckpointsByLocationIdAsync(locationId);
             var checkpointDTOs = checkpoints.Select(c => new CheckpointDTO
             {
+                CheckpointId = c.CheckpointId,
                 Name = c.Name,
                 Description = c.Description,
                 LocationId = c.LocationId

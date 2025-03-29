@@ -9,6 +9,7 @@ namespace SafeguardSystem.Common.DTOs
 {
     public class CheckpointDTO
     {
+        public Guid CheckpointId { get; set; }
         public string? Name { get; set; }
         public string? Description { get; set; }
         public Guid LocationId { get; set; }

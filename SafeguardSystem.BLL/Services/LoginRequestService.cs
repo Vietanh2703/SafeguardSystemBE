@@ -1,4 +1,5 @@
-﻿using SafeguardSystem.BLL.IServices;
+﻿using NuGet.Protocol.Plugins;
+using SafeguardSystem.BLL.IServices;
 using SafeguardSystem.Common.DTOs;
 using SafeguardSystem.Common.Messages;
 using SafeguardSystem.DAL.Entities;
@@ -19,27 +20,24 @@ public class LoginRequestService : ILoginRequestService
     }
 
     //Lấy danh sách request
-    public async Task<ResponseDTO> GetAllRequests(int pageNumber, int pageSize)
+    public async Task<ResponseDTO> GetAllRequests()
     {
-        // Validate pageNumber and pageSize
-        if (pageNumber <= 0 || pageSize <= 0) return new ResponseDTO("Invalid page number or page size", 400);
-
-        // Retrieve all login requests with pagination
-        var paginatedRequests = await _unitOfWork.LoginRequests.GetAllRequestsPagingAsync(pageNumber, pageSize);
-        if (paginatedRequests == null || !paginatedRequests.Any())
-            return new ResponseDTO("No requests found in this list.", 200);
+        // Retrieve all login requests
+        var requests = await _unitOfWork.LoginRequests.GetAllAsync();
+        if (requests == null || !requests.Any())
+            return new ResponseDTO("No requests found.", 200);
 
         // Map the login requests to DTOs
-        var requestDTOs = paginatedRequests.Select(r => new LoginRequestDTO
+        var requestDTOs = requests.Select(r => new LoginRequestDTO
         {
+            RequestId = r.RequestId,
             Email = r.Email,
             DateSent = r.DateSent,
             Status = r.Status,
             Reason = r.Reason
         }).ToList();
 
-        return new ResponseDTO("Login requests retrieved successfully", 200, true,
-            new PaginatedList<LoginRequestDTO>(requestDTOs, paginatedRequests.Count, pageSize, pageNumber));
+        return new ResponseDTO("Login requests retrieved successfully", 200, true, requestDTOs);
     }
 
 

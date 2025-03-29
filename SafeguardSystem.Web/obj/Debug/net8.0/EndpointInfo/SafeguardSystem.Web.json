@@ -273,26 +273,6 @@
         ],
         "summary": "Get all requests ",
         "description": "This API gets all first-time login Google requests",
-        "parameters": [
-          {
-            "name": "pageNumber",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 1
-            }
-          },
-          {
-            "name": "pageSize",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 5
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "All requests have been retrieved successfully."
@@ -306,7 +286,7 @@
         }
       }
     },
-    "/request": {
+    "/request/{requestId}": {
       "put": {
         "tags": [
           "Admin"
@@ -316,7 +296,8 @@
         "parameters": [
           {
             "name": "requestId",
-            "in": "query",
+            "in": "path",
+            "required": true,
             "schema": {
               "type": "string",
               "format": "uuid"

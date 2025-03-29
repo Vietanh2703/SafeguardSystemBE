@@ -1197,7 +1197,7 @@
   {
     "ContainingType": "SafeguardSystem.Controllers.AdminController",
     "Method": "ApproveLoginRequest",
-    "RelativePath": "request",
+    "RelativePath": "request/{requestId}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -1205,7 +1205,7 @@
       {
         "Name": "requestId",
         "Type": "System.Guid",
-        "IsRequired": false
+        "IsRequired": true
       },
       {
         "Name": "status",
@@ -1243,18 +1243,7 @@
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [
-      {
-        "Name": "pageNumber",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "pageSize",
-        "Type": "System.Int32",
-        "IsRequired": false
-      }
-    ],
+    "Parameters": [],
     "ReturnTypes": [
       {
         "Type": "System.Void",

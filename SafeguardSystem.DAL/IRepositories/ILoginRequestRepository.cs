@@ -7,4 +7,5 @@ public interface ILoginRequestRepository : IGenericRepository<LoginRequest>
 {
     Task<int> CountPendingOrRejectRequestAsync(string id);
     Task<PaginatedList<LoginRequest>> GetAllRequestsPagingAsync(int pageNumber, int pageSize);
+    Task<List<LoginRequest>> GetAllAsync();
 }

@@ -134,13 +134,13 @@ public class AdminController : ControllerBase
     [SwaggerResponse(200, "All requests have been retrieved successfully.")]
     [SwaggerResponse(400, "Invalid request data.")]
     [SwaggerResponse(500, "Internal server error.")]
-    public async Task<IActionResult> GetAllRequests(int pageNumber = 1, int pageSize = 5)
+    public async Task<IActionResult> GetAllRequests()
     {
-        var results = await _loginRequestService.GetAllRequests(pageNumber, pageSize);
-        return StatusCode(results.StatusCode, results);
+        var response = await _loginRequestService.GetAllRequests();
+        return StatusCode(response.StatusCode, response);
     }
 
-    [Route("request")]
+    [Route("request/{requestId}")]
     [HttpPut]
     [SwaggerOperation(
         Summary = "Approve or reject requests",
@@ -149,7 +149,7 @@ public class AdminController : ControllerBase
     [SwaggerResponse(200, "Login request processed successfully.")]
     [SwaggerResponse(400, "Invalid request data.")]
     [SwaggerResponse(500, "Internal server error.")]
-    public async Task<IActionResult> ApproveLoginRequest([FromQuery] Guid requestId, [FromQuery] ApprovalStatus status,
+    public async Task<IActionResult> ApproveLoginRequest(Guid requestId, [FromQuery] ApprovalStatus status,
         [FromQuery] string? reason)
     {
         var statusString = status.GetDescription();
