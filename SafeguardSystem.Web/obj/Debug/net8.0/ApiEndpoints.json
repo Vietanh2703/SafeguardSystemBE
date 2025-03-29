@@ -791,6 +791,27 @@
     ]
   },
   {
+    "ContainingType": "SafeguardSystem.Web.Controllers.TeamController",
+    "Method": "GetAllGuards",
+    "RelativePath": "guards",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
+      }
+    ]
+  },
+  {
     "ContainingType": "SafeguardSystem.Web.Controllers.LocationController",
     "Method": "CreateLocation",
     "RelativePath": "location",
@@ -1283,7 +1304,7 @@
     "Parameters": [
       {
         "Name": "securityShiftDTO",
-        "Type": "SafeguardSystem.Common.DTOs.SecurityShiftDTO",
+        "Type": "SafeguardSystem.Common.DTOs.AssignShiftDTO",
         "IsRequired": true
       }
     ],
@@ -1435,6 +1456,85 @@
         "Type": "System.Void",
         "MediaTypes": [],
         "StatusCode": 404
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
+      }
+    ]
+  },
+  {
+    "ContainingType": "SafeguardSystem.Web.Controllers.ShiftController",
+    "Method": "ViewAllShifts",
+    "RelativePath": "shifts",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
+      }
+    ]
+  },
+  {
+    "ContainingType": "SafeguardSystem.Web.Controllers.ShiftController",
+    "Method": "GetShiftsByShiftDate",
+    "RelativePath": "shifts-by-date",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "shiftDate",
+        "Type": "System.DateOnly",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "SafeguardSystem.Common.DTOs.ResponseDTO",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 404
+      }
+    ]
+  },
+  {
+    "ContainingType": "SafeguardSystem.Web.Controllers.ShiftController",
+    "Method": "GetShiftsByDate",
+    "RelativePath": "shifts-date",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "date",
+        "Type": "System.DateOnly",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
       },
       {
         "Type": "System.Void",

@@ -14,6 +14,22 @@ public class GuardService : IGuardService
         _unitOfWork = unitOfWork;
     }
 
+    public async Task<ResponseDTO> GetAllGuardAsync()
+    {
+        var guards = await _unitOfWork.SecurityGuards.GetAllGuardsAsync();
+        if (guards == null || !guards.Any()) return new ResponseDTO("Empty guard list.", 200);
+        var guardDTOs = guards.Select(g => new SecurityGuardDTO
+        {
+            Avatar = g.User?.Avatar ?? "https://example.com/default-avatar.png", // Avatar mặc định
+            IdentityNumber = g.IdentityNumber,
+            Email = g.User?.Email ?? "N/A",
+            FullName = g.User?.FullName ?? "Unknown",
+            PhoneNumber = g.User?.Phone ?? "N/A",
+            BirthDay = g.User?.BirthDay
+        }).ToList();
+        return new ResponseDTO("Guards retrieved successfully", 200, true, guardDTOs);
+    }
+
     public async Task<ResponseDTO> GetGuardByIdAsync(Guid guardId)
     {
         var guard = await _unitOfWork.SecurityGuards.GetByIdAsync(guardId);

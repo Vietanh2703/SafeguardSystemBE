@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SafeguardSystem.BLL.IServices;
+using SafeguardSystem.BLL.Services;
 using SafeguardSystem.Common.DTOs;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -8,10 +9,12 @@ namespace SafeguardSystem.Web.Controllers;
 public class TeamController : ControllerBase
 {
     private readonly ITeamService _teamService;
+    private readonly IGuardService _guardService;
 
-    public TeamController(ITeamService teamService)
+    public TeamController(ITeamService teamService, IGuardService guardService)
     {
         _teamService = teamService;
+        _guardService = guardService;
     }
 
     [Route("teams")]
@@ -85,6 +88,17 @@ public class TeamController : ControllerBase
     public async Task<IActionResult> AssignGuardToTeam(Guid teamId, Guid guardId)
     {
         var response = await _teamService.AssignGuardToTeamAsync(teamId, guardId);
+        return StatusCode(response.StatusCode, response);
+    }
+
+    [Route("guards")]
+    [HttpGet]
+    [SwaggerOperation(Summary = "Get all guards", Description = "Retrieve a list of all guards.")]
+    [SwaggerResponse(200, "Successfully retrieved list of guards.")]
+    [SwaggerResponse(500, "Internal server error.")]
+    public async Task<IActionResult> GetAllGuards()
+    {
+        var response = await _guardService.GetAllGuardAsync();
         return StatusCode(response.StatusCode, response);
     }
 

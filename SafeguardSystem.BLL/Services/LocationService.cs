@@ -27,6 +27,8 @@ public class LocationService : ILocationService
             .Select(l => new LocationDTO
             {
                 Name = l.Name,
+                Address = l.Address,
+                image = l.Image,
                 Latitude = l.Latitude,
                 Longitude = l.Longitude
             }).ToList();
@@ -43,6 +45,8 @@ public class LocationService : ILocationService
             .Select(l => new LocationDTO
             {
                 Name = l.Name,
+                Address = l.Address,
+                image = l.Image,
                 Latitude = l.Latitude,
                 Longitude = l.Longitude
             }).ToList();
@@ -57,6 +61,8 @@ public class LocationService : ILocationService
         var locationDTO = new LocationDTO
         {
             Name = results.Name,
+            Address = results.Address,
+            image = results.Image,
             Latitude = results.Latitude,
             Longitude = results.Longitude
         };

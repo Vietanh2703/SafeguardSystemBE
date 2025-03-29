@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SafeguardSystem.BLL.IServices;
+using SafeguardSystem.BLL.Services;
 using SafeguardSystem.Common.DTOs;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -79,7 +80,7 @@ public class ShiftController : ControllerBase
     [SwaggerResponse(400, "Invalid request data")]
     [SwaggerResponse(404, "Location or team not found")]
     [SwaggerResponse(500, "Internal server error")]
-    public async Task<IActionResult> AssignShift([FromBody] SecurityShiftDTO securityShiftDTO)
+    public async Task<IActionResult> AssignShift([FromBody] AssignShiftDTO securityShiftDTO)
     {
         var result = await _securityshiftService.AssignShiftAsync(securityShiftDTO);
         if(!result.IsSuccess) return StatusCode(result.StatusCode, result);
@@ -154,5 +155,42 @@ public class ShiftController : ControllerBase
             return Ok(response);
         }
         return BadRequest(response);
+    }
+
+    [Route("shifts-by-date")]
+    [HttpGet]
+    [SwaggerOperation(Summary = "Get shifts by shift date", Description = "Retrieves the list of shifts for a specific date.")]
+    [SwaggerResponse(200, "Shifts retrieved successfully", typeof(ResponseDTO))]
+    [SwaggerResponse(404, "No shifts found for the specified date")]
+    public async Task<IActionResult> GetShiftsByShiftDate([FromQuery] DateOnly shiftDate)
+    {
+        var response = await _securityshiftService.GetShiftsByShiftDateAsync(shiftDate);
+        if (!response.IsSuccess)
+        {
+            return StatusCode(response.StatusCode, response.Message);
+        }
+        return Ok(response.Result);
+    }
+
+    [Route("shifts-date")]
+    [HttpGet]
+    [SwaggerOperation(Summary = "Get shifts by date", Description = "Retrieve a list of shifts for a specific date.")]
+    [SwaggerResponse(200, "Successfully retrieved list of shifts.")]
+    [SwaggerResponse(500, "Internal server error.")]
+    public async Task<IActionResult> GetShiftsByDate([FromQuery] DateOnly date)
+    {
+        var response = await _securityshiftService.GetShiftsByShiftDateAsync(date);
+        return StatusCode(response.StatusCode, response);
+    }
+
+    [Route("shifts")]
+    [HttpGet]
+    [SwaggerOperation(Summary = "Get all shifts", Description = "Retrieve a list of all shifts.")]
+    [SwaggerResponse(200, "Successfully retrieved list of shifts.")]
+    [SwaggerResponse(500, "Internal server error.")]
+    public async Task<IActionResult> ViewAllShifts()
+    {
+        var response = await _securityshiftService.ViewAllShiftsAsync();
+        return StatusCode(response.StatusCode, response);
     }
 }

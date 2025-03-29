@@ -1217,17 +1217,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SecurityShiftDTO"
+                "$ref": "#/components/schemas/AssignShiftDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/SecurityShiftDTO"
+                "$ref": "#/components/schemas/AssignShiftDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/SecurityShiftDTO"
+                "$ref": "#/components/schemas/AssignShiftDTO"
               }
             }
           }
@@ -1467,6 +1467,94 @@
         }
       }
     },
+    "/shifts-by-date": {
+      "get": {
+        "tags": [
+          "Shift"
+        ],
+        "summary": "Get shifts by shift date",
+        "description": "Retrieves the list of shifts for a specific date.",
+        "parameters": [
+          {
+            "name": "shiftDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Shifts retrieved successfully",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No shifts found for the specified date"
+          }
+        }
+      }
+    },
+    "/shifts-date": {
+      "get": {
+        "tags": [
+          "Shift"
+        ],
+        "summary": "Get shifts by date",
+        "description": "Retrieve a list of shifts for a specific date.",
+        "parameters": [
+          {
+            "name": "date",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved list of shifts."
+          },
+          "500": {
+            "description": "Internal server error."
+          }
+        }
+      }
+    },
+    "/shifts": {
+      "get": {
+        "tags": [
+          "Shift"
+        ],
+        "summary": "Get all shifts",
+        "description": "Retrieve a list of all shifts.",
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved list of shifts."
+          },
+          "500": {
+            "description": "Internal server error."
+          }
+        }
+      }
+    },
     "/teams": {
       "get": {
         "tags": [
@@ -1688,6 +1776,23 @@
           },
           "400": {
             "description": "Invalid guard or team ID."
+          },
+          "500": {
+            "description": "Internal server error."
+          }
+        }
+      }
+    },
+    "/guards": {
+      "get": {
+        "tags": [
+          "Team"
+        ],
+        "summary": "Get all guards",
+        "description": "Retrieve a list of all guards.",
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved list of guards."
           },
           "500": {
             "description": "Internal server error."
@@ -2147,6 +2252,28 @@
         ],
         "type": "string"
       },
+      "AssignShiftDTO": {
+        "type": "object",
+        "properties": {
+          "locationId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "teamId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "typeId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "shiftDate": {
+            "type": "string",
+            "format": "date"
+          }
+        },
+        "additionalProperties": false
+      },
       "CheckpointDTO": {
         "type": "object",
         "properties": {
@@ -2330,28 +2457,6 @@
             "type": "string",
             "format": "date",
             "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "SecurityShiftDTO": {
-        "type": "object",
-        "properties": {
-          "locationId": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "teamId": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "typeId": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "shiftDate": {
-            "type": "string",
-            "format": "date"
           }
         },
         "additionalProperties": false

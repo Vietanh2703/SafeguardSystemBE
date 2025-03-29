@@ -1,5 +1,4 @@
-﻿using System.Drawing.Imaging;
-using QRCoder;
+﻿using QRCoder;
 using SafeguardSystem.BLL.IServices;
 using SafeguardSystem.Common.DTOs;
 using SafeguardSystem.DAL.Entities;
@@ -16,7 +15,7 @@ public class SecurityshiftService : ISecurityshiftService
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<ResponseDTO> AssignShiftAsync(SecurityShiftDTO securityShiftDTO)
+    public async Task<ResponseDTO> AssignShiftAsync(AssignShiftDTO securityShiftDTO)
     {
         if (securityShiftDTO.ShiftDate < DateOnly.FromDateTime(DateTime.UtcNow))
         {
@@ -89,6 +88,86 @@ public class SecurityshiftService : ISecurityshiftService
             return new ResponseDTO("No shifts found for the guard", 404);
         }
         return new ResponseDTO("Shifts retrieved successfully", 200, true, attendances);
+    }
+
+    public async Task<ResponseDTO> GetShiftsByShiftDateAsync(DateOnly shiftDate)
+    {
+        try
+        {
+            var shifts = await _unitOfWork.SecurityShifts.GetShiftsByDateAsync(shiftDate);
+            if (shifts == null || !shifts.Any())
+                return new ResponseDTO("No shifts found for the specified date.", 200);
+
+            var shiftDTOs = new List<SecurityShiftDTO>();
+
+            foreach (var shift in shifts)
+            {
+                var location = await _unitOfWork.Locations.GetLocationByIdAsync(shift.LocationId);
+                var team = await _unitOfWork.Teams.GetByGuIdAsync(shift.TeamId);
+                var type = await _unitOfWork.ShiftTypes.GetByGuIdAsync(shift.TypeId);
+
+                var shiftDTO = new SecurityShiftDTO
+                {
+                    LocationId = shift.LocationId,
+                    LocationName = location?.Name,
+                    TeamId = shift.TeamId,
+                    TeamName = team?.Name,
+                    TypeId = shift.TypeId,
+                    TypeName = type?.Name,
+                    ShiftDate = shift.ShiftDate,
+                    StartTime = type?.StartTime ?? TimeSpan.Zero,
+                    EndTime = type?.EndTime ?? TimeSpan.Zero
+                };
+
+                shiftDTOs.Add(shiftDTO);
+            }
+
+            return new ResponseDTO("Shifts retrieved successfully.", 200, true, shiftDTOs);
+        }
+        catch (Exception ex)
+        {
+            return new ResponseDTO(ex.Message, 500);
+        }
+    }
+
+    public async Task<ResponseDTO> ViewAllShiftsAsync()
+    {
+        try
+        {
+            var shifts = await _unitOfWork.SecurityShifts.GetAllAsync();
+            if (shifts == null || !shifts.Any())
+                return new ResponseDTO("No shifts found.", 200);
+
+            var shiftDTOs = new List<SecurityShiftDTO>();
+
+            foreach (var shift in shifts)
+            {
+                var location = await _unitOfWork.Locations.GetLocationByIdAsync(shift.LocationId);
+                var team = await _unitOfWork.Teams.GetByGuIdAsync(shift.TeamId);
+                var type = await _unitOfWork.ShiftTypes.GetByGuIdAsync(shift.TypeId);
+
+                var shiftDTO = new SecurityShiftDTO
+                {
+                    LocationId = shift.LocationId,
+                    LocationName = location?.Name,
+                    TeamId = shift.TeamId,
+                    TeamName = team?.Name,
+                    TypeId = shift.TypeId,
+                    TypeName = type?.Name,
+                    ShiftDate = shift.ShiftDate,
+                    StartTime = type?.StartTime ?? TimeSpan.Zero,
+                    EndTime = type?.EndTime ?? TimeSpan.Zero
+                };
+
+                shiftDTOs.Add(shiftDTO);
+            }
+
+            return new ResponseDTO("Shifts retrieved successfully.", 200, true, shiftDTOs);
+        }
+        catch (Exception ex)
+        {
+            return new ResponseDTO(ex.Message, 500);
+        }
     }
 
     private byte[] GenerateQrCode(string data)

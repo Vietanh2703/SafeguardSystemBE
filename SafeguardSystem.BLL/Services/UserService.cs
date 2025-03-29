@@ -194,16 +194,29 @@ public class UserService : IUserService
                 }
             );
 
-        var userDTOs = paginatedUsers
-            .Where(u => !u.IsDeleted)
-            .Select(u => new ViewUserListDTO
+        var userDTOs = new List<ViewUserListDTO>();
+
+        foreach (var user in paginatedUsers.Where(u => !u.IsDeleted))
+        {
+            string avatarUrl = null;
+            if (!string.IsNullOrEmpty(user.Avatar))
             {
-                UserId = u.UserId,
-                Email = u.Email,
-                FullName = u.FullName,
-                Phone = u.Phone,
-                Avatar = u.Avatar
-            }).ToList();
+                var avatarUrlResponse = await _awsS3Service.GetPreSignedURLAsync(user.Avatar);
+                if (avatarUrlResponse.IsSuccess)
+                {
+                    avatarUrl = avatarUrlResponse.Result.ToString();
+                }
+            }
+
+            userDTOs.Add(new ViewUserListDTO
+            {
+                UserId = user.UserId,
+                Email = user.Email,
+                FullName = user.FullName,
+                Phone = user.Phone,
+                Avatar = avatarUrl
+            });
+        }
 
         var totalUsers = await _unitOfWork.Users.GetTotalUserCountAsync();
         var totalPages = (int)Math.Ceiling((double)totalUsers / pageSize);
@@ -478,7 +491,7 @@ public class UserService : IUserService
     public async Task<ResponseDTO> GetAllRolesAsync()
     {
         var roles = await _unitOfWork.Roles.GetAll()
-            .Where(r => !r.RoleName.ToLower().Equals("Admin"))
+            .Where(r => r.RoleName.ToLower() == "security guard" || r.RoleName.ToLower() == "manager")
             .ToListAsync();
 
         var roleDTOs = roles.Select(r => new RoleDTO

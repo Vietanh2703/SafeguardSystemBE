@@ -22,4 +22,5 @@ public class SecurityShift
     public virtual Team Team { get; set; } = null!;
 
     public virtual ShiftType Type { get; set; } = null!;
+    public virtual ICollection<Attendance> Attendances { get; set; }
 }

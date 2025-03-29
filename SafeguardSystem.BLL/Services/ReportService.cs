@@ -39,6 +39,7 @@ public class ReportService : IReportService
 
             var reportDTOs = results.Select(report => new ReportDTO
             {
+                ReportId = report.ReportId,
                 ReportComment = report.ReportComment,
                 Sender = report.Sender,
                 ImageUrl = report.ImageUrl,

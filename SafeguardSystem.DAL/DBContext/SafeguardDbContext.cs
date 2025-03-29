@@ -31,18 +31,22 @@ public class SafeguardDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
         modelBuilder.Seed();
-        
+
         modelBuilder.Entity<Attendance>(entity =>
         {
             entity.HasKey(e => e.AttendanceId);
+
+            // Configure the relationship with SecurityShift
             entity.HasOne(e => e.Shift)
-                .WithOne()
-                .HasForeignKey<Attendance>(e => e.ShiftId);
+                .WithMany(s => s.Attendances) // Allow multiple attendances for a single shift
+                .HasForeignKey(e => e.ShiftId);
+
+            // Configure the relationship with SecurityGuard
             entity.HasOne(e => e.Guard)
-                .WithMany(g => g.Attendances)
+                .WithMany(g => g.Attendances) // Allow multiple attendances for a single guard
                 .HasForeignKey(e => e.GuardId);
         });
-        
+
         modelBuilder.Entity<Business>(entity =>
         {
             entity.HasKey(e => e.BusinessId);

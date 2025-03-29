@@ -35,6 +35,22 @@ public class SecurityShiftRepository : GenericRepository<SecurityShift>, ISecuri
     {
         return await _context.Set<SecurityShift>().FirstOrDefaultAsync(predicate);
     }
-    
-    
+
+    public async Task<IEnumerable<SecurityShift>> GetAllAsync(Expression<Func<SecurityShift, bool>> predicate = null)
+    {
+        if (predicate == null)
+        {
+            return await _context.Set<SecurityShift>().Include(shift => shift.Type).ToListAsync();
+        }
+        return await _context.Set<SecurityShift>().Where(predicate).Include(shift => shift.Type).ToListAsync();
+    }
+
+    public async Task<IEnumerable<SecurityShift>> GetShiftsByDateAsync(DateOnly date)
+    {
+        return await _context.Set<SecurityShift>()
+            .Where(shift => shift.ShiftDate == date)
+            .Include(shift => shift.Type) // Include related ShiftType
+            .ToListAsync();
+    }
+
 }
